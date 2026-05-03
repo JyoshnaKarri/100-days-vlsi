@@ -3843,7 +3843,72 @@ endmodule</code></pre>
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day 27 – Parameterised N‑bit Up Counter</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 1100px; margin: 40px auto; padding: 20px; background: white; color: black; line-height: 1.5; }
+        h1 { color: #003d80; border-bottom: 3px solid #003d80; padding-bottom: 8px; }
+        h2 { color: #003d80; margin-top: 35px; border-left: 5px solid #003d80; padding-left: 15px; }
+        .image-grid { display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0; justify-content: center; }
+        .image-card { background: #f9f9f9; border: 1px solid #ddd; border-radius: 10px; padding: 10px; text-align: center; max-width: 500px; }
+        .image-card img { max-width: 100%; border-radius: 6px; }
+        .caption { font-size: 0.9em; color: #555; margin-top: 8px; }
+        .note { background: #e7f3ff; border-left: 4px solid #003d80; padding: 10px 15px; margin: 20px 0; }
+        .footer { margin-top: 40px; border-top: 1px solid #ccc; padding-top: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Day 27 – Parameterised N‑bit Up Counter (Enable & Async Reset)</h1>
+    <p><strong>Date:</strong> May 8, 2026 | <strong>Topic:</strong> Reusable counter with configurable width, enable, and asynchronous reset.</p>
 
+    <h2>🔹 Principle</h2>
+    <p>A counter increments on each clock cycle when enabled. The width is set by a parameter, making the same module usable for 4‑bit, 8‑bit, 16‑bit, or any width.</p>
+
+    <h2>⚙️ Working</h2>
+    <ul>
+        <li>Asynchronous reset (rst) clears the counter immediately.</li>
+        <li>When en=1, count = count + 1 on each clock edge.</li>
+        <li>When en=0, the counter holds its value.</li>
+        <li>Width parameterised using `#(parameter WIDTH = 8)`. Instantiate with `#(.WIDTH(4))` for 4 bits.</li>
+    </ul>
+
+    <h2>📜 Verilog Code</h2>
+    <div class="image-grid">
+        <div class="image-card"><img src="up_counter code.png" alt="Up counter design code"><div class="caption">up_counter.v</div></div>
+        <!-- Testbench image might be missing; we'll add a note -->
+    </div>
+    <p><em>Testbench was also created (up_counter_tb.v) to generate clock, reset, enable and dump waveform.</em></p>
+
+    <h2>📊 Simulation Waveform</h2>
+    <div class="image-grid">
+        <div class="image-card"><img src="up_counter_waveform.jpeg" alt="Up counter waveform"><div class="caption">rst clears, en=1 increments, en=0 freezes at 14</div></div>
+    </div>
+
+    <h2>🛠️ Simulation Procedure</h2>
+    <ol>
+        <li>Compile: <code>iverilog -o counter.vvp up_counter.v up_counter_tb.v</code></li>
+        <li>Run: <code>vvp counter.vvp</code></li>
+        <li>Observe that count increments only when en=1, and resets when rst is asserted.</li>
+    </ol>
+
+    <h2>🌍 Real‑world Applications & Examples</h2>
+    <ul>
+        <li>Clock dividers (e.g., generate 1 Hz from 50 MHz)</li>
+        <li>Baud rate generators for UART</li>
+        <li>Timer/counters in microcontrollers</li>
+        <li>FSM timeout counters</li>
+        <li>Address pointer for memory access</li>
+    </ul>
+    <div class="note">
+        <strong>Key takeaway:</strong> A parameterised counter is a building block you will reuse in almost every digital design. Learn it once, use forever.
+    </div>
+
+  
+</body>
+</html>
             
  
 </body>
