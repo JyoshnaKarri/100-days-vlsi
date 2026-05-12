@@ -4450,6 +4450,65 @@ endmodule</code></pre>
 </body>
 </html>
 
+
+                    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day 36 – Parameterised Barrel Shifter</title>
+    <style>
+        body { font-family: Arial; max-width: 1000px; margin: 40px auto; padding: 20px; background: white; color: black; }
+        h1 { color: #003d80; border-bottom: 2px solid #003d80; }
+        pre { background: #f4f4f4; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+        .note { background: #e7f3ff; border-left: 4px solid #003d80; padding: 10px; margin: 20px 0; }
+        .footer { margin-top: 40px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Day 36 – Parameterised Barrel Shifter (Left/Right)</h1>
+    <p><strong>Date:</strong> May 17, 2026 | <strong>Topic:</strong> Single‑cycle variable shift.</p>
+
+    <h2>📁 Verilog Design: <code>barrel_shifter.v</code></h2>
+    <pre><code>module barrel_shifter #(parameter WIDTH = 8) (
+    input [WIDTH-1:0] din,
+    input [WIDTH-1:0] shift_amt,
+    input dir,               // 0 = left, 1 = right
+    output reg [WIDTH-1:0] dout
+);
+    always @(*) begin
+        if (dir == 0)
+            dout = din << shift_amt;
+        else
+            dout = din >> shift_amt;
+    end
+endmodule</code></pre>
+
+    <h2>🧪 Testbench: <code>barrel_shifter_tb.v</code></h2>
+    <pre><code>`timescale 1ns/1ps
+module barrel_shifter_tb;
+    reg [7:0] din, shift_amt;
+    reg dir;
+    wire [7:0] dout;
+
+    barrel_shifter #(.WIDTH(8)) uut (din, shift_amt, dir, dout);
+
+    initial begin
+        $dumpfile("barrel.vcd");
+        $dumpvars(0, barrel_shifter_tb);
+        din = 8'hD5; // 1101 0101
+        dir = 1; shift_amt = 3; #10;
+        shift_amt = 7; #10;
+        dir = 0; shift_amt = 1; #10;
+        shift_amt = 4; #10;
+        $finish;
+    end
+endmodule</code></pre>
+
+    <div class="note"><strong>📊 Waveform:</strong> right shift 3: 0x1A, right shift 7: 0x01; left shift 1: 0xAA, left shift 4: 0x50.</div>
+    <p><strong>🌍 Real‑world use:</strong> CPU ALU, DSP, graphics processors, bit‑field extraction.</p>
+    <div class="footer"><a href="index.html">← Back to main</a></div>
+</body>
+</html>
                     
 </html>
 </body>
