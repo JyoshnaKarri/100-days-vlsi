@@ -4062,6 +4062,98 @@ endmodule</code></pre>
 </body>
 </html>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day 30 – FIFO with Programmable Almost‑Full</title>
+    <style>
+        body { font-family: Arial; max-width: 1000px; margin: 40px auto; padding: 20px; background: white; color: black; }
+        h1 { color: #003d80; border-bottom: 2px solid #003d80; }
+        pre { background: #f4f4f4; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+        .note { background: #e7f3ff; border-left: 4px solid #003d80; padding: 10px; margin: 20px 0; }
+        .footer { margin-top: 40px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Day 30 – Synchronous FIFO with Programmable Almost‑Full</h1>
+    <p><strong>Date:</strong> May 11, 2026 | <strong>Topic:</strong> Configurable almost‑full threshold for flow control.</p>
+
+    <h2>📁 Verilog Design: <code>fifo_prog_almost.v</code></h2>
+    <pre><code>module fifo_prog_almost #(
+    parameter DEPTH = 8,
+    parameter WIDTH = 8,
+    parameter ALMOST_FULL_GAP = 1
+) (
+    input clk, rst,
+    input wr_en, rd_en,
+    input [WIDTH-1:0] din,
+    output reg [WIDTH-1:0] dout,
+    output full, empty,
+    output almost_full
+);
+    localparam PTR_WIDTH = $clog2(DEPTH);
+    reg [WIDTH-1:0] mem [0:DEPTH-1];
+    reg [PTR_WIDTH-1:0] wr_ptr, rd_ptr;
+    reg [PTR_WIDTH:0] count;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            wr_ptr <= 0; rd_ptr <= 0; count <= 0;
+        end else begin
+            if (wr_en && !full) begin
+                mem[wr_ptr] <= din;
+                wr_ptr <= wr_ptr + 1;
+                count <= count + 1;
+            end
+            if (rd_en && !empty) begin
+                dout <= mem[rd_ptr];
+                rd_ptr <= rd_ptr + 1;
+                count <= count - 1;
+            end
+        end
+    end
+
+    assign full = (count == DEPTH);
+    assign empty = (count == 0);
+    assign almost_full = (count >= DEPTH - ALMOST_FULL_GAP);
+endmodule</code></pre>
+
+    <h2>🧪 Testbench: <code>fifo_prog_almost_tb.v</code></h2>
+    <pre><code>`timescale 1ns/1ps
+module fifo_prog_almost_tb;
+    reg clk, rst, wr_en, rd_en;
+    reg [7:0] din;
+    wire [7:0] dout;
+    wire full, empty, almost_full;
+
+    fifo_prog_almost #(.DEPTH(8), .WIDTH(8), .ALMOST_FULL_GAP(2)) uut (
+        clk, rst, wr_en, rd_en, din, dout, full, empty, almost_full
+    );
+
+    always #5 clk = ~clk;
+
+    initial begin
+        $dumpfile("fifo.vcd");
+        $dumpvars(0, fifo_prog_almost_tb);
+        clk = 0; rst = 1; wr_en = 0; rd_en = 0; din = 0;
+        #20; rst = 0;
+        repeat (6) begin wr_en = 1; din = $random; #10; end
+        wr_en = 0;
+        repeat (3) begin rd_en = 1; #10; end
+        rd_en = 0;
+        #50; $finish;
+    end
+endmodule</code></pre>
+
+    <div class="note"><strong>📊 Waveform:</strong> almost_full asserts when count ≥ DEPTH - ALMOST_FULL_GAP. Early back‑pressure.</div>
+    <p><strong>🌍 Real‑world use:</strong> Burst transfers, DMA controllers, network buffers, flow control.</p>
+    <div class="footer"><a href="index.html">← Back to main</a></div>
+</body>
+</html>
+
+
             
 </html>
 </body>
