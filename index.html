@@ -4154,7 +4154,71 @@ endmodule</code></pre>
 </html>
 
 
-            
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day 31 – Priority Encoder</title>
+    <style>
+        body { font-family: Arial; max-width: 1000px; margin: 40px auto; padding: 20px; background: white; color: black; }
+        h1 { color: #003d80; border-bottom: 2px solid #003d80; }
+        pre { background: #f4f4f4; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+        .note { background: #e7f3ff; border-left: 4px solid #003d80; padding: 10px; margin: 20px 0; }
+        .footer { margin-top: 40px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Day 31 – Priority Encoder (8‑to‑3 with Valid)</h1>
+    <p><strong>Date:</strong> May 12, 2026 | <strong>Topic:</strong> Highest priority encoder with valid flag.</p>
+
+    <h2>📁 Verilog Design: <code>priority_encoder.v</code></h2>
+    <pre><code>module priority_encoder #(parameter WIDTH = 8) (
+    input [WIDTH-1:0] in,
+    output reg [$clog2(WIDTH)-1:0] out,
+    output reg valid
+);
+    integer i;
+    always @(*) begin
+        valid = 1'b0;
+        out = 0;
+        for (i = WIDTH-1; i >= 0; i = i - 1) begin
+            if (!valid && in[i]) begin
+                out = i;
+                valid = 1'b1;
+            end
+        end
+    end
+endmodule</code></pre>
+
+    <h2>🧪 Testbench: <code>priority_encoder_tb.v</code></h2>
+    <pre><code>`timescale 1ns/1ps
+module priority_encoder_tb;
+    reg [7:0] in;
+    wire [2:0] out;
+    wire valid;
+
+    priority_encoder #(.WIDTH(8)) uut (in, out, valid);
+
+    initial begin
+        $dumpfile("prio.vcd");
+        $dumpvars(0, priority_encoder_tb);
+        in = 8'b00000000; #10;
+        in = 8'b00000100; #10;
+        in = 8'b10001000; #10;
+        in = 8'b01000000; #10;
+        in = 8'b00000001; #10;
+        $finish;
+    end
+endmodule</code></pre>
+
+    <div class="note"><strong>📊 Waveform:</strong> For in=0x88, out=7 (bit7 wins). valid=0 when no bit set.</div>
+    <p><strong>🌍 Real‑world use:</strong> Interrupt controllers, bus arbiters, cache tag muxes.</p>
+    <div class="footer"><a href="index.html">← Back to main</a></div>
+</body>
+</html>
+
+                    
 </html>
 </body>
 </html>
