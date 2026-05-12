@@ -3990,7 +3990,77 @@ endmodule</code></pre>
 </body>
 </html>            
  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day 29 – Pipelined Multiplier</title>
+    <style>
+        body { font-family: Arial; max-width: 1000px; margin: 40px auto; padding: 20px; background: white; color: black; }
+        h1 { color: #003d80; border-bottom: 2px solid #003d80; }
+        pre { background: #f4f4f4; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+        .note { background: #e7f3ff; border-left: 4px solid #003d80; padding: 10px; margin: 20px 0; }
+        .footer { margin-top: 40px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Day 29 – 2‑Stage Pipelined 8‑bit Multiplier</h1>
+    <p><strong>Date:</strong> May 10, 2026 | <strong>Topic:</strong> Pipelined multiplication for higher throughput.</p>
 
+    <h2>📁 Verilog Design: <code>pipelined_multiplier.v</code></h2>
+    <pre><code>module pipelined_multiplier #(parameter WIDTH = 8) (
+    input clk, rst,
+    input [WIDTH-1:0] a, b,
+    input en,
+    output reg [2*WIDTH-1:0] product
+);
+    reg [WIDTH-1:0] a_reg, b_reg;
+    reg [2*WIDTH-1:0] partial;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            a_reg <= 0; b_reg <= 0; partial <= 0;
+        end else if (en) begin
+            a_reg <= a;
+            b_reg <= b;
+            partial <= a * b;
+        end
+    end
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) product <= 0;
+        else if (en) product <= partial;
+    end
+endmodule</code></pre>
+
+    <h2>🧪 Testbench: <code>pipelined_multiplier_tb.v</code></h2>
+    <pre><code>`timescale 1ns/1ps
+module pipelined_multiplier_tb;
+    reg clk, rst, en;
+    reg [7:0] a, b;
+    wire [15:0] product;
+
+    pipelined_multiplier #(.WIDTH(8)) uut (clk, rst, a, b, en, product);
+
+    always #5 clk = ~clk;
+
+    initial begin
+        $dumpfile("mult.vcd");
+        $dumpvars(0, pipelined_multiplier_tb);
+        clk = 0; rst = 1; en = 0; a = 0; b = 0;
+        #20; rst = 0; en = 1;
+        a = 5; b = 6; #10;
+        a = 3; b = 8; #10;
+        a = 10; b = 10; #10;
+        #50; $finish;
+    end
+endmodule</code></pre>
+
+    <div class="note"><strong>📊 Waveform:</strong> First product appears after 2 cycles, then one per cycle. Pipeline latency = 2.</div>
+    <p><strong>🌍 Real‑world use:</strong> High‑performance DSP, CPU multipliers, FFT units.</p>
+    <div class="footer"><a href="index.html">← Back to main</a></div>
+</body>
+</html>
 
             
 </html>
