@@ -550,7 +550,374 @@ assign safe_signal = sync_ff2;</code></pre>
         <tr><td>Handshake</th><td>Request/acknowledge protocol for safe crossing</th></tr>
         <tr><td>Gray code</th><td>Used for FIFO pointers to avoid multiple bits changing</th></tr>
     </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>100 Days of VLSI — RISC‑V CPU Build</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #0b0e14;
+            color: #e8edf5;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+        a {
+            color: #66b0ff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
+        /* Header */
+        header {
+            text-align: center;
+            padding: 2rem 0 1.5rem;
+            border-bottom: 1px solid #2a303a;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #66b0ff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header p {
+            font-size: 1.2rem;
+            color: #a0b3cc;
+        }
+        .badge-new {
+            background: #22c55e;
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        /* Progress summary */
+        .progress {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            background: #141a24;
+            border-radius: 12px;
+            padding: 1.2rem 2rem;
+            margin: 1.5rem 0;
+            border: 1px solid #2a303a;
+        }
+        .progress-item {
+            font-size: 0.95rem;
+        }
+        .progress-item strong {
+            color: #c8d6e8;
+        }
+        .progress-item span {
+            color: #66b0ff;
+        }
+
+        /* Day grid */
+        .day-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+        }
+        .day-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            background: #141a24;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid #2a303a;
+            transition: background 0.15s;
+        }
+        .day-row:hover {
+            background: #1c2330;
+        }
+        .day-row.new-day {
+            border-left-color: #22c55e;
+            background: #1a2622;
+        }
+        .day-row .day-num {
+            font-weight: 600;
+            color: #66b0ff;
+            width: 4rem;
+            font-size: 0.95rem;
+        }
+        .day-row .day-topic {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #e8edf5;
+        }
+        .day-row .day-topic a {
+            color: #e8edf5;
+        }
+        .day-row .day-topic a:hover {
+            color: #66b0ff;
+        }
+        .day-row .day-type {
+            font-size: 0.75rem;
+            color: #6a7f9b;
+            background: #1e2632;
+            padding: 0.1rem 0.7rem;
+            border-radius: 20px;
+            margin: 0 0.5rem;
+            text-transform: uppercase;
+        }
+        .day-row .day-status {
+            font-size: 0.85rem;
+            color: #6a7f9b;
+        }
+        .day-row .day-status.done {
+            color: #22c55e;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2a303a;
+            font-size: 0.9rem;
+            color: #6a7f9b;
+        }
+        footer a {
+            color: #66b0ff;
+        }
+
+        @media (max-width: 700px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .day-row {
+                flex-wrap: wrap;
+                padding: 0.8rem 1rem;
+            }
+            .day-row .day-num {
+                width: 3rem;
+            }
+            .day-row .day-type {
+                margin: 0 0 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>🧠 100 Days of VLSI</h1>
+        <p>RTL Design · Verilog · RISC‑V CPU from scratch</p>
+        <p style="font-size:0.95rem; color:#6a7f9b; margin-top:0.5rem;">
+            <a href="https://github.com/karriudaya259-blip/100-days-vlsi" target="_blank">GitHub</a> &middot;
+            <a href="https://jyoshnakarri.github.io/RISCV_Project/" target="_blank">RISC‑V Project</a>
+        </p>
+    </header>
+
+    <!-- Progress summary -->
+    <div class="progress">
+        <div class="progress-item"><strong>Days posted:</strong> <span>59 / 100</span></div>
+        <div class="progress-item"><strong>Latest:</strong> <span>Day 59 — Single‑Cycle CPU ✅</span></div>
+        <div class="progress-item"><strong>New since Day 36:</strong> <span>23 days</span></div>
+    </div>
+
+    <!-- Day grid -->
+    <div class="day-grid">
+
+        <!-- ============ DAYS 1–36 (summary, no new badge) ============ -->
+        <div class="day-row">
+            <span class="day-num">1–10</span>
+            <span class="day-topic">Digital logic theory — gates, adders, FSM, memory</span>
+            <span class="day-type">Theory</span>
+            <span class="day-status done">✅</span>
+        </div>
+        <div class="day-row">
+            <span class="day-num">11–20</span>
+            <span class="day-topic">Verilog basics — half adder → async FIFO</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅</span>
+        </div>
+        <div class="day-row">
+            <span class="day-num">21–30</span>
+            <span class="day-topic">UART, PWM, LFSR, tiny CPU, FIFO</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅</span>
+        </div>
+        <div class="day-row">
+            <span class="day-num">31–35</span>
+            <span class="day-topic">CDC, handshake, pulse synchroniser, glitch‑free mux</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅</span>
+        </div>
+
+        <!-- ============ DAYS 36–59 — NEW CONTENT ============ -->
+        <div class="day-row new-day">
+            <span class="day-num">36</span>
+            <span class="day-topic">Clock Domain Crossing — theory &amp; metastability</span>
+            <span class="day-type">Theory</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">37</span>
+            <span class="day-topic">CDC Handshake synchroniser</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">38</span>
+            <span class="day-topic">Pulse synchroniser</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">39</span>
+            <span class="day-topic">Glitch‑free clock mux</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">40</span>
+            <span class="day-topic">Reset synchroniser (async vs sync)</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">41</span>
+            <span class="day-topic">CRC‑8 generator</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">42</span>
+            <span class="day-topic">SPI slave</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">43</span>
+            <span class="day-topic">Round‑robin arbiter</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">44–46</span>
+            <span class="day-topic">Clock skew / jitter theory · RISC vs CISC</span>
+            <span class="day-type">Theory</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">47</span>
+            <span class="day-topic">32‑bit RISC‑V ALU</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">48</span>
+            <span class="day-topic">32×32 Register File (x0 hardwired)</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">49</span>
+            <span class="day-topic">Program Counter + Instruction Memory</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">50</span>
+            <span class="day-topic">RISC vs CISC — architectural deep dive</span>
+            <span class="day-type">Theory</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">51</span>
+            <span class="day-topic">Instruction Decode Unit</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">52</span>
+            <span class="day-topic">Control Unit</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">53</span>
+            <span class="day-topic">ALU Control Unit</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">54</span>
+            <span class="day-topic">Data Memory</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">55</span>
+            <span class="day-topic">Single‑Cycle Datapath — theory</span>
+            <span class="day-type">Theory</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">56</span>
+            <span class="day-topic">Datapath integration — PC, IMEM, Decode, Control</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">57</span>
+            <span class="day-topic">Register File + ALU integration</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">58</span>
+            <span class="day-topic">Data Memory + Writeback Mux</span>
+            <span class="day-type">Code</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+        <div class="day-row new-day">
+            <span class="day-num">59</span>
+            <span class="day-topic"><strong>🎉 Full Single‑Cycle RISC‑V CPU — working!</strong></span>
+            <span class="day-type">Integration</span>
+            <span class="day-status done">✅ <span class="badge-new">New</span></span>
+        </div>
+
+    </div><!-- /day-grid -->
+
+    <footer>
+        <p>
+            <a href="https://github.com/karriudaya259-blip/100-days-vlsi" target="_blank">GitHub Repo</a> &middot;
+            <a href="https://jyoshnakarri.github.io/RISCV_Project/" target="_blank">RISC‑V Project Page</a>
+        </p>
+        <p style="margin-top:0.5rem; font-size:0.85rem;">
+            Built with Verilog, Icarus, GTKWave &amp; ☕ — 100 days, 1 CPU.
+        </p>
+    </footer>
+
+</div>
+</body>
+</html>
   
     </div>
 </body>
