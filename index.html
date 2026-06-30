@@ -4506,60 +4506,38 @@ endmodule</code></pre>
 
     <div class="note"><strong>📊 Waveform:</strong> right shift 3: 0x1A, right shift 7: 0x01; left shift 1: 0xAA, left shift 4: 0x50.</div>
     <p><strong>🌍 Real‑world use:</strong> CPU ALU, DSP, graphics processors, bit‑field extraction.</p>
-    <div class="footer"><a href="index.html">← Back to main</a></div>
-
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>100 Days of VLSI — RISC‑V CPU</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 Days of VLSI — Full Code</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
             background: #ffffff;
-            color: #1e293b;
-            line-height: 1.6;
+            color: #0f172a;
             padding: 2rem 1rem;
         }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1100px; margin: 0 auto; }
 
         header {
             text-align: center;
-            padding: 2rem 0 1.5rem;
+            padding: 1.5rem 0 2rem;
             border-bottom: 2px solid #e2e8f0;
         }
-        header h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: #0f172a;
-        }
-        header p {
-            font-size: 1.2rem;
-            color: #475569;
-        }
-        header a {
-            color: #2563eb;
-            text-decoration: none;
-        }
-        header a:hover {
-            text-decoration: underline;
-        }
+        header h1 { font-size: 2.8rem; color: #0f172a; }
+        header p { font-size: 1.2rem; color: #475569; }
+        header a { color: #2563eb; text-decoration: none; }
+        header a:hover { text-decoration: underline; }
 
         .badge-new {
             background: #22c55e;
             color: #ffffff;
             font-size: 0.6rem;
             font-weight: 700;
-            padding: 0.1rem 0.6rem;
+            padding: 0.15rem 0.6rem;
             border-radius: 20px;
             text-transform: uppercase;
             margin-left: 0.5rem;
@@ -4573,18 +4551,11 @@ endmodule</code></pre>
             margin: 1.5rem 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: space-between;
         }
-        .progress-item {
-            font-size: 1rem;
-        }
-        .progress-item strong {
-            color: #0f172a;
-        }
-        .progress-item span {
-            color: #2563eb;
-        }
+        .progress-item strong { color: #0f172a; }
+        .progress-item span { color: #2563eb; }
 
         .day-card {
             background: #ffffff;
@@ -4592,7 +4563,7 @@ endmodule</code></pre>
             border-radius: 12px;
             padding: 1.5rem;
             margin: 1.5rem 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         .day-card h3 {
             font-size: 1.4rem;
@@ -4619,18 +4590,10 @@ endmodule</code></pre>
             word-break: break-word;
             border-left: 4px solid #2563eb;
         }
-        .code-block .comment {
-            color: #64748b;
-        }
-        .code-block .keyword {
-            color: #7c3aed;
-        }
-        .code-block .string {
-            color: #b45309;
-        }
-        .code-block .number {
-            color: #059669;
-        }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #7c3aed; }
+        .code-block .string { color: #b45309; }
+        .code-block .number { color: #059669; }
 
         .day-links {
             margin-top: 0.75rem;
@@ -4641,9 +4604,7 @@ endmodule</code></pre>
             font-weight: 500;
             margin-right: 1.2rem;
         }
-        .day-links a:hover {
-            text-decoration: underline;
-        }
+        .day-links a:hover { text-decoration: underline; }
 
         footer {
             margin-top: 3rem;
@@ -4652,29 +4613,13 @@ endmodule</code></pre>
             border-top: 2px solid #e2e8f0;
             color: #64748b;
         }
-        footer a {
-            color: #2563eb;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
+        footer a { color: #2563eb; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
 
         @media (max-width: 700px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            .day-card {
-                padding: 1rem;
-            }
-            .code-block {
-                font-size: 0.7rem;
-                padding: 0.75rem;
-            }
-            .progress {
-                flex-direction: column;
-                gap: 0.25rem;
-            }
+            header h1 { font-size: 2rem; }
+            .day-card { padding: 1rem; }
+            .code-block { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -4683,49 +4628,46 @@ endmodule</code></pre>
 
     <header>
         <h1>🧠 100 Days of VLSI</h1>
-        <p>Verilog · RTL Design · RISC‑V CPU · CDC · SPI · CRC</p>
+        <p>Verilog · RTL · RISC‑V CPU · CDC · SPI · CRC</p>
         <p style="font-size:0.95rem; color:#64748b; margin-top:0.5rem;">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi" target="_blank">GitHub</a> &middot;
-            <a href="https://jyoshnakarri.github.io/RISCV_Project/" target="_blank">RISC‑V Project Page</a>
+            <a href="https://jyoshnakarri.github.io/RISCV_Project/" target="_blank">RISC‑V Project</a>
         </p>
     </header>
 
     <div class="progress">
-        <div class="progress-item"><strong>Days posted:</strong> <span>59 / 100</span></div>
-        <div class="progress-item"><strong>Latest:</strong> <span>Day 59 — Single‑Cycle CPU ✅</span></div>
-        <div class="progress-item"><strong>New since Day 36:</strong> <span>23 days of code + TB</span></div>
+        <div class="progress-item"><strong>Days:</strong> <span>36 – 59</span></div>
+        <div class="progress-item"><strong>Status:</strong> <span>All modules + testbenches</span></div>
+        <div class="progress-item"><strong>Latest:</strong> <span>Day 59 — Working CPU ✅</span></div>
     </div>
 
     <!-- ===================== DAY 36 ===================== -->
     <div class="day-card">
         <h3>Day 36 <span class="topic">— CDC Theory &amp; Metastability</span> <span class="badge-new">New</span></h3>
-        <p><strong>Concept:</strong> Clock Domain Crossing (CDC) occurs when a signal travels from one clock domain to another. Without proper synchronisation, metastability can cause logic failures.</p>
-        <p><strong>Solution:</strong> Two‑flop synchroniser for single‑bit signals; handshake or FIFO for multi‑bit data buses.</p>
+        <p><strong>Concept:</strong> Clock Domain Crossing (CDC) occurs when a signal moves from one clock domain to another. Without synchronisation, metastability corrupts data.</p>
+        <p><strong>Solution:</strong> Two‑flop synchroniser for single bits; handshake/FIFO for multi‑bit buses.</p>
     </div>
 
     <!-- ===================== DAY 37 ===================== -->
     <div class="day-card">
         <h3>Day 37 <span class="topic">— CDC Handshake Synchroniser</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// cdc_handshake.v — Full code on GitHub</span>
-module cdc_handshake (
-    input clk_a, rst_a, clk_b, rst_b,
-    input [7:0] data_a,
-    input req_a,
-    output ack_a,
-    output [7:0] data_b,
-    output valid_b
-);
-    <span class="comment">// 2‑flop synchronisers for req and ack</span>
+<span class="comment">// cdc_handshake.v — Full code (snippet)</span>
+module cdc_handshake (clk_a, rst_a, clk_b, rst_b, data_a, req_a, ack_a, data_b, valid_b);
+    input clk_a, rst_a, clk_b, rst_b;
+    input [7:0] data_a;
+    input req_a;
+    output ack_a, valid_b;
+    output [7:0] data_b;
     reg req_sync1, req_sync2, ack_sync1, ack_sync2;
     reg [7:0] data_reg;
     wire req_rise = req_sync2 & ~req_sync1;
-    <span class="comment">// ... full implementation on GitHub</span>
+    <span class="comment">// Synchroniser logic...</span>
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/cdc_handshake.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_cdc_handshake.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_cdc_handshake.v">🧪 TB</a>
         </div>
     </div>
 
@@ -4733,27 +4675,21 @@ endmodule
     <div class="day-card">
         <h3>Day 38 <span class="topic">— Pulse Synchroniser</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// pulse_sync.v — Convert a pulse from clk_a to clk_b</span>
-module pulse_sync (
-    input clk_a, clk_b, rst,
-    input pulse_a,
-    output pulse_b
-);
+<span class="comment">// pulse_sync.v</span>
+module pulse_sync (input clk_a, clk_b, rst, pulse_a, output pulse_b);
     reg toggle_a, sync1, sync2;
     always @(posedge clk_a or posedge rst)
         if (rst) toggle_a <= 0;
         else if (pulse_a) toggle_a <= ~toggle_a;
-
     always @(posedge clk_b or posedge rst)
-        if (rst) {sync2, sync1} <= 2'b00;
+        if (rst) {sync2, sync1} <= 0;
         else {sync2, sync1} <= {sync1, toggle_a};
-
     assign pulse_b = sync2 ^ sync1;
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/pulse_sync.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_pulse_sync.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_pulse_sync.v">🧪 TB</a>
         </div>
     </div>
 
@@ -4761,29 +4697,25 @@ endmodule
     <div class="day-card">
         <h3>Day 39 <span class="topic">— Glitch‑Free Clock Mux</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// glitch_free_mux.v — Safe switching between two clocks</span>
-module glitch_free_mux (
-    input clk0, clk1, sel, rst,
-    output clk_out
-);
+<span class="comment">// glitch_free_mux.v</span>
+module glitch_free_mux (clk0, clk1, sel, rst, clk_out);
+    input clk0, clk1, sel, rst;
+    output clk_out;
     reg sel0, sel1;
     wire clk0_gated = clk0 & sel0;
     wire clk1_gated = clk1 & sel1;
-
     always @(posedge clk0 or posedge rst)
         if (rst) sel0 <= 0;
         else sel0 <= ~sel & ~sel1;
-
     always @(posedge clk1 or posedge rst)
         if (rst) sel1 <= 0;
         else sel1 <= sel & ~sel0;
-
     assign clk_out = clk0_gated | clk1_gated;
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/glitch_free_mux.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_glitch_free_mux.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_glitch_free_mux.v">🧪 TB</a>
         </div>
     </div>
 
@@ -4791,11 +4723,8 @@ endmodule
     <div class="day-card">
         <h3>Day 40 <span class="topic">— Reset Synchroniser</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// reset_sync.v — Async to sync reset conversion</span>
-module reset_sync (
-    input clk, rst_async,
-    output rst_sync
-);
+<span class="comment">// reset_sync.v</span>
+module reset_sync (input clk, rst_async, output rst_sync);
     reg sync1, sync2;
     always @(posedge clk or posedge rst_async)
         if (rst_async) {sync2, sync1} <= 2'b11;
@@ -4805,7 +4734,7 @@ endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/reset_sync.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_reset_sync.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_reset_sync.v">🧪 TB</a>
         </div>
     </div>
 
@@ -4814,38 +4743,35 @@ endmodule
         <h3>Day 41 <span class="topic">— CRC‑8 Generator</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
 <span class="comment">// crc8.v — Polynomial x^8 + x^2 + x + 1</span>
-module crc8 (
-    input clk, rst,
-    input [7:0] data,
-    input en,
-    output [7:0] crc
-);
+module crc8 (clk, rst, data, en, crc);
+    input clk, rst, en;
+    input [7:0] data;
+    output [7:0] crc;
     reg [7:0] lfsr;
     wire feedback = lfsr[7] ^ data[7];
     always @(posedge clk or posedge rst)
-        if (rst) lfsr <= 8'b0;
+        if (rst) lfsr <= 0;
         else if (en) lfsr <= {lfsr[6:0], 1'b0} ^ ({8{feedback}} & 8'b00000111);
     assign crc = lfsr;
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/crc8.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_crc8.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_crc8.v">🧪 TB</a>
         </div>
     </div>
 
     <!-- ===================== DAY 42 ===================== -->
     <div class="day-card">
-        <h3>Day 42 <span class="topic">— SPI Slave (4‑wire)</span> <span class="badge-new">New</span></h3>
+        <h3>Day 42 <span class="topic">— SPI Slave</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// spi_slave.v — Full duplex SPI slave</span>
-module spi_slave (
-    input sck, cs, mosi,
-    output reg miso,
-    input [7:0] tx_data,
-    output reg [7:0] rx_data,
-    output reg data_ready
-);
+<span class="comment">// spi_slave.v — 4‑wire full‑duplex</span>
+module spi_slave (sck, cs, mosi, miso, tx_data, rx_data, data_ready);
+    input sck, cs, mosi;
+    input [7:0] tx_data;
+    output reg miso;
+    output reg [7:0] rx_data;
+    output reg data_ready;
     reg [2:0] bit_cnt;
     reg [7:0] shift_reg;
     always @(posedge sck or negedge cs) begin
@@ -4862,7 +4788,7 @@ endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/spi_slave.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_spi_slave.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_spi_slave.v">🧪 TB</a>
         </div>
     </div>
 
@@ -4870,38 +4796,36 @@ endmodule
     <div class="day-card">
         <h3>Day 43 <span class="topic">— Round‑Robin Arbiter</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// rr_arbiter.v — Fair arbitration for N masters</span>
-module rr_arbiter #(parameter N = 4) (
-    input clk, rst,
-    input [N-1:0] req,
-    output reg [N-1:0] grant
-);
+<span class="comment">// rr_arbiter.v</span>
+module rr_arbiter #(N=4) (clk, rst, req, grant);
+    input clk, rst;
+    input [N-1:0] req;
+    output reg [N-1:0] grant;
     reg [N-1:0] last_grant;
     integer i;
     always @(posedge clk or posedge rst)
         if (rst) last_grant <= 0;
-        else if (|req) begin
-            for (i = 0; i < N; i = i + 1)
+        else if (|req)
+            for (i=0; i<N; i=i+1)
                 if (req[(last_grant + i) % N]) begin
                     grant <= 1 << ((last_grant + i) % N);
                     last_grant <= (last_grant + i) % N;
                     break;
                 end
-        end else grant <= 0;
+        else grant <= 0;
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/rr_arbiter.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_rr_arbiter.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_rr_arbiter.v">🧪 TB</a>
         </div>
     </div>
 
-    <!-- ===================== DAY 44–46 ===================== -->
+    <!-- ===================== DAYS 44-46 ===================== -->
     <div class="day-card">
-        <h3>Days 44–46 <span class="topic">— Clock Skew, Jitter &amp; RISC vs CISC Theory</span> <span class="badge-new">New</span></h3>
-        <p><strong>Clock Skew:</strong> Difference in clock arrival times at different flip‑flops. Can cause hold‑time violations.</p>
-        <p><strong>Clock Jitter:</strong> Variation in clock period over time. Reduces timing margin and maximum frequency.</p>
-        <p><strong>RISC vs CISC:</strong> RISC (Reduced Instruction Set) — fixed‑length instructions, load‑store architecture, simple decode. CISC (Complex Instruction Set) — variable length, memory‑to‑memory operations, complex decode.</p>
+        <h3>Days 44–46 <span class="topic">— Skew, Jitter, RISC vs CISC</span> <span class="badge-new">New</span></h3>
+        <p><strong>Clock Skew:</strong> Difference in clock arrival at flip‑flops. <strong>Jitter:</strong> Variation in clock period over time.</p>
+        <p><strong>RISC vs CISC:</strong> RISC = fixed length, load‑store, simple decode. CISC = variable length, memory‑to‑memory, complex decode.</p>
     </div>
 
     <!-- ===================== DAY 47 ===================== -->
@@ -4909,76 +4833,75 @@ endmodule
         <h3>Day 47 <span class="topic">— 32‑bit RISC‑V ALU</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
 <span class="comment">// alu.v — ADD, SUB, AND, OR, SLT</span>
-module alu (
-    input  [31:0] a, b,
-    input  [2:0]  alu_op,
-    output reg [31:0] result,
-    output reg        zero
-);
+module alu (a, b, alu_op, result, zero);
+    input [31:0] a, b;
+    input [2:0] alu_op;
+    output reg [31:0] result;
+    output reg zero;
     always @(*) begin
         case (alu_op)
             3'b000: result = a + b;
             3'b001: result = a - b;
             3'b010: result = a & b;
             3'b011: result = a | b;
-            3'b100: result = ($signed(a) < $signed(b)) ? 1 : 0;
+            3'b100: result = ($signed(a)<$signed(b)) ? 1 : 0;
             default: result = 0;
         endcase
         zero = (result == 0);
     end
 endmodule
+<span class="comment">// tb_alu.v</span>
+`timescale 1ns/1ps
+module tb_alu;
+    reg [31:0] a,b; reg [2:0] op; wire [31:0] res; wire z;
+    alu uut(a,b,op,res,z);
+    initial begin a=5; b=3; op=0; #10; $display("5+3=%d", res); #10 $finish; end
+endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/alu.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_alu.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_alu.v">🧪 TB</a>
         </div>
     </div>
 
     <!-- ===================== DAY 48 ===================== -->
     <div class="day-card">
-        <h3>Day 48 <span class="topic">— 32×32 Register File (x0 hardwired)</span> <span class="badge-new">New</span></h3>
+        <h3>Day 48 <span class="topic">— 32×32 Register File</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// regfile.v — 32 registers, x0 always zero</span>
-module regfile (
-    input clk, rst, we,
-    input [4:0] rs1_addr, rs2_addr, rd_addr,
-    input [31:0] rd_data,
-    output [31:0] rs1_data, rs2_data
-);
+<span class="comment">// regfile.v — x0 hardwired to 0</span>
+module regfile (clk, rst, we, rs1_addr, rs2_addr, rd_addr, rd_data, rs1_data, rs2_data);
+    input clk, rst, we;
+    input [4:0] rs1_addr, rs2_addr, rd_addr;
+    input [31:0] rd_data;
+    output [31:0] rs1_data, rs2_data;
     reg [31:0] regs [0:31];
     integer i;
-    initial for (i = 0; i < 32; i = i + 1) regs[i] = 0;
-
+    initial for (i=0; i<32; i=i+1) regs[i]=0;
     always @(posedge clk or posedge rst)
-        if (rst) for (i = 0; i < 32; i = i + 1) regs[i] <= 0;
-        else if (we && rd_addr != 0) regs[rd_addr] <= rd_data;
-
-    assign rs1_data = (rs1_addr == 0) ? 0 : regs[rs1_addr];
-    assign rs2_data = (rs2_addr == 0) ? 0 : regs[rs2_addr];
+        if (rst) for(i=0;i<32;i=i+1) regs[i]<=0;
+        else if (we && rd_addr) regs[rd_addr] <= rd_data;
+    assign rs1_data = (rs1_addr==0) ? 0 : regs[rs1_addr];
+    assign rs2_data = (rs2_addr==0) ? 0 : regs[rs2_addr];
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/regfile.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_regfile.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_regfile.v">🧪 TB</a>
         </div>
     </div>
 
     <!-- ===================== DAY 49 ===================== -->
     <div class="day-card">
-        <h3>Day 49 <span class="topic">— Program Counter + Instruction Memory</span> <span class="badge-new">New</span></h3>
+        <h3>Day 49 <span class="topic">— PC + Instruction Memory</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// pc_imem.v — PC with ROM</span>
-module pc_imem #(parameter IMEM_SIZE = 32) (
-    input clk, rst, en,
-    output reg [31:0] pc,
-    output [31:0] instr
-);
+<span class="comment">// pc_imem.v</span>
+module pc_imem #(IMEM_SIZE=32) (clk, rst, en, pc, instr);
+    input clk, rst, en;
+    output reg [31:0] pc;
+    output [31:0] instr;
     reg [31:0] imem [0:IMEM_SIZE-1];
     integer i;
-    initial begin
-        for (i = 0; i < IMEM_SIZE; i = i + 1) imem[i] = 0;
-        imem[0] = 32'h00500093; <span class="comment">// addi x1, x0, 5</span>
-    end
+    initial begin for(i=0;i<IMEM_SIZE;i=i+1) imem[i]=0; imem[0]=32'h00500093; end
     always @(posedge clk or posedge rst)
         if (rst) pc <= 0;
         else if (en) pc <= pc + 4;
@@ -4987,48 +4910,37 @@ endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/pc_imem.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_pc_imem.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_pc_imem.v">🧪 TB</a>
         </div>
     </div>
 
     <!-- ===================== DAY 50 ===================== -->
     <div class="day-card">
-        <h3>Day 50 <span class="topic">— Instruction Decode Unit</span> <span class="badge-new">New</span></h3>
+        <h3>Day 50 <span class="topic">— Instruction Decode</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// instr_decode.v — Extracts opcode, registers, immediate</span>
-module instr_decode (
-    input  [31:0] instr,
-    output reg        reg_write,
-    output reg        alu_src,
-    output reg [2:0]  alu_op,
-    output reg [4:0]  rs1_addr, rs2_addr, rd_addr,
-    output reg [31:0] imm
-);
+<span class="comment">// instr_decode.v</span>
+module instr_decode (instr, reg_write, alu_src, alu_op, rs1_addr, rs2_addr, rd_addr, imm);
+    input [31:0] instr;
+    output reg reg_write, alu_src;
+    output reg [2:0] alu_op;
+    output reg [4:0] rs1_addr, rs2_addr, rd_addr;
+    output reg [31:0] imm;
     wire [6:0] op = instr[6:0];
     wire [2:0] f3 = instr[14:12];
     wire [6:0] f7 = instr[31:25];
-
     always @(*) begin
-        reg_write = 0; alu_src = 0; alu_op = 0; imm = 0;
-        rs1_addr = instr[19:15];
-        rs2_addr = instr[24:20];
-        rd_addr  = instr[11:7];
-
-        case (op)
-            7'b0110011: <span class="comment">// R‑type</span>
-                if ({f7, f3} == 14'b0) reg_write = 1;
-            7'b0010011: begin <span class="comment">// I‑type (ADDI)</span>
-                reg_write = 1;
-                alu_src   = 1;
-                imm = {{20{instr[31]}}, instr[31:20]};
-            end
+        reg_write=0; alu_src=0; alu_op=0; imm=0;
+        rs1_addr=instr[19:15]; rs2_addr=instr[24:20]; rd_addr=instr[11:7];
+        case(op)
+            7'b0110011: if({f7,f3}==0) reg_write=1;
+            7'b0010011: begin reg_write=1; alu_src=1; imm={{20{instr[31]}},instr[31:20]}; end
         endcase
     end
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/instr_decode.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_instr_decode.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_instr_decode.v">🧪 TB</a>
         </div>
     </div>
 
@@ -5036,153 +4948,141 @@ endmodule
     <div class="day-card">
         <h3>Day 51 <span class="topic">— Control Unit</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// control_unit.v — Generates main control signals</span>
-module control_unit (
-    input  [6:0] opcode,
-    output reg       reg_write, alu_src,
-    output reg       mem_read, mem_write, mem_to_reg, branch,
-    output reg [1:0] alu_op
-);
+<span class="comment">// control_unit.v</span>
+module control_unit (opcode, reg_write, alu_src, mem_read, mem_write, mem_to_reg, branch, alu_op);
+    input [6:0] opcode;
+    output reg reg_write, alu_src, mem_read, mem_write, mem_to_reg, branch;
+    output reg [1:0] alu_op;
     always @(*) begin
-        reg_write = 0; alu_src = 0; mem_read = 0; mem_write = 0;
-        mem_to_reg = 0; branch = 0; alu_op = 0;
-        case (opcode)
-            7'b0110011: begin reg_write = 1; alu_op = 2'b10; end
-            7'b0010011: begin reg_write = 1; alu_src = 1; alu_op = 2'b10; end
-            7'b0000011: begin reg_write = 1; alu_src = 1; mem_read = 1; mem_to_reg = 1; alu_op = 2'b00; end
-            7'b0100011: begin alu_src = 1; mem_write = 1; alu_op = 2'b00; end
-            7'b1100011: begin branch = 1; alu_op = 2'b01; end
+        reg_write=0; alu_src=0; mem_read=0; mem_write=0; mem_to_reg=0; branch=0; alu_op=0;
+        case(opcode)
+            7'b0110011: begin reg_write=1; alu_op=2'b10; end
+            7'b0010011: begin reg_write=1; alu_src=1; alu_op=2'b10; end
+            7'b0000011: begin reg_write=1; alu_src=1; mem_read=1; mem_to_reg=1; alu_op=2'b00; end
+            7'b0100011: begin alu_src=1; mem_write=1; alu_op=2'b00; end
+            7'b1100011: begin branch=1; alu_op=2'b01; end
         endcase
     end
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/control_unit.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_control_unit.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_control_unit.v">🧪 TB</a>
         </div>
     </div>
 
     <!-- ===================== DAY 52 ===================== -->
     <div class="day-card">
-        <h3>Day 52 <span class="topic">— ALU Control Unit</span> <span class="badge-new">New</span></h3>
+        <h3>Day 52 <span class="topic">— ALU Control</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// alu_control.v — Decodes funct3/funct7 into ALU operation</span>
-module alu_control (
-    input  [1:0] alu_op,
-    input  [2:0] funct3,
-    input  [6:0] funct7,
-    output reg [2:0] alu_sel
-);
+<span class="comment">// alu_control.v</span>
+module alu_control (alu_op, funct3, funct7, alu_sel);
+    input [1:0] alu_op;
+    input [2:0] funct3;
+    input [6:0] funct7;
+    output reg [2:0] alu_sel;
     always @(*) begin
-        case (alu_op)
-            2'b00: alu_sel = 3'b000; <span class="comment">// LW/SW (ADD)</span>
-            2'b01: alu_sel = 3'b001; <span class="comment">// BEQ (SUB)</span>
-            2'b10: begin
-                case (funct3)
-                    3'b000: alu_sel = (funct7 == 0) ? 3'b000 : 3'b001; <span class="comment">// ADD / SUB</span>
-                    3'b111: alu_sel = 3'b010; <span class="comment">// AND</span>
-                    3'b110: alu_sel = 3'b011; <span class="comment">// OR</span>
-                    3'b010: alu_sel = 3'b100; <span class="comment">// SLT</span>
-                    default: alu_sel = 0;
-                endcase
-            end
-            default: alu_sel = 0;
+        case(alu_op)
+            2'b00: alu_sel = 3'b000;
+            2'b01: alu_sel = 3'b001;
+            2'b10: case(funct3)
+                3'b000: alu_sel = (funct7==0) ? 3'b000 : 3'b001;
+                3'b111: alu_sel = 3'b010;
+                3'b110: alu_sel = 3'b011;
+                3'b010: alu_sel = 3'b100;
+                default: alu_sel = 0;
+            endcase
         endcase
     end
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/alu_control.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_alu_control.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_alu_control.v">🧪 TB</a>
         </div>
     </div>
 
     <!-- ===================== DAY 53 ===================== -->
     <div class="day-card">
-        <h3>Day 53 <span class="topic">— Data Memory (RAM)</span> <span class="badge-new">New</span></h3>
+        <h3>Day 53 <span class="topic">— Data Memory</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// data_memory.v — Synchronous write, combinational read</span>
-module data_memory #(parameter MEM_SIZE = 64) (
-    input clk, we,
-    input [31:0] addr, wd,
-    output reg [31:0] rd
-);
+<span class="comment">// data_memory.v</span>
+module data_memory #(MEM_SIZE=64) (clk, we, addr, wd, rd);
+    input clk, we;
+    input [31:0] addr, wd;
+    output reg [31:0] rd;
     reg [31:0] mem [0:MEM_SIZE-1];
     integer i;
-    initial for (i = 0; i < MEM_SIZE; i = i + 1) mem[i] = 0;
-
+    initial for(i=0;i<MEM_SIZE;i=i+1) mem[i]=0;
     always @(*) rd = mem[addr[31:2]];
     always @(posedge clk) if (we) mem[addr[31:2]] <= wd;
 endmodule
         </div>
         <div class="day-links">
             <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/data_memory.v">📄 Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_data_memory.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_data_memory.v">🧪 TB</a>
         </div>
     </div>
 
     <!-- ===================== DAY 54 ===================== -->
     <div class="day-card">
-        <h3>Day 54 <span class="topic">— Single‑Cycle Datapath Theory</span> <span class="badge-new">New</span></h3>
-        <p><strong>Blueprint:</strong> <code>PC → IMEM → Decode → Regfile → ALU → DMEM → Writeback</code></p>
-        <p><strong>Five stages:</strong> Fetch, Decode, Execute, Memory, Writeback. One instruction per clock cycle.</p>
-        <p><strong>Control signals:</strong> reg_write, alu_src, mem_read, mem_write, mem_to_reg, branch, alu_op.</p>
+        <h3>Day 54 <span class="topic">— Datapath Theory</span> <span class="badge-new">New</span></h3>
+        <p><strong>Blueprint:</strong> PC → IMEM → Decode → Regfile → ALU → DMEM → Writeback</p>
+        <p>Five stages: Fetch, Decode, Execute, Memory, Writeback.</p>
+        <p>Control signals: reg_write, alu_src, mem_read, mem_write, mem_to_reg, branch, alu_op.</p>
     </div>
 
-    <!-- ===================== DAY 55 ===================== -->
+    <!-- ===================== DAY 55–58 ===================== -->
     <div class="day-card">
-        <h3>Day 55 <span class="topic">— Datapath Integration (PC + IMEM + Decode + Control)</span> <span class="badge-new">New</span></h3>
-        <p>Connected the Program Counter, Instruction Memory, Decode unit, and Control Unit into a single datapath. Verified that control signals correctly reflect the instruction type (R‑type, I‑type, load, store, branch).</p>
+        <h3>Days 55–58 <span class="topic">— Integration (PC, Decode, Control, Regfile, ALU, DMEM)</span> <span class="badge-new">New</span></h3>
+        <p>Connected all blocks into a single datapath. Verified control signals, ALU operations, and register writes. Added branch logic and writeback mux. All sub‑modules integrated.</p>
         <div class="day-links">
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/riscv_cpu.v">📄 Full CPU</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_riscv_cpu.v">🧪 Testbench</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/riscv_cpu.v">📄 riscv_cpu.v</a>
         </div>
-    </div>
-
-    <!-- ===================== DAY 56 ===================== -->
-    <div class="day-card">
-        <h3>Day 56 <span class="topic">— Register File + ALU Integration</span> <span class="badge-new">New</span></h3>
-        <p>Connected the Register File outputs directly to the ALU inputs. Added a mux for selecting between immediate and register values as the second ALU operand. Verified x1 = 5, x2 = 3, x3 = 8.</p>
-    </div>
-
-    <!-- ===================== DAY 57 ===================== -->
-    <div class="day-card">
-        <h3>Day 57 <span class="topic">— Data Memory + Writeback Mux</span> <span class="badge-new">New</span></h3>
-        <p>Integrated Data Memory (synchronous write, combinational read). Added Writeback Mux to select between ALU result and memory read data for register writes. Tested SW and LW instructions.</p>
-    </div>
-
-    <!-- ===================== DAY 58 ===================== -->
-    <div class="day-card">
-        <h3>Day 58 <span class="topic">— Branch Logic &amp; Full Integration</span> <span class="badge-new">New</span></h3>
-        <p>Added branch target calculation (<code>pc + imm</code>) and condition check (<code>rs1 == rs2</code>). The PC now jumps correctly on BEQ. All blocks assembled into a complete single‑cycle CPU.</p>
     </div>
 
     <!-- ===================== DAY 59 ===================== -->
     <div class="day-card">
-        <h3>Day 59 <span class="topic">— Single‑Cycle RISC‑V CPU — Working!</span> <span class="badge-new">New</span></h3>
+        <h3>Day 59 <span class="topic">— Single‑Cycle CPU — Working ✅</span> <span class="badge-new">New</span></h3>
         <div class="code-block">
-<span class="comment">// Console output from simulation</span>
-Time=0    PC=00000000 ALU=5
-Time=25000 PC=00000004 ALU=3
-Time=35000 PC=00000008 ALU=8
+<span class="comment">// Console output (simulation result)</span>
+Time=0     PC=00000000 ALU=5
+Time=25000  PC=00000004 ALU=3
+Time=35000  PC=00000008 ALU=8
 
 ✅ ADDI x1, x0, 5 → x1 = 5
 ✅ ADDI x2, x0, 3 → x2 = 3
 ✅ ADD x3, x1, x2 → x3 = 8
-✅ PC increments by 4 every cycle
-✅ No X‑states — clean execution
+✅ PC increments by 4
+✅ No X‑states
+        </div>
+        <div class="code-block">
+<span class="comment">// riscv_cpu.v — Top‑level module (snippet)</span>
+module riscv_cpu (clk, rst, pc, alu_result, mem_rd_data, mem_we);
+    input clk, rst;
+    output [31:0] pc, alu_result, mem_rd_data;
+    output mem_we;
+    reg [31:0] pc_reg;
+    wire [31:0] pc_next, instr, alu_out;
+    <span class="comment">// Instantiate all blocks...</span>
+endmodule
         </div>
         <div class="day-links">
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/riscv_cpu.v">📄 Full CPU Module</a>
-            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_riscv_cpu.v">🧪 Testbench</a>
-            <a href="https://jyoshnakarri.github.io/RISCV_Project/" target="_blank">🚀 RISC‑V Project Page</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/riscv_cpu.v">📄 Full CPU</a>
+            <a href="https://github.com/jyoshnakarri/100-days-vlsi/blob/main/tb_riscv_cpu.v">🧪 TB</a>
+            <a href="https://jyoshnakarri.github.io/RISCV_Project/" target="_blank">🚀 Project Page</a>
         </div>
     </div>
 
     <footer>
-        <p>Built with Verilog, Icarus Verilog, GTKWave &amp; ☕</p>
-        <p><a href="https://github.com/jyoshnakarri/100-days-vlsi" target="_blank">View Full Repository</a></p>
+        <p>Built with Verilog, Icarus, GTKWave &amp; ☕</p>
+        <p><a href="https://github.com/jyoshnakarri/100-days-vlsi" target="_blank">Full Repository</a></p>
     </footer>
+
+</div>
+</body>
+</html>
+
 
 </div>
 </body>
