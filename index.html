@@ -1,12 +1,12 @@
 <!-- ============================================================ -->
-<!-- FILE 1: index.html — Landing page                           -->
+<!-- FILE 3: days-31-80.html — Days 31–80 index + placeholders   -->
 <!-- ============================================================ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>100 Days of VLSI · Jyotshna Karri</title>
+  <title>Days 31–80 · 100 Days of VLSI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,6 +16,8 @@
       --bg-page: #f8fafc;
       --bg-card: #ffffff;
       --bg-code: #f1f5f9;
+      --bg-table-header: #eef2ff;
+      --bg-table-row-alt: #f8fafc;
       --text-primary: #0f172a;
       --text-secondary: #334155;
       --text-muted: #64748b;
@@ -29,6 +31,7 @@
       --radius-md: 0.75rem;
       --radius-sm: 0.5rem;
     }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg-page);
@@ -38,22 +41,43 @@
     }
     .container { max-width: 960px; margin: 0 auto; }
 
-    /* Hero */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-card);
+    }
+    .top-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .top-nav a:hover { text-decoration: underline; }
+    .top-nav .divider { color: var(--text-muted); }
+
     .hero {
       background: var(--bg-card);
       border-radius: var(--radius-lg);
-      padding: 2.25rem 2rem 2rem;
+      padding: 1.75rem 2rem 1.5rem;
       box-shadow: var(--shadow-card);
       border: 1px solid var(--border-light);
       margin-bottom: 2rem;
-      text-align: center;
     }
     .hero h1 {
-      font-size: 2.2rem;
+      font-size: 1.7rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      line-height: 1.25;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
     .hero h1 .highlight {
       background: var(--accent-gradient);
@@ -63,31 +87,31 @@
     }
     .hero .subtitle {
       color: var(--text-muted);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 500;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
     .journey-badge {
       display: inline-block;
       background: var(--accent-soft);
       color: var(--accent);
       font-weight: 700;
-      font-size: 0.85rem;
-      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.9rem;
       border-radius: 2rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 0.75rem;
     }
     .progress-header {
       display: flex;
       justify-content: space-between;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--text-secondary);
       margin-bottom: 0.4rem;
     }
     .progress-bar-bg {
       background: var(--border-light);
-      height: 0.65rem;
+      height: 0.6rem;
       border-radius: 99px;
       overflow: hidden;
     }
@@ -98,62 +122,81 @@
       border-radius: 99px;
     }
 
-    /* Part cards */
-    .parts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    @media (max-width: 640px) {
-      .parts-grid { grid-template-columns: 1fr; }
-    }
-    .part-card {
-      display: block;
+    .index-card {
       background: var(--bg-card);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-light);
       box-shadow: var(--shadow-card);
-      padding: 2rem 1.75rem;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
     }
-    .part-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--accent);
-    }
-    .part-card .part-num {
-      display: inline-block;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 2rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-    .part-card h2 {
-      font-size: 1.5rem;
+    .index-card h2 {
+      font-size: 1.2rem;
       font-weight: 700;
       margin-bottom: 0.4rem;
       letter-spacing: -0.01em;
     }
-    .part-card p {
+    .index-card .index-sub {
       color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      margin-bottom: 1.1rem;
     }
-    .part-card .arrow {
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.5rem;
+    }
+    .index-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-code);
+      border: 1px solid transparent;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
+    }
+    .index-item:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--text-primary);
+      transform: translateX(3px);
+    }
+    .index-item .day-tag {
+      font-weight: 700;
       color: var(--accent);
-      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .index-item .topic { flex: 1; }
+
+    .placeholder-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px dashed var(--border-light);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      scroll-margin-top: 1rem;
+      color: var(--text-muted);
       font-size: 0.9rem;
     }
+    .placeholder-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+    .placeholder-card .hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
 
-    /* Footer */
     .footer {
       text-align: center;
       padding: 2rem 1rem 1rem;
@@ -178,20 +221,28 @@
     .footer .workflow .cmd { color: var(--accent); font-weight: 600; }
     .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
     .footer a:hover { text-decoration: underline; }
+
     @media (max-width: 640px) {
       body { padding: 0.75rem; }
-      .hero { padding: 1.5rem 1.25rem; }
-      .hero h1 { font-size: 1.6rem; }
+      .hero { padding: 1.4rem; }
+      .hero h1 { font-size: 1.35rem; }
+      .footer .workflow { font-size: 0.7rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
 
+    <nav class="top-nav">
+      <a href="index.html">← Home</a>
+      <span class="divider">·</span>
+      <a href="days-01-30.html">← Part 1 (Days 1–30)</a>
+    </nav>
+
     <header class="hero">
-      <span class="journey-badge">Day 1 of 100</span>
+      <span class="journey-badge">Part 2 · Days 31 – 80</span>
       <h1>Jyotshna Karri · <span class="highlight">100 Days of VLSI</span></h1>
-      <p class="subtitle">VLSI · RTL Design · Verilog · RISC‑V · Digital Logic</p>
+      <p class="subtitle">Part 2 · Days 31 – 80 · VLSI · RTL Design · Verilog · RISC‑V · Digital Logic</p>
       <div class="progress-header">
         <span>Progress</span>
         <span>1%</span>
@@ -201,20 +252,114 @@
       </div>
     </header>
 
-    <div class="parts-grid">
-      <a href="days-01-30.html" class="part-card">
-        <span class="part-num">Part 1</span>
-        <h2>Days 1 – 30</h2>
-        <p>Digital logic foundations → Verilog basics → sequential circuits → FIFO → UART → tiny CPU.</p>
-        <span class="arrow">Open Part 1 →</span>
-      </a>
-      <a href="days-31-80.html" class="part-card">
-        <span class="part-num">Part 2</span>
-        <h2>Days 31 – 80</h2>
-        <p>Priority encoder → Gray code → barrel shifter → RISC‑V ALU → pipeline → caches → hazards.</p>
-        <span class="arrow">Open Part 2 →</span>
-      </a>
-    </div>
+    <section class="index-card">
+      <h2>Index · Days 31–80</h2>
+      <p class="index-sub">Click any day to jump to its entry.</p>
+      <div class="index-grid">
+        <a href="#day-31" class="index-item"><span class="day-tag">Day 31</span><span class="topic">Priority Encoder</span></a>
+        <a href="#day-32" class="index-item"><span class="day-tag">Day 32</span><span class="topic">Gray Code Counter</span></a>
+        <a href="#day-33" class="index-item"><span class="day-tag">Day 33</span><span class="topic">Thermometer Decoder</span></a>
+        <a href="#day-34" class="index-item"><span class="day-tag">Day 34</span><span class="topic">Ring Counter</span></a>
+        <a href="#day-35" class="index-item"><span class="day-tag">Day 35</span><span class="topic">Johnson Counter</span></a>
+        <a href="#day-36" class="index-item"><span class="day-tag">Day 36</span><span class="topic">Parameterised Barrel Shifter</span></a>
+        <a href="#day-37" class="index-item"><span class="day-tag">Day 37</span><span class="topic">Clock Divider (Even &amp; Odd)</span></a>
+        <a href="#day-38" class="index-item"><span class="day-tag">Day 38</span><span class="topic">Edge Detector with Pulse Stretcher</span></a>
+        <a href="#day-39" class="index-item"><span class="day-tag">Day 39</span><span class="topic">Glitch‑Free Clock Mux</span></a>
+        <a href="#day-40" class="index-item"><span class="day-tag">Day 40</span><span class="topic">Handshake Synchronizer</span></a>
+        <a href="#day-41" class="index-item"><span class="day-tag">Day 41</span><span class="topic">Pulse Synchronizer</span></a>
+        <a href="#day-42" class="index-item"><span class="day-tag">Day 42</span><span class="topic">CRC‑8 Generator</span></a>
+        <a href="#day-43" class="index-item"><span class="day-tag">Day 43</span><span class="topic">SPI Slave</span></a>
+        <a href="#day-44" class="index-item"><span class="day-tag">Day 44</span><span class="topic">Round‑Robin Arbiter</span></a>
+        <a href="#day-45" class="index-item"><span class="day-tag">Day 45</span><span class="topic">Vending Machine (Mealy FSM)</span></a>
+        <a href="#day-46" class="index-item"><span class="day-tag">Day 46</span><span class="topic">Clock Skew &amp; Jitter</span></a>
+        <a href="#day-47" class="index-item"><span class="day-tag">Day 47</span><span class="topic">Clock Skew Emulator</span></a>
+        <a href="#day-48" class="index-item"><span class="day-tag">Day 48</span><span class="topic">Async vs Sync Reset</span></a>
+        <a href="#day-49" class="index-item"><span class="day-tag">Day 49</span><span class="topic">Async vs Sync Reset (Code)</span></a>
+        <a href="#day-50" class="index-item"><span class="day-tag">Day 50</span><span class="topic">RISC vs CISC</span></a>
+        <a href="#day-51" class="index-item"><span class="day-tag">Day 51</span><span class="topic">32‑bit RISC‑V ALU</span></a>
+        <a href="#day-52" class="index-item"><span class="day-tag">Day 52</span><span class="topic">32×32 Register File</span></a>
+        <a href="#day-53" class="index-item"><span class="day-tag">Day 53</span><span class="topic">Program Counter + Instruction Memory</span></a>
+        <a href="#day-54" class="index-item"><span class="day-tag">Day 54</span><span class="topic">Instruction Decode Unit</span></a>
+        <a href="#day-55" class="index-item"><span class="day-tag">Day 55</span><span class="topic">Control Unit</span></a>
+        <a href="#day-56" class="index-item"><span class="day-tag">Day 56</span><span class="topic">ALU Control Unit</span></a>
+        <a href="#day-57" class="index-item"><span class="day-tag">Day 57</span><span class="topic">Data Memory</span></a>
+        <a href="#day-58" class="index-item"><span class="day-tag">Day 58</span><span class="topic">Single‑Cycle Datapath Theory</span></a>
+        <a href="#day-59" class="index-item"><span class="day-tag">Day 59</span><span class="topic">Single‑Cycle CPU Working</span></a>
+        <a href="#day-60" class="index-item"><span class="day-tag">Day 60</span><span class="topic">Pipeline Registers (Generic)</span></a>
+        <a href="#day-61" class="index-item"><span class="day-tag">Day 61</span><span class="topic">IF/ID Pipeline Register</span></a>
+        <a href="#day-62" class="index-item"><span class="day-tag">Day 62</span><span class="topic">IF/ID Register Principle</span></a>
+        <a href="#day-63" class="index-item"><span class="day-tag">Day 63</span><span class="topic">ID/EX Pipeline Register</span></a>
+        <a href="#day-64" class="index-item"><span class="day-tag">Day 64</span><span class="topic">EX/MEM Pipeline Register</span></a>
+        <a href="#day-65" class="index-item"><span class="day-tag">Day 65</span><span class="topic">MEM/WB Pipeline Register</span></a>
+        <a href="#day-66" class="index-item"><span class="day-tag">Day 66</span><span class="topic">Forwarding + Hazard Detection</span></a>
+        <a href="#day-67" class="index-item"><span class="day-tag">Day 67</span><span class="topic">Control Hazards &amp; Branch Flush</span></a>
+        <a href="#day-68" class="index-item"><span class="day-tag">Day 68</span><span class="topic">Control Hazard Resolution</span></a>
+        <a href="#day-69" class="index-item"><span class="day-tag">Day 69</span><span class="topic">Frontend Control Logic</span></a>
+        <a href="#day-70" class="index-item"><span class="day-tag">Day 70</span><span class="topic">Hazard Control Unit Integration</span></a>
+        <a href="#day-71" class="index-item"><span class="day-tag">Day 71</span><span class="topic">Hazard Controller in Pipeline</span></a>
+        <a href="#day-72" class="index-item"><span class="day-tag">Day 72</span><span class="topic">CPI &amp; Speedup Analysis</span></a>
+        <a href="#day-73" class="index-item"><span class="day-tag">Day 73</span><span class="topic">Direct‑Mapped Instruction Cache</span></a>
+        <a href="#day-74" class="index-item"><span class="day-tag">Day 74</span><span class="topic">Data Cache with Write‑Through</span></a>
+        <a href="#day-75" class="index-item"><span class="day-tag">Day 75</span><span class="topic">Cache Hit/Miss Verification</span></a>
+        <a href="#day-76" class="index-item"><span class="day-tag">Day 76</span><span class="topic">Write‑Back Cache with Eviction</span></a>
+        <a href="#day-77" class="index-item"><span class="day-tag">Day 77</span><span class="topic">Write‑Back Cache (continued)</span></a>
+        <a href="#day-78" class="index-item"><span class="day-tag">Day 78</span><span class="topic">Pipeline ↔ Cache Integration</span></a>
+        <a href="#day-79" class="index-item"><span class="day-tag">Day 79</span><span class="topic">Pipelined RISC‑V Verification</span></a>
+        <a href="#day-80" class="index-item"><span class="day-tag">Day 80</span><span class="topic">Store‑Data Forwarding Bug Fix</span></a>
+      </div>
+    </section>
+
+    <!-- Placeholder cards Days 31–80 (abbreviated — same pattern as Days 2–30) -->
+    <article class="placeholder-card" id="day-31"><h3>Day 31 · Priority Encoder</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-32"><h3>Day 32 · Gray Code Counter</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-33"><h3>Day 33 · Thermometer Decoder</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-34"><h3>Day 34 · Ring Counter</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-35"><h3>Day 35 · Johnson Counter</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-36"><h3>Day 36 · Parameterised Barrel Shifter</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-37"><h3>Day 37 · Clock Divider (Even &amp; Odd)</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-38"><h3>Day 38 · Edge Detector with Pulse Stretcher</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-39"><h3>Day 39 · Glitch‑Free Clock Mux</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-40"><h3>Day 40 · Handshake Synchronizer</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-41"><h3>Day 41 · Pulse Synchronizer</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-42"><h3>Day 42 · CRC‑8 Generator</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-43"><h3>Day 43 · SPI Slave</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-44"><h3>Day 44 · Round‑Robin Arbiter</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-45"><h3>Day 45 · Vending Machine (Mealy FSM)</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-46"><h3>Day 46 · Clock Skew &amp; Jitter</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-47"><h3>Day 47 · Clock Skew Emulator</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-48"><h3>Day 48 · Async vs Sync Reset</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-49"><h3>Day 49 · Async vs Sync Reset (Code)</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-50"><h3>Day 50 · RISC vs CISC</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-51"><h3>Day 51 · 32‑bit RISC‑V ALU</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-52"><h3>Day 52 · 32×32 Register File</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-53"><h3>Day 53 · Program Counter + Instruction Memory</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-54"><h3>Day 54 · Instruction Decode Unit</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-55"><h3>Day 55 · Control Unit</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-56"><h3>Day 56 · ALU Control Unit</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-57"><h3>Day 57 · Data Memory</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-58"><h3>Day 58 · Single‑Cycle Datapath Theory</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-59"><h3>Day 59 · Single‑Cycle CPU Working</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-60"><h3>Day 60 · Pipeline Registers (Generic)</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-61"><h3>Day 61 · IF/ID Pipeline Register</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-62"><h3>Day 62 · IF/ID Register Principle</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-63"><h3>Day 63 · ID/EX Pipeline Register</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-64"><h3>Day 64 · EX/MEM Pipeline Register</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-65"><h3>Day 65 · MEM/WB Pipeline Register</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-66"><h3>Day 66 · Forwarding + Hazard Detection</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-67"><h3>Day 67 · Control Hazards &amp; Branch Flush</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-68"><h3>Day 68 · Control Hazard Resolution</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-69"><h3>Day 69 · Frontend Control Logic</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-70"><h3>Day 70 · Hazard Control Unit Integration</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-71"><h3>Day 71 · Hazard Controller in Pipeline</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-72"><h3>Day 72 · CPI &amp; Speedup Analysis</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-73"><h3>Day 73 · Direct‑Mapped Instruction Cache</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-74"><h3>Day 74 · Data Cache with Write‑Through</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-75"><h3>Day 75 · Cache Hit/Miss Verification</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-76"><h3>Day 76 · Write‑Back Cache with Eviction</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-77"><h3>Day 77 · Write‑Back Cache (continued)</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-78"><h3>Day 78 · Pipeline ↔ Cache Integration</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-79"><h3>Day 79 · Pipelined RISC‑V Verification</h3><p>Card coming soon.</p></article>
+    <article class="placeholder-card" id="day-80"><h3>Day 80 · Store‑Data Forwarding Bug Fix</h3><p>Card coming soon.</p></article>
 
     <footer class="footer">
       <div class="workflow">
