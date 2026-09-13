@@ -1,4 +1,1911 @@
 <!-- ============================================================ -->
+<!-- FILE 1: index.html — Landing page                           -->
+<!-- ============================================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>100 Days of VLSI · Jyotshna Karri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-code: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --accent-gradient: linear-gradient(90deg, #2563eb, #7c3aed);
+      --shadow-card: 0 4px 20px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
+      --shadow-hover: 0 12px 28px -8px rgba(0,0,0,0.12);
+      --radius-lg: 1.25rem;
+      --radius-md: 0.75rem;
+      --radius-sm: 0.5rem;
+    }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    /* Hero */
+    .hero {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem 2rem;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-light);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 0.4rem;
+    }
+    .hero h1 .highlight {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .journey-badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      margin-bottom: 1.25rem;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+    .progress-bar-bg {
+      background: var(--border-light);
+      height: 0.65rem;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 1%;
+      height: 100%;
+      background: var(--accent-gradient);
+      border-radius: 99px;
+    }
+
+    /* Part cards */
+    .parts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 640px) {
+      .parts-grid { grid-template-columns: 1fr; }
+    }
+    .part-card {
+      display: block;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-card);
+      padding: 2rem 1.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s;
+    }
+    .part-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent);
+    }
+    .part-card .part-num {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .part-card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .part-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+    }
+    .part-card .arrow {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border-light);
+      margin-top: 2rem;
+    }
+    .footer .workflow {
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      margin: 1.25rem auto;
+      max-width: 560px;
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+    }
+    .footer .workflow .cmd { color: var(--accent); font-weight: 600; }
+    .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .footer a:hover { text-decoration: underline; }
+    @media (max-width: 640px) {
+      body { padding: 0.75rem; }
+      .hero { padding: 1.5rem 1.25rem; }
+      .hero h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="hero">
+      <span class="journey-badge">Day 1 of 100</span>
+      <h1>Jyotshna Karri · <span class="highlight">100 Days of VLSI</span></h1>
+      <p class="subtitle">VLSI · RTL Design · Verilog · RISC‑V · Digital Logic</p>
+      <div class="progress-header">
+        <span>Progress</span>
+        <span>1%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-fill"></div>
+      </div>
+    </header>
+
+    <div class="parts-grid">
+      <a href="days-01-30.html" class="part-card">
+        <span class="part-num">Part 1</span>
+        <h2>Days 1 – 30</h2>
+        <p>Digital logic foundations → Verilog basics → sequential circuits → FIFO → UART → tiny CPU.</p>
+        <span class="arrow">Open Part 1 →</span>
+      </a>
+      <a href="days-31-80.html" class="part-card">
+        <span class="part-num">Part 2</span>
+        <h2>Days 31 – 80</h2>
+        <p>Priority encoder → Gray code → barrel shifter → RISC‑V ALU → pipeline → caches → hazards.</p>
+        <span class="arrow">Open Part 2 →</span>
+      </a>
+    </div>
+
+    <footer class="footer">
+      <div class="workflow">
+        <div><strong>Workflow (simulation &amp; waveform)</strong></div>
+        <div style="margin-top:0.6rem;">.v   = Verilog code</div>
+        <div>.out = compiled output</div>
+        <div>.vcd = waveform dump</div>
+        <div style="margin-top:0.9rem;">1. Save every file with <span class="cmd">.v</span> extension</div>
+        <div>2. In terminal:</div>
+        <div style="padding-left:1.2rem;"><span class="cmd">iverilog name.v testbench.v</span></div>
+        <div style="padding-left:1.2rem;"><span class="cmd">vvp a.out</span></div>
+        <div style="padding-left:1.2rem;"><span class="cmd">gtkwave output.vcd</span></div>
+        <div>3. For output:</div>
+        <div style="padding-left:1.2rem;">Click on <span class="cmd">SST</span></div>
+        <div style="padding-left:1.2rem;">Select all the signals</div>
+        <div style="padding-left:1.2rem;">View waveforms</div>
+      </div>
+      <p>100 Days of VLSI · Built with Verilog, Icarus, GTKWave &amp; ☕</p>
+      <p style="margin-top:0.4rem;">
+        <a href="https://jyoshnakarri.github.io/100-days-vlsi/" target="_blank" rel="noopener">Portfolio</a>
+      </p>
+    </footer>
+
+  </div>
+</body>
+</html>
+<!-- ============================================================ -->
+<!-- FILE 2: days-01-30.html — Days 1–30 index + Day 1 card      -->
+<!-- ============================================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Days 1–30 · 100 Days of VLSI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-code: #f1f5f9;
+      --bg-table-header: #eef2ff;
+      --bg-table-row-alt: #f8fafc;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --accent-gradient: linear-gradient(90deg, #2563eb, #7c3aed);
+      --shadow-card: 0 4px 20px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
+      --shadow-hover: 0 12px 28px -8px rgba(0,0,0,0.12);
+      --radius-lg: 1.25rem;
+      --radius-md: 0.75rem;
+      --radius-sm: 0.5rem;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    /* Top nav */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-card);
+    }
+    .top-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .top-nav a:hover { text-decoration: underline; }
+    .top-nav .divider { color: var(--text-muted); }
+
+    /* Hero */
+    .hero {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem 1.5rem;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-light);
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .hero h1 .highlight {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+    .journey-badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+    .progress-bar-bg {
+      background: var(--border-light);
+      height: 0.6rem;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 1%;
+      height: 100%;
+      background: var(--accent-gradient);
+      border-radius: 99px;
+    }
+
+    /* Index */
+    .index-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-card);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+    }
+    .index-card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .index-card .index-sub {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 1.1rem;
+    }
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.5rem;
+    }
+    .index-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-code);
+      border: 1px solid transparent;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
+    }
+    .index-item:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--text-primary);
+      transform: translateX(3px);
+    }
+    .index-item .day-tag {
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .index-item .topic {
+      flex: 1;
+    }
+
+    /* Day card */
+    .day-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-card);
+      margin-bottom: 2rem;
+      overflow: hidden;
+      scroll-margin-top: 1rem;
+    }
+    .day-header {
+      padding: 1.75rem 1.75rem 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .day-number {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: 2rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.6rem;
+    }
+    .day-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .day-content { padding: 1.75rem; }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.75rem 0 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .section-title:first-of-type { margin-top: 0; }
+    .section-title .icon { font-size: 1.15rem; }
+
+    .info-box {
+      background: var(--bg-code);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin: 0.5rem 0 1rem;
+    }
+    .info-box strong { color: var(--text-primary); font-weight: 600; }
+
+    .app-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-top: 0.5rem;
+    }
+    .app-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 0.94rem;
+      color: var(--text-secondary);
+      padding: 0.55rem 0.8rem;
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent);
+    }
+    .app-list li::before {
+      content: "▹";
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .code-block {
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      padding: 1.1rem 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.65;
+      overflow-x: auto;
+      white-space: pre;
+      color: var(--text-primary);
+      margin: 1rem 0;
+    }
+    .code-block .comment { color: #64748b; }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+    th {
+      background: var(--bg-table-header);
+      color: var(--text-primary);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 2px solid var(--border-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    td {
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: var(--bg-table-row-alt); }
+    td.mono, th.mono { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+    td.answer { color: var(--accent); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+
+    .example-heading {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 1.5rem 0 0.5rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid var(--accent-soft);
+      display: inline-block;
+    }
+
+    /* Placeholder card for upcoming days */
+    .placeholder-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px dashed var(--border-light);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      scroll-margin-top: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .placeholder-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+    .placeholder-card .hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border-light);
+      margin-top: 2rem;
+    }
+    .footer .workflow {
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      margin: 1.25rem auto;
+      max-width: 560px;
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+    }
+    .footer .workflow .cmd { color: var(--accent); font-weight: 600; }
+    .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      body { padding: 0.75rem; }
+      .hero { padding: 1.4rem; }
+      .hero h1 { font-size: 1.35rem; }
+      .day-header { padding: 1.25rem 1.25rem 0.6rem; }
+      .day-header h2 { font-size: 1.25rem; }
+      .day-content { padding: 1.25rem; }
+      .code-block { font-size: 0.72rem; padding: 0.9rem; }
+      table { font-size: 0.78rem; }
+      th, td { padding: 0.5rem 0.65rem; }
+      .footer .workflow { font-size: 0.7rem; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .day-card { animation: fadeUp 0.35s ease forwards; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Top nav -->
+    <nav class="top-nav">
+      <a href="index.html">← Home</a>
+      <span class="divider">·</span>
+      <a href="days-31-80.html">Part 2 (Days 31–80) →</a>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+      <span class="journey-badge">Day 1 of 100</span>
+      <h1>Jyotshna Karri · <span class="highlight">100 Days of VLSI</span></h1>
+      <p class="subtitle">Part 1 · Days 1 – 30 · VLSI · RTL Design · Verilog · RISC‑V · Digital Logic</p>
+      <div class="progress-header">
+        <span>Progress</span>
+        <span>1%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-fill"></div>
+      </div>
+    </header>
+
+    <!-- Index -->
+    <section class="index-card">
+      <h2>Index · Days 1–30</h2>
+      <p class="index-sub">Click any day to jump to its entry.</p>
+      <div class="index-grid">
+        <a href="#day-1" class="index-item"><span class="day-tag">Day 1</span><span class="topic">Binary Number Systems</span></a>
+        <a href="#day-2" class="index-item"><span class="day-tag">Day 2</span><span class="topic">Boolean Algebra &amp; DeMorgan's Laws</span></a>
+        <a href="#day-3" class="index-item"><span class="day-tag">Day 3</span><span class="topic">NAND as Universal Gate</span></a>
+        <a href="#day-4" class="index-item"><span class="day-tag">Day 4</span><span class="topic">Combinational Circuits (Adders, MUX, DEMUX)</span></a>
+        <a href="#day-5" class="index-item"><span class="day-tag">Day 5</span><span class="topic">Carry Look‑ahead Adder (CLA)</span></a>
+        <a href="#day-6" class="index-item"><span class="day-tag">Day 6</span><span class="topic">Latches &amp; Flip‑Flops</span></a>
+        <a href="#day-7" class="index-item"><span class="day-tag">Day 7</span><span class="topic">JK, T, D Flip‑Flops</span></a>
+        <a href="#day-8" class="index-item"><span class="day-tag">Day 8</span><span class="topic">Registers &amp; Shift Registers</span></a>
+        <a href="#day-9" class="index-item"><span class="day-tag">Day 9</span><span class="topic">Synchronous Counters &amp; FSM</span></a>
+        <a href="#day-10" class="index-item"><span class="day-tag">Day 10</span><span class="topic">FSM &amp; Memory Basics</span></a>
+        <a href="#day-11" class="index-item"><span class="day-tag">Day 11</span><span class="topic">Verilog Fundamentals</span></a>
+        <a href="#day-12" class="index-item"><span class="day-tag">Day 12</span><span class="topic">Metastability &amp; CDC</span></a>
+        <a href="#day-13" class="index-item"><span class="day-tag">Day 13</span><span class="topic">Verilog: Half Adder to 8‑bit ALU</span></a>
+        <a href="#day-14" class="index-item"><span class="day-tag">Day 14</span><span class="topic">Parameters, Generate, Sync FIFO</span></a>
+        <a href="#day-15" class="index-item"><span class="day-tag">Day 15</span><span class="topic">9 Advanced RTL Modules</span></a>
+        <a href="#day-16" class="index-item"><span class="day-tag">Day 16</span><span class="topic">Arithmetic Modules &amp; Verilog Projects</span></a>
+        <a href="#day-17" class="index-item"><span class="day-tag">Day 17</span><span class="topic">Synchronous FIFO</span></a>
+        <a href="#day-18" class="index-item"><span class="day-tag">Day 18</span><span class="topic">Async FIFO, Memory, LFSR, Pipeline</span></a>
+        <a href="#day-19" class="index-item"><span class="day-tag">Day 19</span><span class="topic">Logic Synthesis</span></a>
+        <a href="#day-20" class="index-item"><span class="day-tag">Day 20</span><span class="topic">Asynchronous FIFO</span></a>
+        <a href="#day-21" class="index-item"><span class="day-tag">Day 21</span><span class="topic">UART Tx/Rx</span></a>
+        <a href="#day-22" class="index-item"><span class="day-tag">Day 22</span><span class="topic">PWM Generator</span></a>
+        <a href="#day-23" class="index-item"><span class="day-tag">Day 23</span><span class="topic">Debouncer</span></a>
+        <a href="#day-24" class="index-item"><span class="day-tag">Day 24</span><span class="topic">LFSR</span></a>
+        <a href="#day-25" class="index-item"><span class="day-tag">Day 25</span><span class="topic">Tiny CPU (5‑state FSM)</span></a>
+        <a href="#day-26" class="index-item"><span class="day-tag">Day 26</span><span class="topic">Mealy vs Moore FSM</span></a>
+        <a href="#day-27" class="index-item"><span class="day-tag">Day 27</span><span class="topic">Parameterised N‑bit Up Counter</span></a>
+        <a href="#day-28" class="index-item"><span class="day-tag">Day 28</span><span class="topic">Universal Shift Register</span></a>
+        <a href="#day-29" class="index-item"><span class="day-tag">Day 29</span><span class="topic">2‑Stage Pipelined Multiplier</span></a>
+        <a href="#day-30" class="index-item"><span class="day-tag">Day 30</span><span class="topic">Sync FIFO with Programmable Almost‑Full</span></a>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- DAY 1 — FULL CARD                            -->
+    <!-- ============================================ -->
+    <article class="day-card" id="day-1">
+      <div class="day-header">
+        <span class="day-number">Day 1</span>
+        <h2>Binary Number Systems</h2>
+      </div>
+
+      <div class="day-content">
+
+        <div class="section-title"><span class="icon">📖</span> Definition</div>
+        <div class="info-box">
+          A <strong>binary number system</strong> represents numeric values using only two digits: <strong>0</strong> and <strong>1</strong>. Each digit is called a <em>bit</em>. It is the native language of every digital circuit — every logic gate, flip‑flop, adder, and memory cell ultimately stores and processes only 0s and 1s.
+        </div>
+
+        <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+        <div class="info-box">
+          Mastered <strong>decimal ↔ binary ↔ hexadecimal</strong> conversions, <strong>binary addition and subtraction</strong>, and <strong>1's &amp; 2's complement</strong> — the absolute foundation of every digital system.
+        </div>
+
+        <div class="section-title"><span class="icon">🧮</span> 20 Solved Examples (Step‑by‑Step)</div>
+
+        <div class="example-heading">Example 1 – 5 · Decimal → Binary</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:20%">Problem</th>
+                <th style="width:50%">Working (divide by 2, collect remainders bottom‑up)</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td class="mono">47₁₀ → ?₂</td><td class="mono">47÷2=23 r1 · 23÷2=11 r1 · 11÷2=5 r1 · 5÷2=2 r1 · 2÷2=1 r0 · 1÷2=0 r1 → read ↑</td><td class="answer">101111₂</td></tr>
+              <tr><td>2</td><td class="mono">156₁₀ → ?₂</td><td class="mono">156÷2=78 r0 · 78÷2=39 r0 · 39÷2=19 r1 · 19÷2=9 r1 · 9÷2=4 r1 · 4÷2=2 r0 · 2÷2=1 r0 · 1÷2=0 r1</td><td class="answer">10011100₂</td></tr>
+              <tr><td>3</td><td class="mono">209₁₀ → ?₂</td><td class="mono">209÷2=104 r1 · 104÷2=52 r0 · 52÷2=26 r0 · 26÷2=13 r0 · 13÷2=6 r1 · 6÷2=3 r0 · 3÷2=1 r1 · 1÷2=0 r1</td><td class="answer">11010001₂</td></tr>
+              <tr><td>4</td><td class="mono">10₁₀ → ?₂</td><td class="mono">10÷2=5 r0 · 5÷2=2 r1 · 2÷2=1 r0 · 1÷2=0 r1</td><td class="answer">1010₂</td></tr>
+              <tr><td>5</td><td class="mono">255₁₀ → ?₂</td><td class="mono">255 = 2⁸ − 1 → all 8 bits set to 1</td><td class="answer">11111111₂</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="example-heading">Example 6 – 10 · Binary → Decimal</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:20%">Problem</th>
+                <th style="width:50%">Working (sum of powers of 2 where bit = 1)</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>6</td><td class="mono">101111₂ → ?₁₀</td><td class="mono">1·2⁵ + 0·2⁴ + 1·2³ + 1·2² + 1·2¹ + 1·2⁰ = 32+0+8+4+2+1</td><td class="answer">47₁₀</td></tr>
+              <tr><td>7</td><td class="mono">10011010₂ → ?₁₀</td><td class="mono">128 + 0 + 0 + 16 + 8 + 0 + 2 + 0</td><td class="answer">154₁₀</td></tr>
+              <tr><td>8</td><td class="mono">11010001₂ → ?₁₀</td><td class="mono">128 + 64 + 0 + 16 + 0 + 0 + 0 + 1</td><td class="answer">209₁₀</td></tr>
+              <tr><td>9</td><td class="mono">1010₂ → ?₁₀</td><td class="mono">8 + 0 + 2 + 0</td><td class="answer">10₁₀</td></tr>
+              <tr><td>10</td><td class="mono">11111111₂ → ?₁₀</td><td class="mono">128+64+32+16+8+4+2+1</td><td class="answer">255₁₀</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="example-heading">Example 11 – 15 · Decimal ↔ Hexadecimal</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:20%">Problem</th>
+                <th style="width:50%">Working</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>11</td><td class="mono">47₁₀ → ?₁₆</td><td class="mono">47 ÷ 16 = 2 remainder 15 (F) → 2, F</td><td class="answer">2F₁₆</td></tr>
+              <tr><td>12</td><td class="mono">156₁₀ → ?₁₆</td><td class="mono">156 ÷ 16 = 9 remainder 12 (C) → 9, C</td><td class="answer">9C₁₆</td></tr>
+              <tr><td>13</td><td class="mono">209₁₀ → ?₁₆</td><td class="mono">209 ÷ 16 = 13 (D) remainder 1 → D, 1</td><td class="answer">D1₁₆</td></tr>
+              <tr><td>14</td><td class="mono">101111₂ → ?₁₆</td><td class="mono">Group in nibbles from right: 0010 1111 → 2, F</td><td class="answer">2F₁₆</td></tr>
+              <tr><td>15</td><td class="mono">10011010₂ → ?₁₆</td><td class="mono">1001 1010 → 9, A</td><td class="answer">9A₁₆</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="example-heading">Example 16 – 20 · Binary Arithmetic &amp; Complements</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:22%">Problem</th>
+                <th style="width:48%">Working</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>16</td>
+                <td class="mono">1011 + 0111</td>
+                <td class="mono">&nbsp;&nbsp;1011<br>+ 0111<br>─────<br>10010 (carry out)</td>
+                <td class="answer">10010₂</td>
+              </tr>
+              <tr>
+                <td>17</td>
+                <td class="mono">1101 − 0110</td>
+                <td class="mono">Borrow method: 1101 − 0110 = 0111</td>
+                <td class="answer">0111₂</td>
+              </tr>
+              <tr>
+                <td>18</td>
+                <td class="mono">1's complement of 1010</td>
+                <td class="mono">Flip every bit: 1→0, 0→1</td>
+                <td class="answer">0101₂</td>
+              </tr>
+              <tr>
+                <td>19</td>
+                <td class="mono">2's complement of 1010</td>
+                <td class="mono">1's complement = 0101 → add 1 = 0110</td>
+                <td class="answer">0110₂</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td class="mono">2's complement of 11001</td>
+                <td class="mono">1's = 00110 → +1 = 00111</td>
+                <td class="answer">00111₂</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section-title"><span class="icon">🔍</span> Step‑by‑Step Walkthroughs</div>
+
+        <div class="example-heading">Binary Addition — 1011 + 0111</div>
+        <div class="code-block">
+  1 0 1 1
++ 0 1 1 1
+──────────
+  1 0 0 1 0
+
+Column-by-column (right to left):
+  bit0: 1 + 1 = 10  → sum 0, carry 1
+  bit1: 1 + 1 + 1 = 11 → sum 1, carry 1
+  bit2: 0 + 1 + 1 = 10 → sum 0, carry 1
+  bit3: 1 + 0 + 1 = 10 → sum 0, carry 1
+  carry out: 1
+Result: 10010₂
+        </div>
+
+        <div class="example-heading">2's Complement — 1010</div>
+        <div class="code-block">
+Original (4-bit):   1 0 1 0
+1's complement:     0 1 0 1     ← flip every bit
+Add 1:              0 1 0 1
+                  + 0 0 0 1
+                  ─────────
+                    0 1 1 0     ← 2's complement
+
+Shortcut: scan from LSB, copy bits until the first '1',
+then flip the rest.
+  1 0 1 0
+      ↑ first 1 from right → keep it and everything before
+  copy: 0
+  flip: 1 0 1 → 0 1 0
+Result: 0 1 1 0
+        </div>
+
+        <div class="section-title"><span class="icon">💻</span> Verilog Code</div>
+        <div class="code-block">
+<span class="comment">// Day 1 — Binary Number Systems is theory only.</span>
+<span class="comment">// No Verilog is written on Day 1.</span>
+<span class="comment">// Verilog coding starts on Day 11 (Verilog Fundamentals).</span>
+        </div>
+
+        <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+        <ul class="app-list">
+          <li><strong>Digital Electronics:</strong> every logic gate, truth table, K‑map, adder, flip‑flop, counter, and shift register operates on binary.</li>
+          <li><strong>VLSI:</strong> CMOS inverters, noise margins, propagation delay, clock distribution, power calculation, and timing analysis all depend on binary signal behaviour.</li>
+          <li><strong>Memory addressing:</strong> every byte in RAM is accessed via binary/hex addresses.</li>
+          <li><strong>Signed integer arithmetic:</strong> 2's complement is the standard for signed integers in x86, ARM, and RISC‑V CPUs.</li>
+          <li><strong>Debugging &amp; disassembly:</strong> hex is used in waveform viewers, machine code, and protocol traces.</li>
+        </ul>
+
+        <div class="section-title"><span class="icon">🔗</span> References</div>
+        <ul class="app-list">
+          <li>Day 1 LinkedIn post — problems solved: 25/25.</li>
+        </ul>
+
+      </div>
+    </article>
+
+    <!-- ============================================ -->
+    <!-- PLACEHOLDER CARDS for Days 2–30              -->
+    <!-- Paste each day's full card below its id     -->
+    <!-- ============================================ -->
+    <!--
+      TEMPLATE — copy this block for each new day:
+
+      <article class="day-card" id="day-N">
+        <div class="day-header">
+          <span class="day-number">Day N</span>
+          <h2>Topic title</h2>
+        </div>
+        <div class="day-content">
+          ... sections ...
+        </div>
+      </article>
+    -->
+
+    <article class="placeholder-card" id="day-2">
+      <h3>Day 2 · Boolean Algebra &amp; DeMorgan's Laws</h3>
+      <p>Card coming soon.</p>
+      <p class="hint">&lt;article class="day-card" id="day-2"&gt; … &lt;/article&gt;</p>
+    </article>
+
+    <article class="placeholder-card" id="day-3">
+      <h3>Day 3 · NAND as Universal Gate</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-4">
+      <h3>Day 4 · Combinational Circuits (Adders, MUX, DEMUX)</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-5">
+      <h3>Day 5 · Carry Look‑ahead Adder (CLA)</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-6">
+      <h3>Day 6 · Latches &amp; Flip‑Flops</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-7">
+      <h3>Day 7 · JK, T, D Flip‑Flops</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-8">
+      <h3>Day 8 · Registers &amp; Shift Registers</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-9">
+      <h3>Day 9 · Synchronous Counters &amp; FSM</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-10">
+      <h3>Day 10 · FSM &amp; Memory Basics</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-11">
+      <h3>Day 11 · Verilog Fundamentals</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-12">
+      <h3>Day 12 · Metastability &amp; CDC</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-13">
+      <h3>Day 13 · Verilog: Half Adder to 8‑bit ALU</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-14">
+      <h3>Day 14 · Parameters, Generate, Sync FIFO</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-15">
+      <h3>Day 15 · 9 Advanced RTL Modules</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-16">
+      <h3>Day 16 · Arithmetic Modules &amp; Verilog Projects</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-17">
+      <h3>Day 17 · Synchronous FIFO</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-18">
+      <h3>Day 18 · Async FIFO, Memory, LFSR, Pipeline</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-19">
+      <h3>Day 19 · Logic Synthesis</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-20">
+      <h3>Day 20 · Asynchronous FIFO</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-21">
+      <h3>Day 21 · UART Tx/Rx</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-22">
+      <h3>Day 22 · PWM Generator</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-23">
+      <h3>Day 23 · Debouncer</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-24">
+      <h3>Day 24 · LFSR</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-25">
+      <h3>Day 25 · Tiny CPU (5‑state FSM)</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-26">
+      <h3>Day 26 · Mealy vs Moore FSM</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-27">
+      <h3>Day 27 · Parameterised N‑bit Up Counter</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-28">
+      <h3>Day 28 · Universal Shift Register</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-29">
+      <h3>Day 29 · 2‑Stage Pipelined Multiplier</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-30">
+      <h3>Day 30 · Sync FIFO with Programmable Almost‑Full</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="workflow">
+        <div><strong>Workflow (simulation &amp; waveform)</strong></div>
+        <div style="margin-top:0.6rem;">.v   = Verilog code</div>
+        <div>.out = compiled output</div>
+        <div>.vcd = waveform dump</div>
+        <div style="margin-top:0.9rem;">1. Save every file with <span class="cmd">.v</span> extension</div>
+        <div>2. In terminal:</div>
+        <div style="padding-left:1.2rem;"><span class="cmd">iverilog name.v testbench.v</span></div>
+        <div style="padding-left:1.2rem;"><span class="cmd">vvp a.out</span></div>
+        <div style="padding-left:1.2rem;"><span class="cmd">gtkwave output.vcd</span></div>
+        <div>3. For output:</div>
+        <div style="padding-left:1.2rem;">Click on <span class="cmd">SST</span></div>
+        <div style="padding-left:1.2rem;">Select all the signals</div>
+        <div style="padding-left:1.2rem;">View waveforms</div>
+      </div>
+      <p>100 Days of VLSI · Built with Verilog, Icarus, GTKWave &amp; ☕</p>
+      <p style="margin-top:0.4rem;">
+        <a href="https://jyoshnakarri.github.io/100-days-vlsi/" target="_blank" rel="noopener">Portfolio</a>
+      </p>
+    </footer>
+    <!-- ============================================================ -->
+<!-- FILE 2: days-01-30.html — Days 1–30 index + Day 1 card      -->
+<!-- ============================================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Days 1–30 · 100 Days of VLSI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-code: #f1f5f9;
+      --bg-table-header: #eef2ff;
+      --bg-table-row-alt: #f8fafc;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --accent-gradient: linear-gradient(90deg, #2563eb, #7c3aed);
+      --shadow-card: 0 4px 20px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
+      --shadow-hover: 0 12px 28px -8px rgba(0,0,0,0.12);
+      --radius-lg: 1.25rem;
+      --radius-md: 0.75rem;
+      --radius-sm: 0.5rem;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    /* Top nav */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-card);
+    }
+    .top-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .top-nav a:hover { text-decoration: underline; }
+    .top-nav .divider { color: var(--text-muted); }
+
+    /* Hero */
+    .hero {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem 1.5rem;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-light);
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .hero h1 .highlight {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+    .journey-badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+    .progress-bar-bg {
+      background: var(--border-light);
+      height: 0.6rem;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 1%;
+      height: 100%;
+      background: var(--accent-gradient);
+      border-radius: 99px;
+    }
+
+    /* Index */
+    .index-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-card);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+    }
+    .index-card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .index-card .index-sub {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 1.1rem;
+    }
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.5rem;
+    }
+    .index-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-code);
+      border: 1px solid transparent;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
+    }
+    .index-item:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--text-primary);
+      transform: translateX(3px);
+    }
+    .index-item .day-tag {
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .index-item .topic {
+      flex: 1;
+    }
+
+    /* Day card */
+    .day-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-card);
+      margin-bottom: 2rem;
+      overflow: hidden;
+      scroll-margin-top: 1rem;
+    }
+    .day-header {
+      padding: 1.75rem 1.75rem 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .day-number {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: 2rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.6rem;
+    }
+    .day-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .day-content { padding: 1.75rem; }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.75rem 0 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .section-title:first-of-type { margin-top: 0; }
+    .section-title .icon { font-size: 1.15rem; }
+
+    .info-box {
+      background: var(--bg-code);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin: 0.5rem 0 1rem;
+    }
+    .info-box strong { color: var(--text-primary); font-weight: 600; }
+
+    .app-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-top: 0.5rem;
+    }
+    .app-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 0.94rem;
+      color: var(--text-secondary);
+      padding: 0.55rem 0.8rem;
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent);
+    }
+    .app-list li::before {
+      content: "▹";
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .code-block {
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      padding: 1.1rem 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.65;
+      overflow-x: auto;
+      white-space: pre;
+      color: var(--text-primary);
+      margin: 1rem 0;
+    }
+    .code-block .comment { color: #64748b; }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+    th {
+      background: var(--bg-table-header);
+      color: var(--text-primary);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 2px solid var(--border-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    td {
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: var(--bg-table-row-alt); }
+    td.mono, th.mono { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+    td.answer { color: var(--accent); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+
+    .example-heading {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 1.5rem 0 0.5rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid var(--accent-soft);
+      display: inline-block;
+    }
+
+    /* Placeholder card for upcoming days */
+    .placeholder-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px dashed var(--border-light);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      scroll-margin-top: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .placeholder-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+    .placeholder-card .hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border-light);
+      margin-top: 2rem;
+    }
+    .footer .workflow {
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      margin: 1.25rem auto;
+      max-width: 560px;
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+    }
+    .footer .workflow .cmd { color: var(--accent); font-weight: 600; }
+    .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      body { padding: 0.75rem; }
+      .hero { padding: 1.4rem; }
+      .hero h1 { font-size: 1.35rem; }
+      .day-header { padding: 1.25rem 1.25rem 0.6rem; }
+      .day-header h2 { font-size: 1.25rem; }
+      .day-content { padding: 1.25rem; }
+      .code-block { font-size: 0.72rem; padding: 0.9rem; }
+      table { font-size: 0.78rem; }
+      th, td { padding: 0.5rem 0.65rem; }
+      .footer .workflow { font-size: 0.7rem; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .day-card { animation: fadeUp 0.35s ease forwards; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Top nav -->
+    <nav class="top-nav">
+      <a href="index.html">← Home</a>
+      <span class="divider">·</span>
+      <a href="days-31-80.html">Part 2 (Days 31–80) →</a>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+      <span class="journey-badge">Day 1 of 100</span>
+      <h1>Jyotshna Karri · <span class="highlight">100 Days of VLSI</span></h1>
+      <p class="subtitle">Part 1 · Days 1 – 30 · VLSI · RTL Design · Verilog · RISC‑V · Digital Logic</p>
+      <div class="progress-header">
+        <span>Progress</span>
+        <span>1%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-fill"></div>
+      </div>
+    </header>
+
+    <!-- Index -->
+    <section class="index-card">
+      <h2>Index · Days 1–30</h2>
+      <p class="index-sub">Click any day to jump to its entry.</p>
+      <div class="index-grid">
+        <a href="#day-1" class="index-item"><span class="day-tag">Day 1</span><span class="topic">Binary Number Systems</span></a>
+        <a href="#day-2" class="index-item"><span class="day-tag">Day 2</span><span class="topic">Boolean Algebra &amp; DeMorgan's Laws</span></a>
+        <a href="#day-3" class="index-item"><span class="day-tag">Day 3</span><span class="topic">NAND as Universal Gate</span></a>
+        <a href="#day-4" class="index-item"><span class="day-tag">Day 4</span><span class="topic">Combinational Circuits (Adders, MUX, DEMUX)</span></a>
+        <a href="#day-5" class="index-item"><span class="day-tag">Day 5</span><span class="topic">Carry Look‑ahead Adder (CLA)</span></a>
+        <a href="#day-6" class="index-item"><span class="day-tag">Day 6</span><span class="topic">Latches &amp; Flip‑Flops</span></a>
+        <a href="#day-7" class="index-item"><span class="day-tag">Day 7</span><span class="topic">JK, T, D Flip‑Flops</span></a>
+        <a href="#day-8" class="index-item"><span class="day-tag">Day 8</span><span class="topic">Registers &amp; Shift Registers</span></a>
+        <a href="#day-9" class="index-item"><span class="day-tag">Day 9</span><span class="topic">Synchronous Counters &amp; FSM</span></a>
+        <a href="#day-10" class="index-item"><span class="day-tag">Day 10</span><span class="topic">FSM &amp; Memory Basics</span></a>
+        <a href="#day-11" class="index-item"><span class="day-tag">Day 11</span><span class="topic">Verilog Fundamentals</span></a>
+        <a href="#day-12" class="index-item"><span class="day-tag">Day 12</span><span class="topic">Metastability &amp; CDC</span></a>
+        <a href="#day-13" class="index-item"><span class="day-tag">Day 13</span><span class="topic">Verilog: Half Adder to 8‑bit ALU</span></a>
+        <a href="#day-14" class="index-item"><span class="day-tag">Day 14</span><span class="topic">Parameters, Generate, Sync FIFO</span></a>
+        <a href="#day-15" class="index-item"><span class="day-tag">Day 15</span><span class="topic">9 Advanced RTL Modules</span></a>
+        <a href="#day-16" class="index-item"><span class="day-tag">Day 16</span><span class="topic">Arithmetic Modules &amp; Verilog Projects</span></a>
+        <a href="#day-17" class="index-item"><span class="day-tag">Day 17</span><span class="topic">Synchronous FIFO</span></a>
+        <a href="#day-18" class="index-item"><span class="day-tag">Day 18</span><span class="topic">Async FIFO, Memory, LFSR, Pipeline</span></a>
+        <a href="#day-19" class="index-item"><span class="day-tag">Day 19</span><span class="topic">Logic Synthesis</span></a>
+        <a href="#day-20" class="index-item"><span class="day-tag">Day 20</span><span class="topic">Asynchronous FIFO</span></a>
+        <a href="#day-21" class="index-item"><span class="day-tag">Day 21</span><span class="topic">UART Tx/Rx</span></a>
+        <a href="#day-22" class="index-item"><span class="day-tag">Day 22</span><span class="topic">PWM Generator</span></a>
+        <a href="#day-23" class="index-item"><span class="day-tag">Day 23</span><span class="topic">Debouncer</span></a>
+        <a href="#day-24" class="index-item"><span class="day-tag">Day 24</span><span class="topic">LFSR</span></a>
+        <a href="#day-25" class="index-item"><span class="day-tag">Day 25</span><span class="topic">Tiny CPU (5‑state FSM)</span></a>
+        <a href="#day-26" class="index-item"><span class="day-tag">Day 26</span><span class="topic">Mealy vs Moore FSM</span></a>
+        <a href="#day-27" class="index-item"><span class="day-tag">Day 27</span><span class="topic">Parameterised N‑bit Up Counter</span></a>
+        <a href="#day-28" class="index-item"><span class="day-tag">Day 28</span><span class="topic">Universal Shift Register</span></a>
+        <a href="#day-29" class="index-item"><span class="day-tag">Day 29</span><span class="topic">2‑Stage Pipelined Multiplier</span></a>
+        <a href="#day-30" class="index-item"><span class="day-tag">Day 30</span><span class="topic">Sync FIFO with Programmable Almost‑Full</span></a>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- DAY 1 — FULL CARD                            -->
+    <!-- ============================================ -->
+    <article class="day-card" id="day-1">
+      <div class="day-header">
+        <span class="day-number">Day 1</span>
+        <h2>Binary Number Systems</h2>
+      </div>
+
+      <div class="day-content">
+
+        <div class="section-title"><span class="icon">📖</span> Definition</div>
+        <div class="info-box">
+          A <strong>binary number system</strong> represents numeric values using only two digits: <strong>0</strong> and <strong>1</strong>. Each digit is called a <em>bit</em>. It is the native language of every digital circuit — every logic gate, flip‑flop, adder, and memory cell ultimately stores and processes only 0s and 1s.
+        </div>
+
+        <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+        <div class="info-box">
+          Mastered <strong>decimal ↔ binary ↔ hexadecimal</strong> conversions, <strong>binary addition and subtraction</strong>, and <strong>1's &amp; 2's complement</strong> — the absolute foundation of every digital system.
+        </div>
+
+        <div class="section-title"><span class="icon">🧮</span> 20 Solved Examples (Step‑by‑Step)</div>
+
+        <div class="example-heading">Example 1 – 5 · Decimal → Binary</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:20%">Problem</th>
+                <th style="width:50%">Working (divide by 2, collect remainders bottom‑up)</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td class="mono">47₁₀ → ?₂</td><td class="mono">47÷2=23 r1 · 23÷2=11 r1 · 11÷2=5 r1 · 5÷2=2 r1 · 2÷2=1 r0 · 1÷2=0 r1 → read ↑</td><td class="answer">101111₂</td></tr>
+              <tr><td>2</td><td class="mono">156₁₀ → ?₂</td><td class="mono">156÷2=78 r0 · 78÷2=39 r0 · 39÷2=19 r1 · 19÷2=9 r1 · 9÷2=4 r1 · 4÷2=2 r0 · 2÷2=1 r0 · 1÷2=0 r1</td><td class="answer">10011100₂</td></tr>
+              <tr><td>3</td><td class="mono">209₁₀ → ?₂</td><td class="mono">209÷2=104 r1 · 104÷2=52 r0 · 52÷2=26 r0 · 26÷2=13 r0 · 13÷2=6 r1 · 6÷2=3 r0 · 3÷2=1 r1 · 1÷2=0 r1</td><td class="answer">11010001₂</td></tr>
+              <tr><td>4</td><td class="mono">10₁₀ → ?₂</td><td class="mono">10÷2=5 r0 · 5÷2=2 r1 · 2÷2=1 r0 · 1÷2=0 r1</td><td class="answer">1010₂</td></tr>
+              <tr><td>5</td><td class="mono">255₁₀ → ?₂</td><td class="mono">255 = 2⁸ − 1 → all 8 bits set to 1</td><td class="answer">11111111₂</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="example-heading">Example 6 – 10 · Binary → Decimal</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:20%">Problem</th>
+                <th style="width:50%">Working (sum of powers of 2 where bit = 1)</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>6</td><td class="mono">101111₂ → ?₁₀</td><td class="mono">1·2⁵ + 0·2⁴ + 1·2³ + 1·2² + 1·2¹ + 1·2⁰ = 32+0+8+4+2+1</td><td class="answer">47₁₀</td></tr>
+              <tr><td>7</td><td class="mono">10011010₂ → ?₁₀</td><td class="mono">128 + 0 + 0 + 16 + 8 + 0 + 2 + 0</td><td class="answer">154₁₀</td></tr>
+              <tr><td>8</td><td class="mono">11010001₂ → ?₁₀</td><td class="mono">128 + 64 + 0 + 16 + 0 + 0 + 0 + 1</td><td class="answer">209₁₀</td></tr>
+              <tr><td>9</td><td class="mono">1010₂ → ?₁₀</td><td class="mono">8 + 0 + 2 + 0</td><td class="answer">10₁₀</td></tr>
+              <tr><td>10</td><td class="mono">11111111₂ → ?₁₀</td><td class="mono">128+64+32+16+8+4+2+1</td><td class="answer">255₁₀</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="example-heading">Example 11 – 15 · Decimal ↔ Hexadecimal</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:20%">Problem</th>
+                <th style="width:50%">Working</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>11</td><td class="mono">47₁₀ → ?₁₆</td><td class="mono">47 ÷ 16 = 2 remainder 15 (F) → 2, F</td><td class="answer">2F₁₆</td></tr>
+              <tr><td>12</td><td class="mono">156₁₀ → ?₁₆</td><td class="mono">156 ÷ 16 = 9 remainder 12 (C) → 9, C</td><td class="answer">9C₁₆</td></tr>
+              <tr><td>13</td><td class="mono">209₁₀ → ?₁₆</td><td class="mono">209 ÷ 16 = 13 (D) remainder 1 → D, 1</td><td class="answer">D1₁₆</td></tr>
+              <tr><td>14</td><td class="mono">101111₂ → ?₁₆</td><td class="mono">Group in nibbles from right: 0010 1111 → 2, F</td><td class="answer">2F₁₆</td></tr>
+              <tr><td>15</td><td class="mono">10011010₂ → ?₁₆</td><td class="mono">1001 1010 → 9, A</td><td class="answer">9A₁₆</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="example-heading">Example 16 – 20 · Binary Arithmetic &amp; Complements</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:22%">Problem</th>
+                <th style="width:48%">Working</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>16</td>
+                <td class="mono">1011 + 0111</td>
+                <td class="mono">&nbsp;&nbsp;1011<br>+ 0111<br>─────<br>10010 (carry out)</td>
+                <td class="answer">10010₂</td>
+              </tr>
+              <tr>
+                <td>17</td>
+                <td class="mono">1101 − 0110</td>
+                <td class="mono">Borrow method: 1101 − 0110 = 0111</td>
+                <td class="answer">0111₂</td>
+              </tr>
+              <tr>
+                <td>18</td>
+                <td class="mono">1's complement of 1010</td>
+                <td class="mono">Flip every bit: 1→0, 0→1</td>
+                <td class="answer">0101₂</td>
+              </tr>
+              <tr>
+                <td>19</td>
+                <td class="mono">2's complement of 1010</td>
+                <td class="mono">1's complement = 0101 → add 1 = 0110</td>
+                <td class="answer">0110₂</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td class="mono">2's complement of 11001</td>
+                <td class="mono">1's = 00110 → +1 = 00111</td>
+                <td class="answer">00111₂</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section-title"><span class="icon">🔍</span> Step‑by‑Step Walkthroughs</div>
+
+        <div class="example-heading">Binary Addition — 1011 + 0111</div>
+        <div class="code-block">
+  1 0 1 1
++ 0 1 1 1
+──────────
+  1 0 0 1 0
+
+Column-by-column (right to left):
+  bit0: 1 + 1 = 10  → sum 0, carry 1
+  bit1: 1 + 1 + 1 = 11 → sum 1, carry 1
+  bit2: 0 + 1 + 1 = 10 → sum 0, carry 1
+  bit3: 1 + 0 + 1 = 10 → sum 0, carry 1
+  carry out: 1
+Result: 10010₂
+        </div>
+
+        <div class="example-heading">2's Complement — 1010</div>
+        <div class="code-block">
+Original (4-bit):   1 0 1 0
+1's complement:     0 1 0 1     ← flip every bit
+Add 1:              0 1 0 1
+                  + 0 0 0 1
+                  ─────────
+                    0 1 1 0     ← 2's complement
+
+Shortcut: scan from LSB, copy bits until the first '1',
+then flip the rest.
+  1 0 1 0
+      ↑ first 1 from right → keep it and everything before
+  copy: 0
+  flip: 1 0 1 → 0 1 0
+Result: 0 1 1 0
+        </div>
+
+        <div class="section-title"><span class="icon">💻</span> Verilog Code</div>
+        <div class="code-block">
+<span class="comment">// Day 1 — Binary Number Systems is theory only.</span>
+<span class="comment">// No Verilog is written on Day 1.</span>
+<span class="comment">// Verilog coding starts on Day 11 (Verilog Fundamentals).</span>
+        </div>
+
+        <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+        <ul class="app-list">
+          <li><strong>Digital Electronics:</strong> every logic gate, truth table, K‑map, adder, flip‑flop, counter, and shift register operates on binary.</li>
+          <li><strong>VLSI:</strong> CMOS inverters, noise margins, propagation delay, clock distribution, power calculation, and timing analysis all depend on binary signal behaviour.</li>
+          <li><strong>Memory addressing:</strong> every byte in RAM is accessed via binary/hex addresses.</li>
+          <li><strong>Signed integer arithmetic:</strong> 2's complement is the standard for signed integers in x86, ARM, and RISC‑V CPUs.</li>
+          <li><strong>Debugging &amp; disassembly:</strong> hex is used in waveform viewers, machine code, and protocol traces.</li>
+        </ul>
+
+        <div class="section-title"><span class="icon">🔗</span> References</div>
+        <ul class="app-list">
+          <li>Day 1 LinkedIn post — problems solved: 25/25.</li>
+        </ul>
+
+      </div>
+    </article>
+
+    <!-- ============================================ -->
+    <!-- PLACEHOLDER CARDS for Days 2–30              -->
+    <!-- Paste each day's full card below its id     -->
+    <!-- ============================================ -->
+    <!--
+      TEMPLATE — copy this block for each new day:
+
+      <article class="day-card" id="day-N">
+        <div class="day-header">
+          <span class="day-number">Day N</span>
+          <h2>Topic title</h2>
+        </div>
+        <div class="day-content">
+          ... sections ...
+        </div>
+      </article>
+    -->
+
+    <article class="placeholder-card" id="day-2">
+      <h3>Day 2 · Boolean Algebra &amp; DeMorgan's Laws</h3>
+      <p>Card coming soon.</p>
+      <p class="hint">&lt;article class="day-card" id="day-2"&gt; … &lt;/article&gt;</p>
+    </article>
+
+    <article class="placeholder-card" id="day-3">
+      <h3>Day 3 · NAND as Universal Gate</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-4">
+      <h3>Day 4 · Combinational Circuits (Adders, MUX, DEMUX)</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-5">
+      <h3>Day 5 · Carry Look‑ahead Adder (CLA)</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-6">
+      <h3>Day 6 · Latches &amp; Flip‑Flops</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-7">
+      <h3>Day 7 · JK, T, D Flip‑Flops</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-8">
+      <h3>Day 8 · Registers &amp; Shift Registers</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-9">
+      <h3>Day 9 · Synchronous Counters &amp; FSM</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-10">
+      <h3>Day 10 · FSM &amp; Memory Basics</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-11">
+      <h3>Day 11 · Verilog Fundamentals</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-12">
+      <h3>Day 12 · Metastability &amp; CDC</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-13">
+      <h3>Day 13 · Verilog: Half Adder to 8‑bit ALU</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-14">
+      <h3>Day 14 · Parameters, Generate, Sync FIFO</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-15">
+      <h3>Day 15 · 9 Advanced RTL Modules</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-16">
+      <h3>Day 16 · Arithmetic Modules &amp; Verilog Projects</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-17">
+      <h3>Day 17 · Synchronous FIFO</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-18">
+      <h3>Day 18 · Async FIFO, Memory, LFSR, Pipeline</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-19">
+      <h3>Day 19 · Logic Synthesis</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-20">
+      <h3>Day 20 · Asynchronous FIFO</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-21">
+      <h3>Day 21 · UART Tx/Rx</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-22">
+      <h3>Day 22 · PWM Generator</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-23">
+      <h3>Day 23 · Debouncer</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-24">
+      <h3>Day 24 · LFSR</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-25">
+      <h3>Day 25 · Tiny CPU (5‑state FSM)</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-26">
+      <h3>Day 26 · Mealy vs Moore FSM</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-27">
+      <h3>Day 27 · Parameterised N‑bit Up Counter</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-28">
+      <h3>Day 28 · Universal Shift Register</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-29">
+      <h3>Day 29 · 2‑Stage Pipelined Multiplier</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <article class="placeholder-card" id="day-30">
+      <h3>Day 30 · Sync FIFO with Programmable Almost‑Full</h3>
+      <p>Card coming soon.</p>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="workflow">
+        <div><strong>Workflow (simulation &amp; waveform)</strong></div>
+        <div style="margin-top:0.6rem;">.v   = Verilog code</div>
+        <div>.out = compiled output</div>
+        <div>.vcd = waveform dump</div>
+        <div style="margin-top:0.9rem;">1. Save every file with <span class="cmd">.v</span> extension</div>
+        <div>2. In terminal:</div>
+        <div style="padding-left:1.2rem;"><span class="cmd">iverilog name.v testbench.v</span></div>
+        <div style="padding-left:1.2rem;"><span class="cmd">vvp a.out</span></div>
+        <div style="padding-left:1.2rem;"><span class="cmd">gtkwave output.vcd</span></div>
+        <div>3. For output:</div>
+        <div style="padding-left:1.2rem;">Click on <span class="cmd">SST</span></div>
+        <div style="padding-left:1.2rem;">Select all the signals</div>
+        <div style="padding-left:1.2rem;">View waveforms</div>
+      </div>
+      <p>100 Days of VLSI · Built with Verilog, Icarus, GTKWave &amp; ☕</p>
+      <p style="margin-top:0.4rem;">
+        <a href="https://jyoshnakarri.github.io/100-days-vlsi/" target="_blank" rel="noopener">Portfolio</a>
+      </p>
+    </footer>
+
+  </div>
+</body>
+</html>
+    <!-- ============================================================ -->
 <!-- FILE 3: days-31-80.html — Days 31–80 index + placeholders   -->
 <!-- ============================================================ -->
 <!DOCTYPE html>
@@ -382,6 +2289,10 @@
         <a href="https://jyoshnakarri.github.io/100-days-vlsi/" target="_blank" rel="noopener">Portfolio</a>
       </p>
     </footer>
+
+  </div>
+</body>
+</html>
 
   </div>
 </body>
