@@ -1905,3 +1905,1978 @@ Result: 0 1 1 0
   </div>
 </body>
 </html>
+<article class="day-card" id="day-2">
+  <div class="day-header">
+    <span class="day-number">Day 2</span>
+    <h2>Boolean Algebra &amp; DeMorgan's Laws</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      <strong>Boolean algebra</strong> is a branch of mathematics that works with only two values — <strong>0</strong> (false) and <strong>1</strong> (true). It defines the rules for combining these values using operators like AND (·), OR (+), and NOT ('). Every digital circuit in existence is an implementation of Boolean algebra.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Learned <strong>9 Boolean laws</strong> and <strong>DeMorgan's two theorems</strong>. Applied them to simplify complex expressions step by step. Golden rule: <em>break the line, change the sign</em>.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> The 9 Boolean Laws</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Law</th><th>AND Form</th><th>OR Form</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Annulment</td><td class="mono">X · 0 = 0</td><td class="mono">X + 1 = 1</td></tr>
+          <tr><td>Identity</td><td class="mono">X · 1 = X</td><td class="mono">X + 0 = X</td></tr>
+          <tr><td>Idempotent</td><td class="mono">X · X = X</td><td class="mono">X + X = X</td></tr>
+          <tr><td>Complement</td><td class="mono">X · X' = 0</td><td class="mono">X + X' = 1</td></tr>
+          <tr><td>Involution</td><td class="mono" colspan="2">(X')' = X</td></tr>
+          <tr><td>Commutative</td><td class="mono">X · Y = Y · X</td><td class="mono">X + Y = Y + X</td></tr>
+          <tr><td>Associative</td><td class="mono">X·(Y·Z) = (X·Y)·Z</td><td class="mono">X+(Y+Z) = (X+Y)+Z</td></tr>
+          <tr><td>Distributive</td><td class="mono">X·(Y+Z) = X·Y + X·Z</td><td class="mono">X + (Y·Z) = (X+Y)·(X+Z)</td></tr>
+          <tr><td>Absorption</td><td class="mono">X·(X+Y) = X</td><td class="mono">X + (X·Y) = X</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> DeMorgan's Theorems</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Theorem</th><th>Equation</th></tr></thead>
+        <tbody>
+          <tr><td>Theorem 1</td><td class="mono">(X · Y)' = X' + Y'</td></tr>
+          <tr><td>Theorem 2</td><td class="mono">(X + Y)' = X' · Y'</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box">
+      <strong>Golden Rule:</strong> Break the line (the NOT bar), change the sign (· becomes +, + becomes ·).
+    </div>
+
+    <div class="section-title"><span class="icon">🔍</span> Worked Example — Simplification</div>
+    <div class="code-block">
+Simplify: (A + B)' + A·B
+
+Step 1: Apply DeMorgan Theorem 2 to (A + B)'
+        → A' · B'
+
+Expression now: A'·B' + A·B
+
+Step 2: This is the canonical XNOR form.
+        Cannot be simplified further using
+        basic laws — it is already minimal.
+
+Final: F = A'·B' + A·B   (= XNOR)
+    </div>
+
+    <div class="example-heading">DeMorgan Application — NAND from OR</div>
+    <div class="code-block">
+Original gate: A NAND B = (A · B)'
+
+Apply DeMorgan Theorem 1:
+   (A · B)' = A' + B'
+
+Result: A NAND B  ==  A' OR B'
+
+So a NAND gate can be built from:
+   • Two inverters (for A' and B')
+   • One OR gate
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog Code</div>
+    <div class="code-block">
+<span class="comment">// Day 2 — Boolean algebra is applied inside every Verilog module.</span>
+<span class="comment">// Example: NAND gate implementing (A·B)'</span>
+
+<span class="keyword">module</span> nand_gate (
+  <span class="keyword">input</span>  a, b,
+  <span class="keyword">output</span> y
+);
+  <span class="keyword">assign</span> y = ~(a &amp; b);   <span class="comment">// DeMorgan: equivalent to ~a | ~b</span>
+<span class="keyword">endmodule</span>
+
+<span class="comment">// Testbench</span>
+<span class="keyword">module</span> nand_gate_tb;
+  <span class="keyword">reg</span> a, b;
+  <span class="keyword">wire</span> y;
+  nand_gate uut (a, b, y);
+  <span class="keyword">initial</span> <span class="keyword">begin</span>
+    $dumpfile(<span class="string">"nand.vcd"</span>); $dumpvars;
+    a=0; b=0; #10;
+    a=0; b=1; #10;
+    a=1; b=0; #10;
+    a=1; b=1; #10;
+    $finish;
+  <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Synthesis tools</strong> (Design Compiler, Yosys) use Boolean laws to minimize gate count and reduce chip area.</li>
+      <li><strong>CMOS NAND/NOR mapping</strong> relies on DeMorgan to translate logic into transistor-level circuits.</li>
+      <li><strong>FSM next-state logic</strong> is simplified with K‑maps and Boolean laws before being written in RTL.</li>
+      <li><strong>Kernel-level optimization</strong> — every time you write <code>assign y = ~a | ~b;</code> you're using DeMorgan in practice.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 2 LinkedIn post — 9 laws, 2 theorems, 15/15 problems.</li>
+    </ul>
+
+  </div>
+</article>
+    <article class="day-card" id="day-3">
+  <div class="day-header">
+    <span class="day-number">Day 3</span>
+    <h2>NAND &amp; NOR as Universal Gates</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      A <strong>universal gate</strong> is a gate that can implement <em>any</em> other logic gate (NOT, AND, OR, XOR, XNOR, etc.) using only copies of itself. The two universal gates are <strong>NAND</strong> and <strong>NOR</strong>.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Built NOT, AND, OR using only NAND. Built NOT, OR, AND using only NOR. Compared CMOS implementations — <strong>NAND is faster than NOR</strong> (electrons vs holes physics). Both consume 4 transistors in CMOS.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Building Gates from NAND</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Gate</th><th>NAND Implementation</th></tr></thead>
+        <tbody>
+          <tr><td>NOT</td><td class="mono">NAND(A, A)</td></tr>
+          <tr><td>AND</td><td class="mono">NAND(NAND(A,B), NAND(A,B))</td></tr>
+          <tr><td>OR</td><td class="mono">NAND(NAND(A,A), NAND(B,B))</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Building Gates from NOR</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Gate</th><th>NOR Implementation</th></tr></thead>
+        <tbody>
+          <tr><td>NOT</td><td class="mono">NOR(A, A)</td></tr>
+          <tr><td>OR</td><td class="mono">NOR(NOR(A,B), NOR(A,B))</td></tr>
+          <tr><td>AND</td><td class="mono">NOR(NOR(A,A), NOR(B,B))</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🔍</span> CMOS Implementation</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Gate</th><th>PMOS</th><th>NMOS</th><th>Transistors</th></tr></thead>
+        <tbody>
+          <tr><td>NAND2</td><td>Parallel</td><td>Series</td><td>4</td></tr>
+          <tr><td>NOR2</td><td>Series</td><td>Parallel</td><td>4</td></tr>
+          <tr><td>AND2</td><td>NAND + Inverter</td><td>—</td><td>6</td></tr>
+          <tr><td>OR2</td><td>NOR + Inverter</td><td>—</td><td>6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box">
+      <strong>Why NAND is faster:</strong> NMOS transistors (which are in series in NOR2) have higher resistance than PMOS. Series NMOS in NOR → slower pull-down. NAND has series NMOS in the pull-down path but parallel PMOS in the pull-up — a better balance. Electrons (NMOS) are ~2–3× more mobile than holes (PMOS), so NAND &gt; NOR.
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Building AND/OR/NOT from NAND</div>
+    <div class="code-block">
+<span class="comment">// NAND primitive</span>
+<span class="keyword">module</span> nand2 (<span class="keyword">input</span> a, b, <span class="keyword">output</span> y);
+  <span class="keyword">assign</span> y = ~(a &amp; b);
+<span class="keyword">endmodule</span>
+
+<span class="comment">// NOT from NAND</span>
+<span class="keyword">module</span> not_from_nand (<span class="keyword">input</span> a, <span class="keyword">output</span> y);
+  nand2 u1 (a, a, y);
+<span class="keyword">endmodule</span>
+
+<span class="comment">// AND from NAND (NAND + inverter)</span>
+<span class="keyword">module</span> and_from_nand (<span class="keyword">input</span> a, b, <span class="keyword">output</span> y);
+  <span class="keyword">wire</span> n;
+  nand2 u1 (a, b, n);
+  nand2 u2 (n, n, y);   <span class="comment">// inverter</span>
+<span class="keyword">endmodule</span>
+
+<span class="comment">// OR from NAND (DeMorgan)</span>
+<span class="keyword">module</span> or_from_nand (<span class="keyword">input</span> a, b, <span class="keyword">output</span> y);
+  <span class="keyword">wire</span> na, nb;
+  nand2 u1 (a, a, na);   <span class="comment">// ~a</span>
+  nand2 u2 (b, b, nb);   <span class="comment">// ~b</span>
+  nand2 u3 (na, nb, y);  <span class="comment">// ~(~a · ~b) = a + b</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>ASIC standard cell libraries</strong> are dominated by NAND and NOR cells because of their density and speed.</li>
+      <li><strong>7400 series ICs</strong> — the quad 2-input NAND was the first mass-produced logic chip, used in Apollo missions and early PCs.</li>
+      <li><strong>NAND flash</strong> — the storage technology inside every SSD, USB drive, and phone is named after its NAND-like charge-trap structure.</li>
+      <li><strong>FPGA lookup tables (LUTs)</strong> are built from small muxes, but the routing fabric is dominated by NAND-like cells.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 3 LinkedIn post — "Why NAND is the King of Digital Design".</li>
+    </ul>
+
+  </div>
+</article>
+    <article class="day-card" id="day-4">
+  <div class="day-header">
+    <span class="day-number">Day 4</span>
+    <h2>Combinational Circuits — Adders, MUX, DEMUX</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      <strong>Combinational circuits</strong> are circuits whose output depends only on the present inputs — no memory, no clock. Adders, multiplexers, and demultiplexers are the building blocks of every datapath.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Learned Half Adder, Full Adder, Ripple Carry Adder, Multiplexers (2:1, 4:1), and Demultiplexers (1:2, 1:4). Understood propagation delay and why RCA is slow for wide bit-widths.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Half Adder</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>A</th><th>B</th><th>Sum (A⊕B)</th><th>Carry (A·B)</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box"><strong>Sum = A ⊕ B</strong> &nbsp;|&nbsp; <strong>Carry = A · B</strong></div>
+
+    <div class="section-title"><span class="icon">🧮</span> Full Adder Truth Table</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>A</th><th>B</th><th>Cin</th><th>Sum</th><th>Cout</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+          <tr><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box">
+      <strong>Sum = A ⊕ B ⊕ Cin</strong><br>
+      <strong>Cout = (A·B) + (Cin·(A⊕B))</strong>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Ripple Carry Adder — Delay</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Width</th><th>Delay (gate delays)</th></tr></thead>
+        <tbody>
+          <tr><td>4-bit RCA</td><td>8</td></tr>
+          <tr><td>8-bit RCA</td><td>16</td></tr>
+          <tr><td>32-bit RCA</td><td>64 (too slow for modern CPUs)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Multiplexers</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Equation</th></tr></thead>
+        <tbody>
+          <tr><td>2:1 MUX</td><td class="mono">Y = S'·I0 + S·I1</td></tr>
+          <tr><td>4:1 MUX</td><td class="mono">Y = S1'·S0'·I0 + S1'·S0·I1 + S1·S0'·I2 + S1·S0·I3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Demultiplexers</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Equations</th></tr></thead>
+        <tbody>
+          <tr><td>1:2 DEMUX</td><td class="mono">Y0 = I·S' &nbsp; | &nbsp; Y1 = I·S</td></tr>
+          <tr><td>1:4 DEMUX</td><td class="mono">Y0 = I·S1'·S0' &nbsp; … &nbsp; Y3 = I·S1·S0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Half Adder &amp; Full Adder</div>
+    <div class="code-block">
+<span class="comment">// half_adder.v</span>
+<span class="keyword">module</span> ha (<span class="keyword">input</span> a, b, <span class="keyword">output</span> sum, carry);
+  <span class="keyword">assign</span> sum   = a ^ b;
+  <span class="keyword">assign</span> carry = a &amp; b;
+<span class="keyword">endmodule</span>
+
+<span class="comment">// fa.v</span>
+<span class="keyword">module</span> fa (<span class="keyword">input</span> a, b, cin,
+              <span class="keyword">output</span> sum, cout);
+  <span class="keyword">assign</span> sum  = a ^ b ^ cin;
+  <span class="keyword">assign</span> cout = (a &amp; b) | (b &amp; cin) | (cin &amp; a);
+<span class="keyword">endmodule</span>
+
+<span class="comment">// 4-bit RCA using a generate loop</span>
+<span class="keyword">module</span> rca4 #(<span class="keyword">parameter</span> N = 4) (
+  <span class="keyword">input</span>  [N-1:0] a, b,
+  <span class="keyword">input</span>          cin,
+  <span class="keyword">output</span> [N-1:0] sum,
+  <span class="keyword">output</span>         cout
+);
+  <span class="keyword">wire</span> [N:0] c;
+  <span class="keyword">assign</span> c[0] = cin;
+  <span class="keyword">generate</span>
+    <span class="keyword">genvar</span> i;
+    <span class="keyword">for</span> (i = 0; i &lt; N; i = i + 1) <span class="keyword">begin</span> : gen_adder
+      fa u_fa (.a(a[i]), .b(b[i]), .cin(c[i]),
+               .sum(sum[i]), .cout(c[i+1]));
+    <span class="keyword">end</span>
+  <span class="keyword">endgenerate</span>
+  <span class="keyword">assign</span> cout = c[N];
+<span class="keyword">endmodule</span>
+
+<span class="comment">// mux4.v</span>
+<span class="keyword">module</span> mux4 (<span class="keyword">input</span> [3:0] in,
+             <span class="keyword">input</span> [1:0] sel,
+             <span class="keyword">output</span> <span class="keyword">reg</span> out);
+  <span class="keyword">always</span> @(*) <span class="keyword">begin</span>
+    <span class="keyword">case</span> (sel)
+      2'b00: out = in[0];
+      2'b01: out = in[1];
+      2'b10: out = in[2];
+      2'b11: out = in[3];
+      <span class="keyword">default</span>: out = 1'bx;
+    <span class="keyword">endcase</span>
+  <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Adders determine CPU speed</strong> — the critical path in an ALU is usually the adder.</li>
+      <li><strong>MUXes reduce routing complexity</strong> — they let one wire carry many signals, selected on demand.</li>
+      <li><strong>DEMUXes enable memory decoding</strong> — 1-to-2^N address decoders are everywhere.</li>
+      <li><strong>Every VLSI interview</strong> tests these circuits — they're the foundation of RTL design.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 4 LinkedIn post — Adders, MUX, DEMUX, applications.</li>
+    </ul>
+
+  </div>
+</article>
+    <article class="day-card" id="day-5">
+  <div class="day-header">
+    <span class="day-number">Day 5</span>
+    <h2>Carry Look‑ahead Adder (CLA)</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      A <strong>Carry Look‑ahead Adder</strong> computes all carry bits in parallel using two signals — <strong>Generate (G)</strong> and <strong>Propagate (P)</strong>. This eliminates the sequential carry chain of a ripple adder, giving constant delay regardless of bit width.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Learned the generate/propagate formulation, derived carry equations for all bits, and compared delay: <strong>CLA = 4 gate delays (constant)</strong> vs <strong>RCA = 2N gate delays</strong>. For 32 bits, CLA is <strong>~16× faster</strong>.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Generate &amp; Propagate</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Signal</th><th>Formula</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>G<sub>i</sub></td><td class="mono">G<sub>i</sub> = A<sub>i</sub> · B<sub>i</sub></td><td>Bit generates a carry internally</td></tr>
+          <tr><td>P<sub>i</sub></td><td class="mono">P<sub>i</sub> = A<sub>i</sub> ⊕ B<sub>i</sub></td><td>Bit passes a carry from below</td></tr>
+          <tr><td>C<sub>i+1</sub></td><td class="mono">C<sub>i+1</sub> = G<sub>i</sub> + P<sub>i</sub>·C<sub>i</sub></td><td>Carry out of bit i</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> 4-bit CLA Carry Equations</div>
+    <div class="code-block">
+C1 = G0 + P0·C0
+C2 = G1 + P1·G0 + P1·P0·C0
+C3 = G2 + P2·G1 + P2·P1·G0 + P2·P1·P0·C0
+C4 = G3 + P3·G2 + P3·P2·G1 + P3·P2·P1·G0 + P3·P2·P1·P0·C0
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Delay Comparison</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Step</th><th>Gate Delays</th></tr></thead>
+        <tbody>
+          <tr><td>Compute P, G</td><td>1</td></tr>
+          <tr><td>Compute all carries</td><td>2</td></tr>
+          <tr><td>Compute sums</td><td>1</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>4 (constant)</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box">
+      <strong>32-bit RCA:</strong> 64 gate delays.<br>
+      <strong>32-bit CLA:</strong> 4 gate delays (hierarchical, with 4-bit blocks).<br>
+      <strong>Speedup:</strong> ~16× faster.
+    </div>
+
+    <div class="section-title"><span class="icon">🔍</span> Trade‑off</div>
+    <div class="info-box">
+      CLA is faster but uses more transistors (area vs speed).<br>
+      Used in <strong>high-performance CPUs</strong> (Intel, AMD, ARM).<br>
+      RCA is still used in <strong>low-power, low-speed</strong> designs (watches, sensors).
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — 4-bit CLA</div>
+    <div class="code-block">
+<span class="keyword">module</span> cla4 (
+  <span class="keyword">input</span>  [3:0] a, b,
+  <span class="keyword">input</span>        cin,
+  <span class="keyword">output</span> [3:0] sum,
+  <span class="keyword">output</span>       cout
+);
+  <span class="keyword">wire</span> [3:0] p, g;
+  <span class="keyword">wire</span> [4:0] c;
+
+  <span class="keyword">assign</span> c[0] = cin;
+  <span class="keyword">assign</span> p = a ^ b;    <span class="comment">// propagate</span>
+  <span class="keyword">assign</span> g = a &amp; b;    <span class="comment">// generate</span>
+
+  <span class="comment">// Parallel carry chain</span>
+  <span class="keyword">assign</span> c[1] = g[0] | (p[0] &amp; c[0]);
+  <span class="keyword">assign</span> c[2] = g[1] | (p[1] &amp; g[0]) | (p[1] &amp; p[0] &amp; c[0]);
+  <span class="keyword">assign</span> c[3] = g[2] | (p[2] &amp; g[1]) | (p[2] &amp; p[1] &amp; g[0])
+                | (p[2] &amp; p[1] &amp; p[0] &amp; c[0]);
+  <span class="keyword">assign</span> c[4] = g[3] | (p[3] &amp; g[2]) | (p[3] &amp; p[2] &amp; g[1])
+                | (p[3] &amp; p[2] &amp; p[1] &amp; g[0])
+                | (p[3] &amp; p[2] &amp; p[1] &amp; p[0] &amp; c[0]);
+
+  <span class="keyword">assign</span> sum  = p ^ c[3:0];
+  <span class="keyword">assign</span> cout = c[4];
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>ALUs in every modern processor</strong> — CLA or CLA-derived adders sit inside.</li>
+      <li><strong>DSP multiply-accumulate units</strong> — the adder tree uses parallel-prefix adders derived from CLA.</li>
+      <li><strong>GPU arithmetic units</strong> — high-throughput pipelines rely on short adder delays.</li>
+      <li><strong>High-speed crypto accelerators</strong> — modular arithmetic needs constant-delay adders.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 5 LinkedIn post — CLA: G/P, 4-bit carries, delay comparison, trade-offs.</li>
+    </ul>
+
+  </div>
+</article>
+    
+   <article class="day-card" id="day-6">
+  <div class="day-header">
+    <span class="day-number">Day 6</span>
+    <h2>Latches &amp; Flip‑Flops — The Memory Cells of Digital Design</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      A <strong>latch</strong> is a level-sensitive bistable circuit — its output follows the input while enabled, and holds the last value when disabled.<br>
+      A <strong>flip-flop</strong> is edge-triggered — it samples its input only on a clock edge (rising or falling).
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Learned the 4 core principles: <strong>bistability</strong>, <strong>level vs edge sensitivity</strong>, <strong>characteristic &amp; excitation tables</strong>, and <strong>timing parameters</strong> (setup, hold, propagation delay, metastability).
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> The 4 Foundational Pillars</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Principle</th><th>Explanation</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Bistability</td><td>Cross-coupled gates create positive feedback; two stable states (0, 1).</td></tr>
+          <tr><td>2</td><td>Level vs Edge</td><td>Latches are transparent when enabled. Flip-flops sample only on clock edge.</td></tr>
+          <tr><td>3</td><td>Characteristic &amp; Excitation</td><td>Define Q(t+1) from Q(t) and inputs (and the inverse).</td></tr>
+          <tr><td>4</td><td>Timing Parameters</td><td>Setup, hold, propagation delay. Violations → metastability.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> D Latch vs D Flip‑Flop</div>
+    <div class="code-block">
+D Latch (level-sensitive)
+  Enable = 1  → Q follows D (transparent)
+  Enable = 0  → Q holds last value
+
+D Flip-Flop (edge-triggered)
+  Rising clock edge (↑) → Q = D
+  Otherwise            → Q unchanged
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — D Flip‑Flop with Async Reset</div>
+    <div class="code-block">
+<span class="keyword">module</span> dff (
+  <span class="keyword">input</span>  clk, rst, d,
+  <span class="keyword">output</span> <span class="keyword">reg</span> q
+);
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) q &lt;= 1'b0;
+    <span class="keyword">else</span>     q &lt;= d;
+<span class="keyword">endmodule</span>
+
+<span class="comment">// Testbench</span>
+<span class="keyword">module</span> dff_tb;
+  <span class="keyword">reg</span> clk, rst, d;
+  <span class="keyword">wire</span> q;
+  dff uut (clk, rst, d, q);
+  <span class="keyword">always</span> #5 clk = ~clk;
+  <span class="keyword">initial</span> <span class="keyword">begin</span>
+    $dumpfile(<span class="string">"dff.vcd"</span>); $dumpvars;
+    clk=0; rst=1; d=0; #10;
+    rst=0; d=1; #10;
+    d=0; #10;
+    d=1; #10;
+    $finish;
+  <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Registers</strong> — multiple D-FFs sharing a common clock (e.g., 8-bit register in a CPU).</li>
+      <li><strong>Counters</strong> — ripple counters (T-FFs), synchronous up/down counters.</li>
+      <li><strong>Frequency dividers</strong> — a T-FF toggles each clock cycle, dividing frequency by 2.</li>
+      <li><strong>State machines</strong> — traffic light controllers, sequence detectors.</li>
+      <li><strong>Memory arrays</strong> — SRAM uses cross-coupled inverters (similar to latches) as bit cells.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 6 LinkedIn post — Latches &amp; Flip-Flops definitions, core principles, real-world uses.</li>
+    </ul>
+
+  </div>
+</article>
+  <article class="day-card" id="day-7">
+  <div class="day-header">
+    <span class="day-number">Day 7</span>
+    <h2>JK, T, D Flip‑Flops — The 3 Faces of Memory</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      Three fundamental flip-flop types, each with a distinct characteristic equation: <strong>JK</strong> (universal), <strong>T</strong> (toggle), <strong>D</strong> (data). Together they cover every sequential design need.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      JK eliminates the invalid state of SR and adds a toggle mode. T divides clock frequency by 2. D is the simplest and most reliable storage element — the backbone of every register.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> JK Flip‑Flop — Characteristic Table</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>J</th><th>K</th><th>Q(t)</th><th>Q(t+1)</th><th>Operation</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>Hold</td></tr>
+          <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>Hold</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>Reset</td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>0</td><td>Reset</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>Set</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>1</td><td>Set</td></tr>
+          <tr><td>1</td><td>1</td><td>0</td><td>1</td><td>Toggle</td></tr>
+          <tr><td>1</td><td>1</td><td>1</td><td>0</td><td>Toggle</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box"><strong>Characteristic equation:</strong> Q(t+1) = J · Q'(t) + K' · Q(t)</div>
+
+    <div class="section-title"><span class="icon">🧮</span> T Flip‑Flop — Characteristic Table</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>T</th><th>Q(t)</th><th>Q(t+1)</th><th>Operation</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>Hold</td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>Hold</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>Toggle</td></tr>
+          <tr><td>1</td><td>1</td><td>0</td><td>Toggle</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box"><strong>Characteristic equation:</strong> Q(t+1) = T ⊕ Q(t)</div>
+
+    <div class="section-title"><span class="icon">🧮</span> D Flip‑Flop — Characteristic Table</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>D</th><th>Q(t+1)</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box"><strong>Characteristic equation:</strong> Q(t+1) = D</div>
+
+    <div class="section-title"><span class="icon">🧮</span> Excitation Tables</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Q(t) → Q(t+1)</th><th>J</th><th>K</th><th>T</th><th>D</th></tr></thead>
+        <tbody>
+          <tr><td>0 → 0</td><td>0</td><td>X</td><td>0</td><td>0</td></tr>
+          <tr><td>0 → 1</td><td>1</td><td>X</td><td>1</td><td>1</td></tr>
+          <tr><td>1 → 0</td><td>X</td><td>1</td><td>1</td><td>0</td></tr>
+          <tr><td>1 → 1</td><td>X</td><td>0</td><td>0</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — All Three</div>
+    <div class="code-block">
+<span class="comment">// JK flip-flop</span>
+<span class="keyword">module</span> jk_ff (
+  <span class="keyword">input</span> clk, rst, j, k,
+  <span class="keyword">output</span> <span class="keyword">reg</span> q
+);
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) q &lt;= 0;
+    <span class="keyword">else</span> <span class="keyword">case</span> ({j,k})
+      2'b00: q &lt;= q;
+      2'b01: q &lt;= 0;
+      2'b10: q &lt;= 1;
+      2'b11: q &lt;= ~q;
+    <span class="keyword">endcase</span>
+<span class="keyword">endmodule</span>
+
+<span class="comment">// T flip-flop</span>
+<span class="keyword">module</span> t_ff (
+  <span class="keyword">input</span> clk, rst, t,
+  <span class="keyword">output</span> <span class="keyword">reg</span> q
+);
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) q &lt;= 0;
+    <span class="keyword">else</span> <span class="keyword">if</span> (t) q &lt;= ~q;
+<span class="keyword">endmodule</span>
+
+<span class="comment">// D flip-flop</span>
+<span class="keyword">module</span> d_ff (
+  <span class="keyword">input</span> clk, rst, d,
+  <span class="keyword">output</span> <span class="keyword">reg</span> q
+);
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) q &lt;= 0;
+    <span class="keyword">else</span>     q &lt;= d;
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>JK:</strong> frequency dividers, state machines, counters.</li>
+      <li><strong>T:</strong> clock dividers (÷2, ÷4, ÷8), ripple counters, binary counters.</li>
+      <li><strong>D:</strong> registers, shift registers, pipeline stages, data synchronizers.</li>
+      <li><strong>ICs:</strong> 74LS73 (dual JK), 74LS74 (dual D), CD4027 (CMOS dual JK).</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 7 LinkedIn post — JK, T, D flip-flops.</li>
+    </ul>
+
+  </div>
+</article>
+<article class="day-card" id="day-8">
+  <div class="day-header">
+    <span class="day-number">Day 8</span>
+    <h2>Registers &amp; Shift Registers</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      A <strong>register</strong> is a group of D flip-flops sharing a common clock — used to store multi-bit data.<br>
+      A <strong>shift register</strong> is a cascade of flip-flops where each output feeds the next input — data moves one bit per clock.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Parallel registers store N bits. Shift registers come in four flavours: SISO, SIPO, PISO, PIPO. Ripple counters use T-FFs in cascade to divide frequency.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Shift Register Types</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Name</th><th>Typical Use</th></tr></thead>
+        <tbody>
+          <tr><td>SISO</td><td>Serial In – Serial Out</td><td>Delay line, LFSR</td></tr>
+          <tr><td>SIPO</td><td>Serial In – Parallel Out</td><td>Receive serial (SPI sensor)</td></tr>
+          <tr><td>PISO</td><td>Parallel In – Serial Out</td><td>Transmit serial (74HC165)</td></tr>
+          <tr><td>PIPO</td><td>Parallel In – Parallel Out</td><td>Simple storage</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Ripple Counter — Truth Table</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Clock</th><th>Q1</th><th>Q0</th><th>Count</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>2</td><td>1</td><td>0</td><td>2</td></tr>
+          <tr><td>3</td><td>1</td><td>1</td><td>3</td></tr>
+          <tr><td>4</td><td>0</td><td>0</td><td>0 (rollover)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — 4‑bit Register &amp; SIPO Shift Register</div>
+    <div class="code-block">
+<span class="comment">// reg4.v — parallel register</span>
+<span class="keyword">module</span> reg4 (
+  <span class="keyword">input</span> clk, rst, en,
+  <span class="keyword">input</span> [3:0] d,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [3:0] q
+);
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk)
+    <span class="keyword">if</span> (rst) q &lt;= 0;
+    <span class="keyword">else</span> <span class="keyword">if</span> (en) q &lt;= d;
+<span class="keyword">endmodule</span>
+
+<span class="comment">// sipo_left.v — serial in, parallel out</span>
+<span class="keyword">module</span> sipo_left (
+  <span class="keyword">input</span> clk, rst, sin,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [3:0] q
+);
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) q &lt;= 4'b0000;
+    <span class="keyword">else</span>     q &lt;= {q[2:0], sin};
+<span class="keyword">endmodule</span>
+
+<span class="comment">// piso_right.v — parallel in, serial out</span>
+<span class="keyword">module</span> piso_right (
+  <span class="keyword">input</span> clk, rst, load,
+  <span class="keyword">input</span> [3:0] d,
+  <span class="keyword">output</span> <span class="keyword">reg</span> sout
+);
+  <span class="keyword">reg</span> [3:0] temp;
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) temp &lt;= 0;
+    <span class="keyword">else</span> <span class="keyword">if</span> (load) temp &lt;= d;
+    <span class="keyword">else</span> <span class="keyword">begin</span>
+      sout &lt;= temp[0];
+      temp &lt;= {1'b0, temp[3:1]};
+    <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>SPI communication</strong> — shift registers are the heart of every SPI Tx/Rx.</li>
+      <li><strong>LED drivers</strong> — 74HC595 chains many LEDs from 3 MCU pins.</li>
+      <li><strong>Digital clocks</strong> — ripple counters divide the crystal oscillator down to 1 Hz.</li>
+      <li><strong>Button scanners</strong> — 74HC165 reads many switches serially.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 8 LinkedIn post — registers, shift registers, ripple counters.</li>
+    </ul>
+
+  </div>
+</article>
+
+  <article class="day-card" id="day-9">
+  <div class="day-header">
+    <span class="day-number">Day 9</span>
+    <h2>Synchronous Counters &amp; Finite State Machines</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      A <strong>synchronous counter</strong> clocks all flip-flops simultaneously using combinational logic to determine toggle conditions.<br>
+      An <strong>FSM</strong> (Finite State Machine) is a sequential circuit with a finite set of states, transitions, and outputs.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Learned synchronous counter toggle equations, Mod-N counter design, Ring and Johnson counters, Mealy vs Moore FSM, self-starting counters, and state reduction.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> 4‑bit Synchronous Up Counter — Toggle Equations</div>
+    <div class="code-block">
+T0 = 1
+T1 = Q0
+T2 = Q1 · Q0
+T3 = Q2 · Q1 · Q0
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Ring vs Johnson Counter</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Counter</th><th>States</th><th>Example (4-bit)</th></tr></thead>
+        <tbody>
+          <tr><td>Ring</td><td>N</td><td>1000 → 0100 → 0010 → 0001 → repeat</td></tr>
+          <tr><td>Johnson</td><td>2N</td><td>0000 → 1000 → 1100 → 1110 → 1111 → 0111 → 0011 → 0001 → repeat</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Mealy vs Moore FSM</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Feature</th><th>Mealy</th><th>Moore</th></tr></thead>
+        <tbody>
+          <tr><td>Output depends on</td><td>State + input</td><td>State only</td></tr>
+          <tr><td>Speed</td><td>Faster</td><td>Slower</td></tr>
+          <tr><td>Number of states</td><td>Usually fewer</td><td>Usually more</td></tr>
+          <tr><td>Example</td><td>UART receiver, sequence detector</td><td>Traffic light controller</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Mod‑10 Counter</div>
+    <div class="code-block">
+<span class="keyword">module</span> mod10 (
+  <span class="keyword">input</span> clk, rst, en,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [3:0] cnt
+);
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk)
+    <span class="keyword">if</span> (rst) cnt &lt;= 0;
+    <span class="keyword">else</span> <span class="keyword">if</span> (en) <span class="keyword">begin</span>
+      <span class="keyword">if</span> (cnt == 4'b1001) cnt &lt;= 0;
+      <span class="keyword">else</span> cnt &lt;= cnt + 1;
+    <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Synchronous counters:</strong> digital clocks, event counters, frequency meters, PC program counters.</li>
+      <li><strong>Ring / Johnson:</strong> address decoding, LED chasers, bus arbitration.</li>
+      <li><strong>Self-starting counters:</strong> safety-critical systems where lock-up is unacceptable.</li>
+      <li><strong>FSMs:</strong> UART, SPI, traffic light controllers, vending machines, encryption engines.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 9 LinkedIn post — synchronous counters, FSM, sequence detector.</li>
+    </ul>
+
+  </div>
+</article>
+<article class="day-card" id="day-10">
+  <div class="day-header">
+    <span class="day-number">Day 10</span>
+    <h2>Finite State Machines &amp; Memory Basics</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      An <strong>FSM</strong> is a sequential circuit that transitions between finite states based on inputs. <strong>Memory</strong> refers to any circuit that retains data across time — ROM, SRAM, and DRAM are the three primary types.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Compared Mealy vs Moore FSMs. Learned the three memory technologies (ROM, SRAM, DRAM) and their trade-offs. Understood state encoding schemes: binary, Gray, one-hot.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Memory Comparison</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Cell</th><th>Volatile?</th><th>Speed</th><th>Density</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>ROM (Flash, EEPROM)</td><td>Floating gate</td><td>No</td><td>Slow</td><td>High</td><td>Firmware, boot code</td></tr>
+          <tr><td>SRAM</td><td>6 transistors</td><td>Yes</td><td>Fast</td><td>Low</td><td>CPU cache</td></tr>
+          <tr><td>DRAM</td><td>1T + 1C</td><td>Yes</td><td>Slower</td><td>High</td><td>Main memory</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> State Encoding Techniques</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Method</th><th>Flip‑Flops</th><th>Advantages</th><th>Disadvantages</th></tr></thead>
+        <tbody>
+          <tr><td>Binary</td><td>log₂ N</td><td>Fewest FFs</td><td>More combinational logic</td></tr>
+          <tr><td>Gray</td><td>log₂ N</td><td>Glitch-free transitions</td><td>Not always minimal logic</td></tr>
+          <tr><td>One-hot</td><td>N</td><td>Fast, simple logic</td><td>Many flip-flops</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box">
+      Trade-off: <strong>One-hot</strong> is preferred in FPGAs (plenty of FFs). <strong>Binary / Gray</strong> used in ASICs (area constrained).
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Timing Parameters</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Parameter</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>T<sub>su</sub> — Setup time</td><td>Data stable before the clock edge</td></tr>
+          <tr><td>T<sub>h</sub> — Hold time</td><td>Data stable after the clock edge</td></tr>
+          <tr><td>T<sub>cq</sub> — Propagation delay</td><td>Clock edge → output change</td></tr>
+          <tr><td>Clock skew</td><td>Difference in clock arrival time</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box">
+      Violating setup/hold → <strong>metastability</strong> → unpredictable outputs → system crash.
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Traffic Light (Moore FSM)</div>
+    <div class="code-block">
+<span class="keyword">module</span> traffic_light (
+  <span class="keyword">input</span> clk, rst,
+  <span class="keyword">output</span> <span class="keyword">reg</span> red, yellow, green
+);
+  <span class="keyword">localparam</span> S_RED        = 2'b00,
+             S_RED_YELLOW = 2'b01,
+             S_GREEN      = 2'b10,
+             S_YELLOW     = 2'b11;
+  <span class="keyword">reg</span> [1:0] state, next_state;
+
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) state &lt;= S_RED;
+    <span class="keyword">else</span>     state &lt;= next_state;
+
+  <span class="keyword">always</span> @(*) <span class="keyword">begin</span>
+    <span class="keyword">case</span> (state)
+      S_RED:        next_state = S_RED_YELLOW;
+      S_RED_YELLOW: next_state = S_GREEN;
+      S_GREEN:      next_state = S_YELLOW;
+      S_YELLOW:     next_state = S_RED;
+      <span class="keyword">default</span>:      next_state = S_RED;
+    <span class="keyword">endcase</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">always</span> @(*) <span class="keyword">begin</span>
+    {red, yellow, green} = 3'b000;
+    <span class="keyword">case</span> (state)
+      S_RED:        red = 1;
+      S_RED_YELLOW: <span class="keyword">begin</span> red = 1; yellow = 1; <span class="keyword">end</span>
+      S_GREEN:      green = 1;
+      S_YELLOW:     yellow = 1;
+    <span class="keyword">endcase</span>
+  <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>ROM:</strong> boot code, firmware, lookup tables (sine/cosine).</li>
+      <li><strong>SRAM:</strong> CPU L1/L2/L3 cache — very fast but low density.</li>
+      <li><strong>DRAM:</strong> main memory — high density but needs periodic refresh.</li>
+      <li><strong>FSM (Moore):</strong> traffic lights, vending machines, elevators, microwave timers.</li>
+      <li><strong>FSM (Mealy):</strong> UART receivers, pattern detectors, encryption engines.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 10 LinkedIn post — FSM, memory basics, state encoding, timing parameters.</li>
+    </ul>
+
+  </div>
+</article>
+<article class="day-card" id="day-11">
+  <div class="day-header">
+    <span class="day-number">Day 11</span>
+    <h2>Verilog Fundamentals — 15 Essential Topics</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      <strong>Verilog</strong> is a Hardware Description Language (HDL) — you write code that describes <em>hardware</em>, not software. There is no sequential execution; instead, everything happens in parallel like real gates and wires. Simulation verifies behaviour; synthesis converts code into gates.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Learned 15 essentials: module/ports, wire vs reg, continuous assign, always blocks, blocking vs non-blocking, if/case, parameters, generate, hierarchical instantiation, arrays/memories, tasks/functions, testbenches, system tasks, synthesis vs simulation, and FSM coding styles.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Module &amp; Port Declaration</div>
+    <div class="code-block">
+<span class="keyword">module</span> half_adder (
+  <span class="keyword">input</span>  a, b,
+  <span class="keyword">output</span> sum, carry
+);
+  <span class="keyword">assign</span> sum   = a ^ b;
+  <span class="keyword">assign</span> carry = a &amp; b;
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> wire vs reg</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Behaviour</th><th>Used In</th></tr></thead>
+        <tbody>
+          <tr><td>wire</td><td>Continuous (combinational), always active</td><td>assign statements, module interconnects</td></tr>
+          <tr><td>reg</td><td>Can hold state; assigned inside always</td><td>Sequential or combinational always blocks</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Blocking vs Non‑blocking</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Operator</th><th>Name</th><th>Rule</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">=</td><td>Blocking</td><td>Use in combinational <code>always @(*)</code></td></tr>
+          <tr><td class="mono">&lt;=</td><td>Non‑blocking</td><td>Use in sequential <code>always @(posedge clk)</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-box">
+      ⚠️ <strong>Never mix = and &lt;= for the same variable in the same block</strong> — mixing creates race conditions.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Synthesizable vs Non‑synthesizable</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Construct</th><th>Synthesizable</th></tr></thead>
+        <tbody>
+          <tr><td>module, input, output, wire, reg</td><td>✅</td></tr>
+          <tr><td>assign, always @(posedge), always @(*)</td><td>✅</td></tr>
+          <tr><td>if, else, case, casez</td><td>✅</td></tr>
+          <tr><td>for loop with constant bounds</td><td>✅</td></tr>
+          <tr><td>initial, #delay, while, repeat(variable)</td><td>❌</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Two‑always FSM Style</div>
+    <div class="code-block">
+<span class="comment">// State register (sequential)</span>
+<span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+  <span class="keyword">if</span> (rst) state &lt;= S0;
+  <span class="keyword">else</span>     state &lt;= next_state;
+
+<span class="comment">// Next-state + output (combinational)</span>
+<span class="keyword">always</span> @(*) <span class="keyword">begin</span>
+  next_state = state;
+  out = 0;
+  <span class="keyword">case</span> (state)
+    S0: <span class="keyword">if</span> (in) next_state = S1;
+    S1: <span class="keyword">if</span> (in) next_state = S2;
+    S2: <span class="keyword">begin</span>
+      <span class="keyword">if</span> (in) next_state = S1;
+      out = 1;
+    <span class="keyword">end</span>
+  <span class="keyword">endcase</span>
+<span class="keyword">end</span>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Testbench Basics</div>
+    <div class="code-block">
+<span class="keyword">module</span> tb;
+  <span class="keyword">reg</span> clk, rst;
+  <span class="keyword">wire</span> out;
+  dut uut (clk, rst, out);
+  <span class="keyword">always</span> #5 clk = ~clk;
+  <span class="keyword">initial</span> <span class="keyword">begin</span>
+    $dumpfile(<span class="string">"dump.vcd"</span>);
+    $dumpvars;
+    rst = 1; #10; rst = 0;
+    <span class="comment">// stimulus</span>
+    $finish;
+  <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Every modern chip</strong> (CPU, GPU, ASIC, FPGA) is described in Verilog or VHDL.</li>
+      <li><strong>Half adder → Full adder → ALU</strong> — the core of every processor.</li>
+      <li><strong>D flip-flop → 4-bit register → register file</strong> — the backbone of datapath storage.</li>
+      <li><strong>101 sequence detector (Mealy)</strong> — UART start-bit detection, packet framing.</li>
+      <li><strong>Two-always-block FSM</strong> — the industry standard for control logic.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 11 LinkedIn post — Verilog fundamentals, 15 essential topics.</li>
+    </ul>
+
+  </div>
+</article>
+
+    <article class="day-card" id="day-12">
+  <div class="day-header">
+    <span class="day-number">Day 12</span>
+    <h2>Metastability &amp; Clock Domain Crossing (CDC)</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      <strong>Metastability</strong> occurs when a flip-flop's input changes too close to the clock edge (violating setup/hold). The output hovers between 0 and 1 for an unpredictable time before settling. <strong>CDC</strong> is the technique of safely transferring data between two different clock domains.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Learned the 2-FF synchroniser, 3-FF high-reliability variant, pulse synchronisers, Gray-code FIFO pointers, and handshake protocol. Understood MTBF and why metastability is the #1 cause of silicon bugs.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> CDC Techniques</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Technique</th><th>Use Case</th><th>Advantage</th><th>Disadvantage</th></tr></thead>
+        <tbody>
+          <tr><td>2‑FF synchroniser</td><td>Single control signals</td><td>Simple, low latency</td><td>Cannot guarantee multi-bit</td></tr>
+          <tr><td>Handshake (req/ack)</td><td>Slow control, multi-bit</td><td>Reliable, lossless</td><td>High latency</td></tr>
+          <tr><td>FIFO</td><td>Multi-bit data streams</td><td>Lossless, high throughput</td><td>Larger area</td></tr>
+          <tr><td>Gray code counter</td><td>FIFO pointers</td><td>Glitch-free</td><td>Only for incrementing values</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Synchroniser Types</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Use</th><th>Latency</th></tr></thead>
+        <tbody>
+          <tr><td>2‑FF</td><td>Standard for control signals</td><td>2 clock cycles</td></tr>
+          <tr><td>3‑FF</td><td>Automotive, medical (high MTBF)</td><td>3 clock cycles</td></tr>
+          <tr><td>Pulse</td><td>Narrow pulse transfer (fast → slow)</td><td>Variable</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — 2‑FF Synchroniser</div>
+    <div class="code-block">
+<span class="keyword">module</span> cdc_sync (
+  <span class="keyword">input</span>  clk_dest, rst,
+  <span class="keyword">input</span>  async_signal,
+  <span class="keyword">output</span> <span class="keyword">reg</span> sync_signal
+);
+  <span class="keyword">reg</span> meta;
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk_dest <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) {meta, sync_signal} &lt;= 2'b00;
+    <span class="keyword">else</span>     {meta, sync_signal} &lt;= {async_signal, meta};
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Reset synchronisers</strong> — safe release of async reset to avoid metastability.</li>
+      <li><strong>Interrupt crossing</strong> — a signal from a slow peripheral to a fast CPU.</li>
+      <li><strong>Multi-clock SoCs</strong> — CPU @ 2 GHz, bus @ 500 MHz, I²C @ 100 kHz, USB @ 480 MHz all interact via CDC.</li>
+      <li><strong>Improper CDC is the #1 cause of functional bugs in silicon</strong> — respins cost millions.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 12 LinkedIn post — metastability, CDC, MTBF, Gray code, handshake.</li>
+    </ul>
+
+  </div>
+</article>
+
+    <article class="day-card" id="day-13">
+  <div class="day-header">
+    <span class="day-number">Day 13</span>
+    <h2>Verilog — From Half Adder to 8‑bit ALU</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      A practical day: wrote, simulated, and verified <strong>12 synthesizable Verilog modules</strong> — each with a self-checking testbench and waveform dump.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Built half adder, full adder, 4:1 mux, 2-to-4 decoder, D flip-flop, 4-bit register, SIPO, PISO, up counter, up/down counter, mod-10 counter, 8-bit ALU, and 101 Mealy sequence detector. Applied 10 synthesizable coding rules.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Modules Built</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Module</th><th>Key Feature</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Half adder</td><td>Dataflow using assign</td></tr>
+          <tr><td>2</td><td>Full adder (structural)</td><td>Hierarchical instantiation</td></tr>
+          <tr><td>3</td><td>4:1 multiplexer</td><td>case statement</td></tr>
+          <tr><td>4</td><td>2-to-4 decoder</td><td>case with default</td></tr>
+          <tr><td>5</td><td>D flip-flop (async reset)</td><td>Non-blocking assignment</td></tr>
+          <tr><td>6</td><td>4-bit register</td><td>Parameterised width</td></tr>
+          <tr><td>7</td><td>SIPO shift register</td><td>Shift operator</td></tr>
+          <tr><td>8</td><td>PISO shift register</td><td>State machine inside</td></tr>
+          <tr><td>9</td><td>4-bit up counter</td><td>Count &lt;= count + 1</td></tr>
+          <tr><td>10</td><td>4-bit up/down counter</td><td>Conditional addition</td></tr>
+          <tr><td>11</td><td>Mod‑10 counter</td><td>Reset at value 10</td></tr>
+          <tr><td>12</td><td>8-bit ALU</td><td>Case with 7 operations</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — 8‑bit ALU</div>
+    <div class="code-block">
+<span class="keyword">module</span> alu8 (
+  <span class="keyword">input</span>  [7:0] a, b,
+  <span class="keyword">input</span>  [2:0] op,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [7:0] y
+);
+  <span class="keyword">always</span> @(*) <span class="keyword">begin</span>
+    <span class="keyword">case</span> (op)
+      3'b000: y = a + b;
+      3'b001: y = a - b;
+      3'b010: y = a &amp; b;
+      3'b011: y = a | b;
+      3'b100: y = a ^ b;
+      3'b101: y = a &lt;&lt; 1;
+      3'b110: y = a &gt;&gt; 1;
+      <span class="keyword">default</span>: y = 8'b0;
+    <span class="keyword">endcase</span>
+  <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> 10 Synthesizable Coding Rules</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Rule</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Use <code>always @(posedge clk or posedge rst)</code> for sequential</td></tr>
+          <tr><td>2</td><td>Use <code>always @(*)</code> for combinational</td></tr>
+          <tr><td>3</td><td>Use non-blocking (&lt;=) for sequential</td></tr>
+          <tr><td>4</td><td>Use blocking (=) for combinational</td></tr>
+          <tr><td>5</td><td>Never mix = and &lt;= for the same variable</td></tr>
+          <tr><td>6</td><td>Avoid <code>initial</code> in RTL</td></tr>
+          <tr><td>7</td><td>Avoid <code>#delay</code> in RTL</td></tr>
+          <tr><td>8</td><td>Loops must have constant bounds</td></tr>
+          <tr><td>9</td><td>Complete if/case — no inferred latches</td></tr>
+          <tr><td>10</td><td>Register outputs of large combinational blocks</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Industry standard</strong> — every ASIC/FPGA job interview tests these basics.</li>
+      <li><strong>ALU as the core</strong> — every CPU, GPU, and DSP has one.</li>
+      <li><strong>Testbench as proof</strong> — writing code + testbenches builds real confidence.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 13 LinkedIn post — 12 modules, testbenches, 10 synthesizable coding rules.</li>
+    </ul>
+
+  </div>
+</article>
+
+   <article class="day-card" id="day-14">
+  <div class="day-header">
+    <span class="day-number">Day 14</span>
+    <h2>Parameters, Generate Loops &amp; Synchronous FIFO</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      Three concepts that separate beginner from professional RTL: <strong>parameters</strong> (make modules reusable), <strong>generate loops</strong> (create repetitive logic automatically), and the <strong>synchronous FIFO</strong> (a classic buffer with read/write pointers and full/empty flags).
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Parameters let you change width without rewriting. Generate loops automate regular structures (adders, decoders, memory arrays). FIFO is a first-in-first-out buffer with proper pointer management and flags.
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Parameterised 2:1 MUX</div>
+    <div class="code-block">
+<span class="keyword">module</span> mux2_param #(<span class="keyword">parameter</span> WIDTH = 8) (
+  <span class="keyword">input</span>  [WIDTH-1:0] a, b,
+  <span class="keyword">input</span>              sel,
+  <span class="keyword">output</span> [WIDTH-1:0] y
+);
+  <span class="keyword">assign</span> y = sel ? b : a;
+<span class="keyword">endmodule</span>
+
+<span class="comment">// Instantiate with different widths:</span>
+mux2_param #(.WIDTH(4))  mux4  (a4,  b4,  sel, y4);
+mux2_param #(.WIDTH(16)) mux16 (a16, b16, sel, y16);
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — 4‑bit RCA via Generate</div>
+    <div class="code-block">
+<span class="keyword">module</span> rca4_generate #(<span class="keyword">parameter</span> N = 4) (
+  <span class="keyword">input</span>  [N-1:0] a, b,
+  <span class="keyword">input</span>          cin,
+  <span class="keyword">output</span> [N-1:0] sum,
+  <span class="keyword">output</span>         cout
+);
+  <span class="keyword">wire</span> [N:0] c;
+  <span class="keyword">assign</span> c[0] = cin;
+  <span class="keyword">generate</span>
+    <span class="keyword">genvar</span> i;
+    <span class="keyword">for</span> (i = 0; i &lt; N; i = i + 1) <span class="keyword">begin</span> : gen_adder
+      full_adder fa (
+        .a(a[i]), .b(b[i]), .cin(c[i]),
+        .sum(sum[i]), .cout(c[i+1])
+      );
+    <span class="keyword">end</span>
+  <span class="keyword">endgenerate</span>
+  <span class="keyword">assign</span> cout = c[N];
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Synchronous FIFO</div>
+    <div class="code-block">
+<span class="keyword">module</span> fifo_sync #(<span class="keyword">parameter</span> DEPTH = 8, WIDTH = 8) (
+  <span class="keyword">input</span>  clk, rst,
+  <span class="keyword">input</span>  wr_en, rd_en,
+  <span class="keyword">input</span>  [WIDTH-1:0] din,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [WIDTH-1:0] dout,
+  <span class="keyword">output</span> full, empty
+);
+  <span class="keyword">reg</span> [WIDTH-1:0] mem [0:DEPTH-1];
+  <span class="keyword">reg</span> [$clog2(DEPTH)-1:0] wr_ptr, rd_ptr;
+  <span class="keyword">reg</span> [$clog2(DEPTH):0]   count;
+
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) <span class="keyword">begin</span>
+      wr_ptr &lt;= 0; rd_ptr &lt;= 0; count &lt;= 0;
+    <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span>
+      <span class="keyword">if</span> (wr_en &amp;&amp; !full) <span class="keyword">begin</span>
+        mem[wr_ptr] &lt;= din;
+        wr_ptr &lt;= wr_ptr + 1;
+        count  &lt;= count + 1;
+      <span class="keyword">end</span>
+      <span class="keyword">if</span> (rd_en &amp;&amp; !empty) <span class="keyword">begin</span>
+        dout   &lt;= mem[rd_ptr];
+        rd_ptr &lt;= rd_ptr + 1;
+        count  &lt;= count - 1;
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+  <span class="keyword">assign</span> full  = (count == DEPTH);
+  <span class="keyword">assign</span> empty = (count == 0);
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Parameters:</strong> parameterised FIFOs, bus widths, memory depth — all reused across projects.</li>
+      <li><strong>Generate loops:</strong> ripple-carry adders, memory arrays, bus repeaters — anywhere there's regularity.</li>
+      <li><strong>FIFOs:</strong> data buffering between pipeline stages, network packet storage, elastic buffers.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 14 LinkedIn post — parameters, generate, sync FIFO.</li>
+    </ul>
+
+  </div>
+</article>
+<article class="day-card" id="day-15">
+  <div class="day-header">
+    <span class="day-number">Day 15</span>
+    <h2>9 Advanced RTL Modules</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      Nine synthesizable building blocks that appear in almost every digital design — from simple timers to complex FIFOs, from clock dividers to LFSRs.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> The Nine Modules</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Module</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Clock Divider</td><td>Even division → slower clock from fast clock</td></tr>
+          <tr><td>2</td><td>Edge Detector</td><td>Produce 1-cycle pulse on rising/falling edge</td></tr>
+          <tr><td>3</td><td>Parameterized Sync FIFO</td><td>Configurable buffer with full/empty flags</td></tr>
+          <tr><td>4</td><td>Reset Synchronizer</td><td>Convert async reset to safe sync release</td></tr>
+          <tr><td>5</td><td>Gray Code Counter</td><td>One bit changes per count — glitch-free</td></tr>
+          <tr><td>6</td><td>LFSR (4-bit)</td><td>Pseudo-random sequence generator</td></tr>
+          <tr><td>7</td><td>BCD Counter</td><td>0–9 decimal counter with carry</td></tr>
+          <tr><td>8</td><td>Johnson Counter</td><td>2N-state twisted ring counter</td></tr>
+          <tr><td>9</td><td>Barrel Shifter</td><td>Single-cycle rotate left/right</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Clock Divider, Edge Detector, LFSR</div>
+    <div class="code-block">
+<span class="comment">// clk_div.v — even division</span>
+<span class="keyword">module</span> clk_div #(<span class="keyword">parameter</span> DIV = 2) (
+  <span class="keyword">input</span> clk, rst,
+  <span class="keyword">output</span> <span class="keyword">reg</span> clk_out
+);
+  <span class="keyword">localparam</span> MAX = DIV/2;
+  <span class="keyword">reg</span> [$clog2(MAX)-1:0] count;
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) <span class="keyword">begin</span> count &lt;= 0; clk_out &lt;= 0; <span class="keyword">end</span>
+    <span class="keyword">else</span> <span class="keyword">if</span> (count == MAX-1)
+      <span class="keyword">begin</span> count &lt;= 0; clk_out &lt;= ~clk_out; <span class="keyword">end</span>
+    <span class="keyword">else</span> count &lt;= count + 1;
+<span class="keyword">endmodule</span>
+
+<span class="comment">// edge_detector.v</span>
+<span class="keyword">module</span> edge_detector (
+  <span class="keyword">input</span>  clk, rst, sig,
+  <span class="keyword">output</span> <span class="keyword">reg</span> rise, fall, both
+);
+  <span class="keyword">reg</span> sig_d;
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) sig_d &lt;= 0;
+    <span class="keyword">else</span>     sig_d &lt;= sig;
+  <span class="keyword">always</span> @(*) <span class="keyword">begin</span>
+    rise =  sig &amp; ~sig_d;
+    fall = ~sig &amp;  sig_d;
+    both = rise | fall;
+  <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+
+<span class="comment">// lfsr4.v — x^4 + x^3 + 1</span>
+<span class="keyword">module</span> lfsr4 (
+  <span class="keyword">input</span> clk, rst, en,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [3:0] lfsr
+);
+  <span class="keyword">wire</span> feedback = lfsr[3] ^ lfsr[2];
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) lfsr &lt;= 4'b0001;
+    <span class="keyword">else</span> <span class="keyword">if</span> (en) lfsr &lt;= {lfsr[2:0], feedback};
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Clock dividers:</strong> baud rate generation, PWM, timer ticks.</li>
+      <li><strong>Edge detectors:</strong> interrupts, start-of-packet detection, button triggers.</li>
+      <li><strong>FIFOs:</strong> data buffering, network packet storage, elastic buffers.</li>
+      <li><strong>Reset synchronizers:</strong> every multi-clock design.</li>
+      <li><strong>Gray counters:</strong> async FIFO pointers, rotary encoders.</li>
+      <li><strong>LFSRs:</strong> BIST (Built-In Self-Test), CRC, scrambling, fast counters.</li>
+      <li><strong>BCD counters:</strong> digital clocks, seven-segment displays.</li>
+      <li><strong>Johnson counters:</strong> sequence generators, address decoders, LED chasers.</li>
+      <li><strong>Barrel shifters:</strong> ALU shift/rotate, DSP bit-reordering, CRC.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 15 LinkedIn post — 9 advanced RTL modules.</li>
+    </ul>
+
+  </div>
+</article>
+
+ <article class="day-card" id="day-16">
+  <div class="day-header">
+    <span class="day-number">Day 16</span>
+    <h2>Arithmetic Modules &amp; Two Verilog Projects</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      Eight arithmetic circuits that power high-speed computation, plus two full Verilog projects: a parameterised synchronous FIFO and a 3-stage pipelined 8-bit ALU.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> 8 Arithmetic Modules</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Module</th><th>Used In</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Carry Look-ahead Adder</td><td>CPU ALUs</td></tr>
+          <tr><td>2</td><td>Carry Save Adder</td><td>Wallace tree multipliers</td></tr>
+          <tr><td>3</td><td>Array Multiplier</td><td>Small embedded cores</td></tr>
+          <tr><td>4</td><td>Leading One Detector</td><td>Floating-point normalization</td></tr>
+          <tr><td>5</td><td>Priority Encoder</td><td>Interrupt controllers</td></tr>
+          <tr><td>6</td><td>Parity Generator</td><td>UART, memory error detection</td></tr>
+          <tr><td>7</td><td>CRC Generator</td><td>Ethernet, USB, PCIe</td></tr>
+          <tr><td>8</td><td>Wallace Tree Adder</td><td>Apple M1/M2 multipliers</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — 3‑Stage Pipelined 8‑bit ALU</div>
+    <div class="code-block">
+<span class="keyword">module</span> pipelined_alu #(<span class="keyword">parameter</span> WIDTH = 8) (
+  <span class="keyword">input</span>  clk, rst,
+  <span class="keyword">input</span>  [WIDTH-1:0] a, b,
+  <span class="keyword">input</span>  [2:0] op,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [WIDTH-1:0] result
+);
+  <span class="keyword">reg</span> [WIDTH-1:0] a_reg, b_reg;
+  <span class="keyword">reg</span> [2:0] op_reg;
+  <span class="keyword">reg</span> [WIDTH-1:0] exec_result;
+
+  <span class="comment">// Stage 1: capture inputs</span>
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) <span class="keyword">begin</span> a_reg &lt;= 0; b_reg &lt;= 0; op_reg &lt;= 0; <span class="keyword">end</span>
+    <span class="keyword">else</span> <span class="keyword">begin</span> a_reg &lt;= a; b_reg &lt;= b; op_reg &lt;= op; <span class="keyword">end</span>
+
+  <span class="comment">// Stage 2: ALU (combinational)</span>
+  <span class="keyword">always</span> @(*) <span class="keyword">case</span> (op_reg)
+    3'b000: exec_result = a_reg + b_reg;
+    3'b001: exec_result = a_reg - b_reg;
+    3'b010: exec_result = a_reg &amp; b_reg;
+    3'b011: exec_result = a_reg | b_reg;
+    3'b100: exec_result = a_reg ^ b_reg;
+    <span class="keyword">default</span>: exec_result = 0;
+  <span class="keyword">endcase</span>
+
+  <span class="comment">// Stage 3: writeback</span>
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) result &lt;= 0;
+    <span class="keyword">else</span>     result &lt;= exec_result;
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>High-performance DSP</strong> — Wallis tree and CSA multipliers are the core of filter banks.</li>
+      <li><strong>CPU multipliers</strong> — modern CPUs use CSA/Wallace trees to multiply in few cycles.</li>
+      <li><strong>Floating-point units</strong> — Leading One Detector finds the MSB for normalization.</li>
+      <li><strong>Communication protocols</strong> — Parity and CRC provide error detection.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 16 LinkedIn post — 8 arithmetic modules + 2 projects.</li>
+    </ul>
+
+  </div>
+</article>
+
+    
+<article class="day-card" id="day-17">
+  <div class="day-header">
+    <span class="day-number">Day 17</span>
+    <h2>Synchronous FIFO — Full Implementation</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      A <strong>First-In-First-Out</strong> buffer — data enters, waits in line, and leaves in the same order. Uses separate read/write pointers and full/empty flags to prevent overflow and underflow.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Built a fully parameterised synchronous FIFO (depth 8, width 8) with waveform verification. Explored real-world uses in data buffering, packet storage, and clock-domain crossing.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> How It Works</div>
+    <div class="code-block">
+WRITE:
+  if (wr_en &amp;&amp; !full)
+     mem[wr_ptr] &lt;= din
+     wr_ptr      &lt;= wr_ptr + 1
+     count       &lt;= count + 1
+
+READ:
+  if (rd_en &amp;&amp; !empty)
+     dout   &lt;= mem[rd_ptr]
+     rd_ptr &lt;= rd_ptr + 1
+     count  &lt;= count - 1
+
+FLAGS:
+  full  = (count == DEPTH)
+  empty = (count == 0)
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog</div>
+    <div class="code-block">
+<span class="keyword">module</span> fifo_sync #(<span class="keyword">parameter</span> DEPTH = 8, WIDTH = 8) (
+  <span class="keyword">input</span>  clk, rst,
+  <span class="keyword">input</span>  wr_en, rd_en,
+  <span class="keyword">input</span>  [WIDTH-1:0] din,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [WIDTH-1:0] dout,
+  <span class="keyword">output</span> full, empty
+);
+  <span class="keyword">reg</span> [WIDTH-1:0] mem [0:DEPTH-1];
+  <span class="keyword">reg</span> [$clog2(DEPTH)-1:0] wr_ptr, rd_ptr;
+  <span class="keyword">reg</span> [$clog2(DEPTH):0]   count;
+
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) <span class="keyword">begin</span>
+      wr_ptr &lt;= 0; rd_ptr &lt;= 0; count &lt;= 0;
+    <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span>
+      <span class="keyword">if</span> (wr_en &amp;&amp; !full) <span class="keyword">begin</span>
+        mem[wr_ptr] &lt;= din;
+        wr_ptr &lt;= wr_ptr + 1;
+        count  &lt;= count + 1;
+      <span class="keyword">end</span>
+      <span class="keyword">if</span> (rd_en &amp;&amp; !empty) <span class="keyword">begin</span>
+        dout   &lt;= mem[rd_ptr];
+        rd_ptr &lt;= rd_ptr + 1;
+        count  &lt;= count - 1;
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+  <span class="keyword">assign</span> full  = (count == DEPTH);
+  <span class="keyword">assign</span> empty = (count == 0);
+<span class="keyword">endmodule</span>
+
+<span class="comment">// Testbench</span>
+<span class="keyword">module</span> fifo_sync_tb;
+  <span class="keyword">reg</span> clk, rst, wr_en, rd_en;
+  <span class="keyword">reg</span> [7:0] din;
+  <span class="keyword">wire</span> [7:0] dout;
+  <span class="keyword">wire</span> full, empty;
+  fifo_sync #(.DEPTH(8), .WIDTH(8)) uut (
+    clk, rst, wr_en, rd_en, din, dout, full, empty);
+  <span class="keyword">always</span> #5 clk = ~clk;
+  <span class="keyword">initial</span> <span class="keyword">begin</span>
+    $dumpfile(<span class="string">"fifo.vcd"</span>); $dumpvars;
+    clk=0; rst=1; wr_en=0; rd_en=0; din=0;
+    #20; rst=0;
+    <span class="comment">// write 8 bytes</span>
+    <span class="keyword">repeat</span> (8) <span class="keyword">begin</span> wr_en=1; din=$random; #10; <span class="keyword">end</span>
+    wr_en=0;
+    <span class="comment">// read back</span>
+    <span class="keyword">repeat</span> (8) <span class="keyword">begin</span> rd_en=1; #10; <span class="keyword">end</span>
+    rd_en=0;
+    #50; $finish;
+  <span class="keyword">end</span>
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Data buffering</strong> between processor and memory.</li>
+      <li><strong>Packet storage</strong> in network switches and routers.</li>
+      <li><strong>Elastic buffers</strong> in high-speed interfaces (PCIe, USB).</li>
+      <li><strong>Clock domain crossing</strong> — the async FIFO variant uses Gray-coded pointers.</li>
+      <li><strong>Audio/video frame buffers</strong> for smooth playback.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 17 LinkedIn post — synchronous FIFO, features, real-world applications.</li>
+    </ul>
+
+  </div>
+</article>
+
+ <article class="day-card" id="day-18">
+  <div class="day-header">
+    <span class="day-number">Day 18</span>
+    <h2>Theory Deep Dive — Async FIFO, Memory, LFSR, Pipeline</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      A deep-dive theory day covering 11 advanced RTL concepts — asynchronous FIFO, memory variants (Dual-Port, Single-Port RAM, Register File, ROM, Stack, CAM), Gray code counters, CDC synchronisers, LFSRs, and pipelining.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Concepts Covered</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Concept</th><th>Key Point</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Asynchronous FIFO</td><td>Gray pointers, 2-FF synchronisers, full/empty flags</td></tr>
+          <tr><td>2</td><td>Dual-Port RAM</td><td>Two independent R/W ports</td></tr>
+          <tr><td>3</td><td>Single-Port RAM</td><td>One address bus — simpler</td></tr>
+          <tr><td>4</td><td>Register File (8×8)</td><td>2 read ports + 1 write port</td></tr>
+          <tr><td>5</td><td>ROM</td><td>Pre-initialized data</td></tr>
+          <tr><td>6</td><td>Stack (LIFO)</td><td>Push/pop with a single pointer</td></tr>
+          <tr><td>7</td><td>CAM</td><td>Search by data, returns address</td></tr>
+          <tr><td>8</td><td>Gray Code Counter</td><td>One bit changes per step</td></tr>
+          <tr><td>9</td><td>CDC Synchroniser</td><td>2-FF chain prevents metastability</td></tr>
+          <tr><td>10</td><td>LFSR</td><td>2ⁿ-1 pseudo-random states</td></tr>
+          <tr><td>11</td><td>Pipelined ALU</td><td>Higher throughput, higher latency</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Register File, ROM, Stack</div>
+    <div class="code-block">
+<span class="comment">// reg_file_8x8.v</span>
+<span class="keyword">module</span> reg_file_8x8 (
+  <span class="keyword">input</span>  clk, we,
+  <span class="keyword">input</span>  [2:0] raddr_a, raddr_b, waddr,
+  <span class="keyword">input</span>  [7:0] din,
+  <span class="keyword">output</span> [7:0] dout_a, dout_b
+);
+  <span class="keyword">reg</span> [7:0] regs [0:7];
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">if</span> (we) regs[waddr] &lt;= din;
+  <span class="keyword">assign</span> dout_a = regs[raddr_a];
+  <span class="keyword">assign</span> dout_b = regs[raddr_b];
+<span class="keyword">endmodule</span>
+
+<span class="comment">// rom_case.v</span>
+<span class="keyword">module</span> rom_case #(<span class="keyword">parameter</span> ADDR_WIDTH=3, DATA_WIDTH=8) (
+  <span class="keyword">input</span>  [ADDR_WIDTH-1:0] addr,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [DATA_WIDTH-1:0] data
+);
+  <span class="keyword">always</span> @(*) <span class="keyword">case</span> (addr)
+    3'b000: data = 8'hA5;
+    3'b001: data = 8'h5A;
+    3'b010: data = 8'hFF;
+    <span class="keyword">default</span>: data = 8'h00;
+  <span class="keyword">endcase</span>
+<span class="keyword">endmodule</span>
+
+<span class="comment">// stack.v — LIFO</span>
+<span class="keyword">module</span> stack #(<span class="keyword">parameter</span> DEPTH=8, WIDTH=8) (
+  <span class="keyword">input</span>  clk, rst,
+  <span class="keyword">input</span>  push, pop,
+  <span class="keyword">input</span>  [WIDTH-1:0] din,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [WIDTH-1:0] dout,
+  <span class="keyword">output</span> full, empty
+);
+  <span class="keyword">reg</span> [WIDTH-1:0] mem [0:DEPTH-1];
+  <span class="keyword">reg</span> [2:0] ptr;
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">posedge</span> rst)
+    <span class="keyword">if</span> (rst) ptr &lt;= 0;
+    <span class="keyword">else</span> <span class="keyword">if</span> (push &amp;&amp; !full) <span class="keyword">begin</span>
+      mem[ptr] &lt;= din; ptr &lt;= ptr + 1;
+    <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">if</span> (pop &amp;&amp; !empty) <span class="keyword">begin</span>
+      ptr  &lt;= ptr - 1;
+      dout &lt;= mem[ptr-1];
+    <span class="keyword">end</span>
+  <span class="keyword">assign</span> full  = (ptr == DEPTH);
+  <span class="keyword">assign</span> empty = (ptr == 0);
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Asynchronous FIFO:</strong> USB, PCIe, Ethernet MACs, multi-clock SoCs.</li>
+      <li><strong>Dual-Port RAM:</strong> register files, video frame buffers, cache tag RAM.</li>
+      <li><strong>Register file:</strong> RISC CPU register banks (ARM, RISC-V).</li>
+      <li><strong>ROM:</strong> boot code, sine/cosine lookup tables.</li>
+      <li><strong>Stack:</strong> function call return addresses, expression evaluation.</li>
+      <li><strong>CAM:</strong> TLB, cache tag memory, router MAC tables.</li>
+      <li><strong>LFSR:</strong> BIST, CRC, scrambling.</li>
+      <li><strong>Pipeline:</strong> modern CPUs, DSPs, GPUs.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 18 LinkedIn post — theory deep dive.</li>
+    </ul>
+
+  </div>
+</article>
+<article class="day-card" id="day-19">
+  <div class="day-header">
+    <span class="day-number">Day 19</span>
+    <h2>Logic Synthesis — From RTL to Gates</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      <strong>Logic synthesis</strong> converts RTL (Verilog/VHDL) into a gate-level netlist of standard cells from a technology library, while optimizing for area, speed, and power.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Three‑Step Flow</div>
+    <div class="code-block">
+RTL
+  │
+  ▼
+Translation        →  Generic Boolean network
+  │
+  ▼
+Optimization       →  Factoring, sharing, constant propagation
+  │
+  ▼
+Technology Mapping →  Map to library cells (NAND2, DFF, etc.)
+  │
+  ▼
+Gate-Level Netlist
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Synthesizable vs Non‑Synthesizable</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Construct</th><th>Synth?</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>module, input, output, wire, reg</td><td>✅</td><td>—</td></tr>
+          <tr><td>assign, always @(posedge clk or posedge rst)</td><td>✅</td><td>Sequential</td></tr>
+          <tr><td>always @(*)</td><td>✅</td><td>Combinational</td></tr>
+          <tr><td>if/else, case, casez</td><td>✅</td><td>Must be complete</td></tr>
+          <tr><td>for loop with constant bound</td><td>✅</td><td>—</td></tr>
+          <tr><td>initial, #delay, while, repeat(variable)</td><td>❌</td><td>Testbench only</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Common Issues</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Issue</th><th>Cause</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td>Inferred latch</td><td>Missing else/default</td><td>Assign in all branches</td></tr>
+          <tr><td>Combinational loop</td><td>Feedback without FF</td><td>Use sequential</td></tr>
+          <tr><td>Multiple drivers</td><td>Same net in two always blocks</td><td>Combine logic</td></tr>
+          <tr><td>Clock gating glitches</td><td>AND/OR on clock</td><td>Use dedicated cell</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> SDC Constraints (Example)</div>
+    <div class="code-block">
+<span class="comment"># Clock period = 10 ns → 100 MHz</span>
+create_clock -name clk -period 10.0 [get_ports clk]
+
+<span class="comment"># Input delay: external logic takes 3 ns before clk edge</span>
+set_input_delay -clock clk -max 3.0 [get_ports din*]
+
+<span class="comment"># Output delay: external logic needs 2.5 ns after clk edge</span>
+set_output_delay -clock clk -max 2.5 [get_ports dout*]
+
+<span class="comment"># False paths (no timing check, e.g., test_mode)</span>
+set_false_path -from [get_ports test_mode]
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> Synthesis Tools</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>Synopsys Design Compiler</td><td>Industry standard</td></tr>
+          <tr><td>Cadence Genus</td><td>Modern, integrated with Innovus</td></tr>
+          <tr><td>Mentor (Siemens) Catapult</td><td>High-level synthesis (HLS)</td></tr>
+          <tr><td>Yosys</td><td>Open-source, FPGA + small ASIC</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>Every ASIC</strong> — from a $0.10 sensor chip to a $20,000 GPU — passes through synthesis.</li>
+      <li><strong>Every FPGA design</strong> — synthesis maps RTL to LUTs and flip-flops.</li>
+      <li><strong>Timing closure</strong> — the constraint-driven flow that decides whether your design works at speed.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 19 LinkedIn post — logic synthesis, three-step flow, SDC, tools.</li>
+    </ul>
+
+  </div>
+</article>
+
+
+  <article class="day-card" id="day-20">
+  <div class="day-header">
+    <span class="day-number">Day 20</span>
+    <h2>Asynchronous FIFO — The Right Way to Cross Clock Domains</h2>
+  </div>
+  <div class="day-content">
+
+    <div class="section-title"><span class="icon">📖</span> Definition</div>
+    <div class="info-box">
+      An <strong>asynchronous FIFO</strong> transfers data between two clock domains using <strong>Gray-coded pointers</strong>. Because only one bit changes per count, the pointer is safe to synchronise — no metastability, no data corruption.
+    </div>
+
+    <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+    <div class="info-box">
+      Solved the classic interview question: "How do you send data from 100 MHz to 40 MHz?" — with a Gray-coded asynchronous FIFO. Verified waveform: writes on fast clock, reads on slow clock, no glitches.
+    </div>
+
+    <div class="section-title"><span class="icon">🧮</span> How It Works</div>
+    <div class="code-block">
+1. Write pointer (binary) → Gray → send to read clock domain via 2-FF synchroniser
+2. Read pointer  (binary) → Gray → send to write clock domain via 2-FF synchroniser
+3. Full flag:  compare write pointer with synchronised read pointer
+4. Empty flag: compare read pointer with synchronised write pointer
+5. Dual-port memory: write on wclk, read on rclk
+    </div>
+
+    <div class="section-title"><span class="icon">💻</span> Verilog — Asynchronous FIFO</div>
+    <div class="code-block">
+<span class="keyword">module</span> async_fifo #(<span class="keyword">parameter</span> DEPTH=8, WIDTH=8) (
+  <span class="keyword">input</span>  wclk, wrst, rclk, rrst,
+  <span class="keyword">input</span>  wr_en, rd_en,
+  <span class="keyword">input</span>  [WIDTH-1:0] din,
+  <span class="keyword">output</span> <span class="keyword">reg</span> [WIDTH-1:0] dout,
+  <span class="keyword">output</span> full, empty
+);
+  <span class="keyword">localparam</span> ADDR_WIDTH = $clog2(DEPTH);
+  <span class="keyword">reg</span> [WIDTH-1:0] mem [0:DEPTH-1];
+  <span class="keyword">reg</span> [ADDR_WIDTH:0] wr_ptr_bin, rd_ptr_bin;
+  <span class="keyword">reg</span> [ADDR_WIDTH:0] wr_ptr_gray, rd_ptr_gray;
+  <span class="keyword">reg</span> [ADDR_WIDTH:0] rd_sync1, rd_sync2;
+  <span class="keyword">reg</span> [ADDR_WIDTH:0] wr_sync1, wr_sync2;
+
+  <span class="comment">// Write pointer</span>
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> wclk <span class="keyword">or</span> <span class="keyword">posedge</span> wrst)
+    <span class="keyword">if</span> (wrst) <span class="keyword">begin</span> wr_ptr_bin &lt;= 0; wr_ptr_gray &lt;= 0; <span class="keyword">end</span>
+    <span class="keyword">else</span> <span class="keyword">if</span> (wr_en &amp;&amp; !full) <span class="keyword">begin</span>
+      wr_ptr_bin  &lt;= wr_ptr_bin + 1;
+      wr_ptr_gray &lt;= (wr_ptr_bin + 1) ^ ((wr_ptr_bin + 1) &gt;&gt; 1);
+    <span class="keyword">end</span>
+
+  <span class="comment">// Read pointer</span>
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> rclk <span class="keyword">or</span> <span class="keyword">posedge</span> rrst)
+    <span class="keyword">if</span> (rrst) <span class="keyword">begin</span> rd_ptr_bin &lt;= 0; rd_ptr_gray &lt;= 0; <span class="keyword">end</span>
+    <span class="keyword">else</span> <span class="keyword">if</span> (rd_en &amp;&amp; !empty) <span class="keyword">begin</span>
+      rd_ptr_bin  &lt;= rd_ptr_bin + 1;
+      rd_ptr_gray &lt;= (rd_ptr_bin + 1) ^ ((rd_ptr_bin + 1) &gt;&gt; 1);
+    <span class="keyword">end</span>
+
+  <span class="comment">// 2-FF sync: read pointer → write clock domain</span>
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> wclk <span class="keyword">or</span> <span class="keyword">posedge</span> wrst)
+    <span class="keyword">if</span> (wrst) {rd_sync2, rd_sync1} &lt;= 0;
+    <span class="keyword">else</span>     {rd_sync2, rd_sync1} &lt;= {rd_sync1, rd_ptr_gray};
+
+  <span class="comment">// 2-FF sync: write pointer → read clock domain</span>
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> rclk <span class="keyword">or</span> <span class="keyword">posedge</span> rrst)
+    <span class="keyword">if</span> (rrst) {wr_sync2, wr_sync1} &lt;= 0;
+    <span class="keyword">else</span>     {wr_sync2, wr_sync1} &lt;= {wr_sync1, wr_ptr_gray};
+
+  <span class="comment">// Memory</span>
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> wclk)
+    <span class="keyword">if</span> (wr_en &amp;&amp; !full)
+      mem[wr_ptr_bin[ADDR_WIDTH-1:0]] &lt;= din;
+
+  <span class="keyword">always</span> @(<span class="keyword">posedge</span> rclk)
+    <span class="keyword">if</span> (rd_en &amp;&amp; !empty)
+      dout &lt;= mem[rd_ptr_bin[ADDR_WIDTH-1:0]];
+
+  <span class="comment">// Flags</span>
+  <span class="keyword">assign</span> full  = (wr_ptr_gray == {~rd_sync2[ADDR_WIDTH:ADDR_WIDTH-1],
+                                    rd_sync2[ADDR_WIDTH-2:0]});
+  <span class="keyword">assign</span> empty = (rd_ptr_gray == wr_sync2);
+<span class="keyword">endmodule</span>
+    </div>
+
+    <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+    <ul class="app-list">
+      <li><strong>USB controllers</strong> — data crosses between the USB clock and the CPU clock.</li>
+      <li><strong>PCIe / Ethernet MACs</strong> — data buffering across clock domains.</li>
+      <li><strong>Multi-clock SoCs</strong> — processor bus to high-speed I/O.</li>
+      <li><strong>Classic interview question:</strong> "How do you transfer data between two different clock frequencies?" — the answer is an asynchronous FIFO with Gray-coded pointers.</li>
+    </ul>
+
+    <div class="section-title"><span class="icon">🔗</span> References</div>
+    <ul class="app-list">
+      <li>Day 20 LinkedIn post — asynchronous FIFO, Gray code, waveform proof.</li>
+    </ul>
+
+  </div>
+</article>
+
+    
+    
+    
+    
+    
