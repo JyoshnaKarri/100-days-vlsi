@@ -216,27 +216,6 @@
       </a>
     </div>
 
-    <footer class="footer">
-      <div class="workflow">
-        <div><strong>Workflow (simulation &amp; waveform)</strong></div>
-        <div style="margin-top:0.6rem;">.v   = Verilog code</div>
-        <div>.out = compiled output</div>
-        <div>.vcd = waveform dump</div>
-        <div style="margin-top:0.9rem;">1. Save every file with <span class="cmd">.v</span> extension</div>
-        <div>2. In terminal:</div>
-        <div style="padding-left:1.2rem;"><span class="cmd">iverilog name.v testbench.v</span></div>
-        <div style="padding-left:1.2rem;"><span class="cmd">vvp a.out</span></div>
-        <div style="padding-left:1.2rem;"><span class="cmd">gtkwave output.vcd</span></div>
-        <div>3. For output:</div>
-        <div style="padding-left:1.2rem;">Click on <span class="cmd">SST</span></div>
-        <div style="padding-left:1.2rem;">Select all the signals</div>
-        <div style="padding-left:1.2rem;">View waveforms</div>
-      </div>
-      <p>100 Days of VLSI · Built with Verilog, Icarus, GTKWave &amp; ☕</p>
-      <p style="margin-top:0.4rem;">
-        <a href="https://jyoshnakarri.github.io/100-days-vlsi/" target="_blank" rel="noopener">Portfolio</a>
-      </p>
-    </footer>
 
   </div>
 </body>
@@ -367,60 +346,7 @@
       border-radius: 99px;
     }
 
-    /* Index */
-    .index-card {
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-card);
-      padding: 1.75rem;
-      margin-bottom: 2rem;
-    }
-    .index-card h2 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.01em;
-    }
-    .index-card .index-sub {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-bottom: 1.1rem;
-    }
-    .index-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 0.5rem;
-    }
-    .index-item {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      padding: 0.55rem 0.75rem;
-      border-radius: var(--radius-sm);
-      background: var(--bg-code);
-      border: 1px solid transparent;
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      transition: all 0.15s ease;
-    }
-    .index-item:hover {
-      background: var(--accent-soft);
-      border-color: var(--accent);
-      color: var(--text-primary);
-      transform: translateX(3px);
-    }
-    .index-item .day-tag {
-      font-weight: 700;
-      color: var(--accent);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-    }
-    .index-item .topic {
-      flex: 1;
-    }
+
 
     /* Day card */
     .day-card {
@@ -585,54 +511,7 @@
       margin-top: 0.5rem;
     }
 
-    /* Footer */
-    .footer {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      border-top: 1px solid var(--border-light);
-      margin-top: 2rem;
-    }
-    .footer .workflow {
-      background: var(--bg-code);
-      border-radius: var(--radius-sm);
-      padding: 1.25rem;
-      margin: 1.25rem auto;
-      max-width: 560px;
-      text-align: left;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      border: 1px solid var(--border-light);
-    }
-    .footer .workflow .cmd { color: var(--accent); font-weight: 600; }
-    .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
-    .footer a:hover { text-decoration: underline; }
-
-    @media (max-width: 640px) {
-      body { padding: 0.75rem; }
-      .hero { padding: 1.4rem; }
-      .hero h1 { font-size: 1.35rem; }
-      .day-header { padding: 1.25rem 1.25rem 0.6rem; }
-      .day-header h2 { font-size: 1.25rem; }
-      .day-content { padding: 1.25rem; }
-      .code-block { font-size: 0.72rem; padding: 0.9rem; }
-      table { font-size: 0.78rem; }
-      th, td { padding: 0.5rem 0.65rem; }
-      .footer .workflow { font-size: 0.7rem; }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .day-card { animation: fadeUp 0.35s ease forwards; }
-  </style>
-</head>
-<body>
-  <div class="container">
+ 
 
     <!-- Top nav -->
     <nav class="top-nav">
