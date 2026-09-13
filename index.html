@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>100 Days of Code · Journey</title>
-  <!-- Inter & JetBrains Mono fonts -->
+  <title>Day 1 · Binary Number Systems · 100 Days of VLSI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* ---------- CSS RESET & THEME VARIABLES ---------- */
+    /* ---------- RESET & VARIABLES (LIGHT MODE DEFAULT) ---------- */
     * {
       margin: 0;
       padding: 0;
@@ -17,119 +16,91 @@
     }
 
     :root {
-      /* Light theme (default) */
-      --bg-primary: #f8fafc;
-      --bg-secondary: #ffffff;
+      --bg-page: #f8fafc;
       --bg-card: #ffffff;
       --bg-code: #f1f5f9;
+      --bg-table-header: #eef2ff;
+      --bg-table-row-alt: #f8fafc;
       --text-primary: #0f172a;
       --text-secondary: #334155;
       --text-muted: #64748b;
       --border-light: #e2e8f0;
       --accent: #2563eb;
       --accent-soft: #dbeafe;
-      --accent-hover: #1d4ed8;
-      --success: #16a34a;
-      --warning: #ea580c;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
-      --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
-      --shadow-hover: 0 20px 30px -12px rgba(0,0,0,0.15);
-      --radius-card: 1.25rem;
+      --accent-gradient: linear-gradient(90deg, #2563eb, #7c3aed);
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03);
+      --shadow-hover: 0 12px 28px -8px rgba(0, 0, 0, 0.1);
+      --radius-lg: 1.25rem;
+      --radius-md: 0.75rem;
       --radius-sm: 0.5rem;
       --transition: 0.2s ease;
     }
 
-    body.dark {
-      --bg-primary: #0b1120;
-      --bg-secondary: #0f172a;
-      --bg-card: #1e293b;
-      --bg-code: #0f172a;
-      --text-primary: #f1f5f9;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --border-light: #334155;
-      --accent: #3b82f6;
-      --accent-soft: #1e3a8a;
-      --accent-hover: #60a5fa;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-      --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.5);
-      --shadow-hover: 0 20px 30px -12px rgba(0,0,0,0.6);
-    }
-
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-primary);
+      background-color: var(--bg-page);
       color: var(--text-primary);
-      line-height: 1.5;
-      transition: background-color 0.3s, color 0.3s;
-      padding: 1.5rem 1rem;
+      line-height: 1.6;
+      padding: 1.5rem 1rem 3rem;
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
-    /* ---------- HEADER / HERO ---------- */
+    /* ---------- HERO ---------- */
     .hero {
-      background: var(--bg-secondary);
-      border-radius: var(--radius-card);
-      padding: 2rem 2rem 1.8rem;
-      box-shadow: var(--shadow-md);
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2rem 1.75rem;
+      box-shadow: var(--shadow-card);
       border: 1px solid var(--border-light);
-      margin-bottom: 2.5rem;
-      transition: background 0.3s, border-color 0.3s;
+      margin-bottom: 2rem;
     }
 
     .hero-top {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
 
     .hero-title h1 {
-      font-size: 2rem;
+      font-size: 1.9rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin-bottom: 0.2rem;
+      line-height: 1.25;
+      margin-bottom: 0.3rem;
     }
 
-    .hero-title .highlight {
-      color: var(--accent);
+    .hero-title h1 .highlight {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .hero-title p {
+    .hero-title p.subtitle {
       color: var(--text-muted);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 500;
     }
 
-    .theme-toggle {
-      background: var(--bg-code);
-      border: 1px solid var(--border-light);
-      border-radius: 2rem;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      transition: all var(--transition);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .theme-toggle:hover {
+    .journey-badge {
       background: var(--accent-soft);
-      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
     }
 
-    /* progress bar */
+    /* Progress */
     .progress-section {
       margin-top: 0.5rem;
     }
@@ -137,136 +108,81 @@
     .progress-header {
       display: flex;
       justify-content: space-between;
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-size: 0.85rem;
+      font-weight: 600;
       color: var(--text-secondary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
     .progress-bar-bg {
       background: var(--border-light);
-      height: 0.75rem;
+      height: 0.65rem;
       border-radius: 99px;
       overflow: hidden;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
     }
 
     .progress-fill {
-      width: 12%; /* Day 12 of 100 */
+      width: 1%; /* Day 1 of 100 */
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), #7c3aed);
+      background: var(--accent-gradient);
       border-radius: 99px;
-      transition: width 0.4s ease;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1.2rem;
-      flex-wrap: wrap;
-    }
-
-    .social-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.4rem 0.8rem;
-      border-radius: 2rem;
-      background: var(--bg-code);
-      border: 1px solid var(--border-light);
-      transition: all var(--transition);
-    }
-
-    .social-links a:hover {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-      transform: translateY(-2px);
     }
 
     /* ---------- DAY CARD ---------- */
     .day-card {
       background: var(--bg-card);
-      border-radius: var(--radius-card);
+      border-radius: var(--radius-lg);
       border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-card);
       margin-bottom: 2rem;
       overflow: hidden;
-      transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.2s;
+      transition: box-shadow var(--transition), transform var(--transition);
     }
 
     .day-card:hover {
-      transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
-      border-color: var(--accent);
+      transform: translateY(-2px);
     }
 
     .day-header {
-      padding: 1.5rem 1.5rem 0.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.75rem 1.5rem;
+      padding: 1.75rem 1.75rem 0.75rem;
+      border-bottom: 1px solid var(--border-light);
     }
 
     .day-number {
+      display: inline-block;
       background: var(--accent-soft);
       color: var(--accent);
       font-weight: 700;
-      font-size: 1rem;
-      padding: 0.25rem 0.9rem;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.9rem;
       border-radius: 2rem;
-      display: inline-block;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.6rem;
     }
 
     .day-header h2 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
       letter-spacing: -0.01em;
+      line-height: 1.3;
       color: var(--text-primary);
-    }
-
-    .day-meta {
-      padding: 0 1.5rem 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem 2rem;
-      border-bottom: 1px solid var(--border-light);
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .meta-label {
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-size: 0.7rem;
-      letter-spacing: 0.03em;
     }
 
     .day-content {
-      padding: 1.5rem;
+      padding: 1.75rem;
     }
 
+    /* Section titles */
     .section-title {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 1.05rem;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin: 1.5rem 0 0.75rem;
+      margin: 1.75rem 0 0.75rem;
       color: var(--text-primary);
+      letter-spacing: -0.01em;
     }
 
     .section-title:first-of-type {
@@ -274,332 +190,539 @@
     }
 
     .section-title .icon {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
     }
 
-    /* code block */
-    .code-block {
+    /* Definition / Concept boxes */
+    .info-box {
       background: var(--bg-code);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-light);
-      padding: 1.25rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      overflow-x: auto;
-      white-space: pre-wrap;
-      word-break: break-word;
-      color: var(--text-primary);
-      position: relative;
-      margin: 1rem 0;
-      transition: border-color 0.2s;
-    }
-
-    .code-block:hover {
-      border-color: var(--accent);
-    }
-
-    .code-block .comment {
-      color: #6b7280;
-    }
-
-    .code-block .keyword {
-      color: #8b5cf6;
-      font-weight: 600;
-    }
-
-    .code-block .string {
-      color: #10b981;
-    }
-
-    .code-block .func {
-      color: #3b82f6;
-    }
-
-    /* real-world list */
-    .real-world-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      margin-top: 0.5rem;
-    }
-
-    .real-world-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      padding: 0.5rem 0.75rem;
-      background: var(--bg-code);
-      border-radius: var(--radius-sm);
       border-left: 4px solid var(--accent);
-    }
-
-    .real-world-list li::before {
-      content: "▹";
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .concept-summary {
-      background: var(--bg-code);
       padding: 1rem 1.25rem;
       border-radius: var(--radius-sm);
       font-size: 0.95rem;
       color: var(--text-secondary);
-      border-left: 4px solid var(--accent);
       margin: 0.5rem 0 1rem;
     }
 
-    /* ---------- FOOTER ---------- */
+    .info-box strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Lists */
+    .app-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-top: 0.5rem;
+    }
+
+    .app-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 0.94rem;
+      color: var(--text-secondary);
+      padding: 0.55rem 0.8rem;
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent);
+    }
+
+    .app-list li::before {
+      content: "▹";
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Code block */
+    .code-block {
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      padding: 1.1rem 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.65;
+      overflow-x: auto;
+      white-space: pre;
+      color: var(--text-primary);
+      margin: 1rem 0;
+    }
+
+    .code-block .comment { color: #64748b; }
+    .code-block .keyword { color: #7c3aed; font-weight: 600; }
+    .code-block .string { color: #059669; }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    th {
+      background: var(--bg-table-header);
+      color: var(--text-primary);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 2px solid var(--border-light);
+      font-size: 0.8rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--bg-table-row-alt);
+    }
+
+    td.mono, th.mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+    }
+
+    td.answer {
+      color: var(--accent);
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Example subheading */
+    .example-heading {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 1.5rem 0 0.5rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid var(--accent-soft);
+      display: inline-block;
+    }
+
+    /* Footer */
     .footer {
       text-align: center;
-      padding: 2.5rem 1rem 1.5rem;
+      padding: 2rem 1rem 1rem;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       border-top: 1px solid var(--border-light);
       margin-top: 2rem;
     }
 
-    /* ---------- RESPONSIVE ---------- */
+    .footer .workflow {
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      margin: 1.25rem auto;
+      max-width: 560px;
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+    }
+
+    .footer .workflow .cmd {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
     @media (max-width: 640px) {
-      body {
-        padding: 0.75rem;
-      }
-
-      .hero {
-        padding: 1.5rem;
-      }
-
-      .hero-title h1 {
-        font-size: 1.6rem;
-      }
-
-      .day-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-        padding: 1.25rem 1.25rem 0.5rem;
-      }
-
-      .day-header h2 {
-        font-size: 1.3rem;
-      }
-
-      .day-meta {
-        padding: 0 1.25rem 1rem;
-        gap: 0.75rem;
-      }
-
-      .day-content {
-        padding: 1.25rem;
-      }
-
-      .code-block {
-        font-size: 0.75rem;
-        padding: 1rem;
-      }
+      body { padding: 0.75rem; }
+      .hero { padding: 1.4rem; }
+      .hero-title h1 { font-size: 1.5rem; }
+      .day-header { padding: 1.25rem 1.25rem 0.6rem; }
+      .day-header h2 { font-size: 1.25rem; }
+      .day-content { padding: 1.25rem; }
+      .code-block { font-size: 0.72rem; padding: 0.9rem; }
+      table { font-size: 0.78rem; }
+      th, td { padding: 0.5rem 0.65rem; }
+      .footer .workflow { font-size: 0.7rem; }
     }
 
-    /* subtle entrance animation */
+    /* Entrance animation */
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    .day-card {
-      animation: fadeUp 0.4s ease forwards;
-    }
+    .day-card { animation: fadeUp 0.35s ease forwards; }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- ========== HERO / HEADER ========== -->
+
+    <!-- ========== HERO ========== -->
     <header class="hero">
       <div class="hero-top">
         <div class="hero-title">
-          <h1>Alex Rivera <span class="highlight">· 100 Days of Code</span></h1>
-          <p>VLSI · RTL Design · Verilog · RISC-V · Digital Logic</p>
+          <h1>Jyotshna Karri · <span class="highlight">100 Days of VLSI</span></h1>
+          <p class="subtitle">VLSI · RTL Design · Verilog · RISC-V · Digital Logic</p>
         </div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-          🌙 <span>Dark</span>
-        </button>
+        <span class="journey-badge">Day 1 of 100</span>
       </div>
 
       <div class="progress-section">
         <div class="progress-header">
-          <span>Day 12 of 100</span>
-          <span>12% complete</span>
+          <span>Progress</span>
+          <span>1%</span>
         </div>
         <div class="progress-bar-bg">
-          <div class="progress-fill" style="width: 12%;"></div>
+          <div class="progress-fill"></div>
         </div>
-      </div>
-
-      <div class="social-links">
-        <a href="#" target="_blank" rel="noopener">🐙 GitHub</a>
-        <a href="#" target="_blank" rel="noopener">🔗 LinkedIn</a>
-        <a href="#" target="_blank" rel="noopener">🐦 Twitter</a>
       </div>
     </header>
 
-    <!-- ========== DAY 1 CARD (PERFECT EXAMPLE) ========== -->
+    <!-- ========== DAY 1 CARD ========== -->
     <article class="day-card">
       <div class="day-header">
         <span class="day-number">Day 1</span>
-        <h2>Binary Number Systems & Conversions</h2>
-      </div>
-
-      <div class="day-meta">
-        <div class="meta-item">
-          <span class="meta-label">⏱️ Time</span>
-          <span>2.5 hours</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">📊 Difficulty</span>
-          <span>Beginner</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">🔧 Tech</span>
-          <span>Digital Logic · Number Systems</span>
-        </div>
+        <h2>Binary Number Systems</h2>
       </div>
 
       <div class="day-content">
+
+        <!-- Definition -->
+        <div class="section-title"><span class="icon">📖</span> Definition</div>
+        <div class="info-box">
+          A <strong>binary number system</strong> represents numeric values using only two digits: <strong>0</strong> and <strong>1</strong>. Each digit is called a <em>bit</em>. It is the native language of every digital circuit — every logic gate, flip‑flop, adder, and memory cell ultimately stores and processes only 0s and 1s.
+        </div>
+
         <!-- Concept Summary -->
-        <div class="section-title">
-          <span class="icon">📘</span> Concept Summary
-        </div>
-        <div class="concept-summary">
-          Mastered binary, decimal, and hexadecimal conversions. Learned binary addition, subtraction,
-          and 1's/2's complement — the absolute foundation of every digital system.
+        <div class="section-title"><span class="icon">📘</span> Concept Summary</div>
+        <div class="info-box">
+          Mastered <strong>decimal ↔ binary ↔ hexadecimal</strong> conversions, <strong>binary addition and subtraction</strong>, and <strong>1's &amp; 2's complement</strong> — the absolute foundation of every digital system.
         </div>
 
-        <!-- Code Example -->
-        <div class="section-title">
-          <span class="icon">💻</span> Code Example
+        <!-- ============================================ -->
+        <!-- WORKED EXAMPLES (20) — Part A, B, C combined -->
+        <!-- ============================================ -->
+        <div class="section-title"><span class="icon">🧮</span> 20 Solved Examples (Step‑by‑Step)</div>
+
+        <!-- Example 1–5: Decimal → Binary -->
+        <div class="example-heading">Example 1 – 5 · Decimal → Binary</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:20%">Problem</th>
+                <th style="width:50%">Working (divide by 2, collect remainders bottom‑up)</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td class="mono">47₁₀ → ?₂</td>
+                <td class="mono">47÷2=23 r1 · 23÷2=11 r1 · 11÷2=5 r1 · 5÷2=2 r1 · 2÷2=1 r0 · 1÷2=0 r1 → read ↑</td>
+                <td class="answer">101111₂</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td class="mono">156₁₀ → ?₂</td>
+                <td class="mono">156÷2=78 r0 · 78÷2=39 r0 · 39÷2=19 r1 · 19÷2=9 r1 · 9÷2=4 r1 · 4÷2=2 r0 · 2÷2=1 r0 · 1÷2=0 r1</td>
+                <td class="answer">10011100₂</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td class="mono">209₁₀ → ?₂</td>
+                <td class="mono">209÷2=104 r1 · 104÷2=52 r0 · 52÷2=26 r0 · 26÷2=13 r0 · 13÷2=6 r1 · 6÷2=3 r0 · 3÷2=1 r1 · 1÷2=0 r1</td>
+                <td class="answer">11010001₂</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td class="mono">10₁₀ → ?₂</td>
+                <td class="mono">10÷2=5 r0 · 5÷2=2 r1 · 2÷2=1 r0 · 1÷2=0 r1</td>
+                <td class="answer">1010₂</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td class="mono">255₁₀ → ?₂</td>
+                <td class="mono">255 = 2⁸ − 1 → all 8 bits set to 1</td>
+                <td class="answer">11111111₂</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
+        <!-- Example 6–10: Binary → Decimal -->
+        <div class="example-heading">Example 6 – 10 · Binary → Decimal</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:20%">Problem</th>
+                <th style="width:50%">Working (sum of powers of 2 where bit = 1)</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>6</td>
+                <td class="mono">101111₂ → ?₁₀</td>
+                <td class="mono">1·2⁵ + 0·2⁴ + 1·2³ + 1·2² + 1·2¹ + 1·2⁰ = 32+0+8+4+2+1</td>
+                <td class="answer">47₁₀</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td class="mono">10011010₂ → ?₁₀</td>
+                <td class="mono">1·2⁷ + 0·2⁶ + 0·2⁵ + 1·2⁴ + 1·2³ + 0·2² + 1·2¹ + 0·2⁰ = 128+16+8+2</td>
+                <td class="answer">154₁₀</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td class="mono">11010001₂ → ?₁₀</td>
+                <td class="mono">128 + 64 + 0 + 16 + 0 + 0 + 0 + 1</td>
+                <td class="answer">209₁₀</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td class="mono">1010₂ → ?₁₀</td>
+                <td class="mono">8 + 0 + 2 + 0</td>
+                <td class="answer">10₁₀</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td class="mono">11111111₂ → ?₁₀</td>
+                <td class="mono">128+64+32+16+8+4+2+1</td>
+                <td class="answer">255₁₀</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Example 11–15: Decimal ↔ Hex -->
+        <div class="example-heading">Example 11 – 15 · Decimal ↔ Hexadecimal</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:20%">Problem</th>
+                <th style="width:50%">Working</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>11</td>
+                <td class="mono">47₁₀ → ?₁₆</td>
+                <td class="mono">47 ÷ 16 = 2 remainder 15 (F) → 2, F</td>
+                <td class="answer">2F₁₆</td>
+              </tr>
+              <tr>
+                <td>12</td>
+                <td class="mono">156₁₀ → ?₁₆</td>
+                <td class="mono">156 ÷ 16 = 9 remainder 12 (C) → 9, C</td>
+                <td class="answer">9C₁₆</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td class="mono">209₁₀ → ?₁₆</td>
+                <td class="mono">209 ÷ 16 = 13 (D) remainder 1 → D, 1</td>
+                <td class="answer">D1₁₆</td>
+              </tr>
+              <tr>
+                <td>14</td>
+                <td class="mono">101111₂ → ?₁₆</td>
+                <td class="mono">Group in nibbles from right: 0010 1111 → 2, F</td>
+                <td class="answer">2F₁₆</td>
+              </tr>
+              <tr>
+                <td>15</td>
+                <td class="mono">10011010₂ → ?₁₆</td>
+                <td class="mono">1001 1010 → 9, A</td>
+                <td class="answer">9A₁₆</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Example 16–20: Binary arithmetic + complements -->
+        <div class="example-heading">Example 16 – 20 · Binary Arithmetic &amp; Complements</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:5%">#</th>
+                <th style="width:22%">Problem</th>
+                <th style="width:48%">Working</th>
+                <th style="width:25%">Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>16</td>
+                <td class="mono">1011 + 0111</td>
+                <td class="mono">
+                  &nbsp;&nbsp;1011<br>
+                  + 0111<br>
+                  ─────<br>
+                  10010 (carry out)
+                </td>
+                <td class="answer">10010₂</td>
+              </tr>
+              <tr>
+                <td>17</td>
+                <td class="mono">1101 − 0110</td>
+                <td class="mono">
+                  Borrow method: 1101 − 0110 = 0111
+                </td>
+                <td class="answer">0111₂</td>
+              </tr>
+              <tr>
+                <td>18</td>
+                <td class="mono">1's complement of 1010</td>
+                <td class="mono">Flip every bit: 1→0, 0→1</td>
+                <td class="answer">0101₂</td>
+              </tr>
+              <tr>
+                <td>19</td>
+                <td class="mono">2's complement of 1010</td>
+                <td class="mono">1's complement = 0101 → add 1 = 0110</td>
+                <td class="answer">0110₂</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td class="mono">2's complement of 11001</td>
+                <td class="mono">1's = 00110 → +1 = 00111</td>
+                <td class="answer">00111₂</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- STEP-BY-STEP WALKTHROUGHS (Example C) -->
+        <!-- ============================================ -->
+        <div class="section-title"><span class="icon">🔍</span> Step‑by‑Step Walkthroughs</div>
+
+        <div class="example-heading">Binary Addition — 1011 + 0111</div>
         <div class="code-block">
-<span class="comment">// Decimal → Binary (47)</span>
-47 / 2 = 23  rem 1  (LSB)
-23 / 2 = 11  rem 1
-11 / 2 = 5   rem 1
-5  / 2 = 2   rem 1
-2  / 2 = 1   rem 0
-1  / 2 = 0   rem 1  (MSB)  →  101111
+  1 0 1 1
++ 0 1 1 1
+──────────
+  1 0 0 1 0
 
-<span class="comment">// 2's Complement of 1010</span>
-1's complement: 0101
-Add 1:          0110   → 2's complement
-
-<span class="comment">// Binary addition: 1011 + 0111</span>
-  1011
-+ 0111
-------
- 10010  (carry out)
+Column-by-column (right to left):
+  bit0: 1 + 1 = 10  → sum 0, carry 1
+  bit1: 1 + 1 + 1 = 11 → sum 1, carry 1
+  bit2: 0 + 1 + 1 = 10 → sum 0, carry 1
+  bit3: 1 + 0 + 1 = 10 → sum 0, carry 1
+  carry out: 1
+Result: 10010₂
         </div>
 
-        <!-- Real-world applications -->
-        <div class="section-title">
-          <span class="icon">🌍</span> Real-World Applications
-        </div>
-        <ul class="real-world-list">
-          <li>Memory addressing — every byte in RAM is accessed via binary/hex addresses.</li>
-          <li>2's complement is the standard for signed integer arithmetic in CPUs (x86, ARM, RISC-V).</li>
-          <li>Hex is used in debugging, waveform viewers, and machine code disassembly.</li>
-          <li>Binary addition/subtraction circuits form the ALU inside every processor.</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- ========== DAY 2 CARD (SECOND EXAMPLE - SHORT) ========== -->
-    <article class="day-card">
-      <div class="day-header">
-        <span class="day-number">Day 2</span>
-        <h2>Boolean Algebra & DeMorgan's Laws</h2>
-      </div>
-
-      <div class="day-meta">
-        <div class="meta-item">
-          <span class="meta-label">⏱️ Time</span>
-          <span>3 hours</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">📊 Difficulty</span>
-          <span>Beginner+</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">🔧 Tech</span>
-          <span>Boolean Logic</span>
-        </div>
-      </div>
-
-      <div class="day-content">
-        <div class="section-title">
-          <span class="icon">📘</span> Concept Summary
-        </div>
-        <div class="concept-summary">
-          Applied all 9 Boolean laws to simplify expressions, and mastered DeMorgan's theorems:
-          (X·Y)' = X' + Y' and (X+Y)' = X'·Y'. Golden rule: break the line, change the sign.
-        </div>
-
-        <div class="section-title">
-          <span class="icon">💻</span> Code Example
-        </div>
+        <div class="example-heading">2's Complement — 1010</div>
         <div class="code-block">
-<span class="comment">// Simplify: (A + B)' + A·B</span>
-Step 1: DeMorgan → A'·B' + A·B
-Step 2: Distributive / consensus → A'·B' + A·B
-<span class="comment">// final simplified form (XOR-like)</span>
-F = A'·B' + A·B
+Original (4-bit):   1 0 1 0
+1's complement:     0 1 0 1     ← flip every bit
+Add 1:              0 1 0 1
+                  + 0 0 0 1
+                  ─────────
+                    0 1 1 0     ← 2's complement
+
+Shortcut: scan from LSB, copy bits until the first '1',
+then flip the rest.
+  1 0 1 0
+      ↑ first 1 from right → keep it and everything before
+  copy: 0
+  flip: 1 0 1 → 0 1 0
+Result: 0 1 1 0
         </div>
 
-        <div class="section-title">
-          <span class="icon">🌍</span> Real-World Applications
+        <!-- ============================================ -->
+        <!-- CODE PLACEHOLDER (B) -->
+        <!-- ============================================ -->
+        <div class="section-title"><span class="icon">💻</span> Verilog Code</div>
+        <div class="code-block">
+<span class="comment">// Day 1 — Binary Number Systems is theory only.</span>
+<span class="comment">// No Verilog is written on Day 1.</span>
+<span class="comment">// Verilog coding starts on Day 11 (Verilog Fundamentals).</span>
         </div>
-        <ul class="real-world-list">
-          <li>Logic optimization in synthesis tools (Design Compiler, Yosys) uses DeMorgan to reduce gate count.</li>
-          <li>CMOS NAND/NOR mapping heavily relies on Boolean identities to minimize transistors.</li>
-          <li>FSM next-state logic is simplified with K-maps and Boolean laws before RTL coding.</li>
+
+        <!-- ============================================ -->
+        <!-- REAL-WORLD APPLICATIONS -->
+        <!-- ============================================ -->
+        <div class="section-title"><span class="icon">🌍</span> Real‑World Applications</div>
+        <ul class="app-list">
+          <li><strong>Digital Electronics:</strong> every logic gate, truth table, K‑map, adder, flip‑flop, counter, and shift register operates on binary.</li>
+          <li><strong>VLSI:</strong> CMOS inverters, noise margins, propagation delay, clock distribution, power calculation, and timing analysis all depend on binary signal behaviour.</li>
+          <li><strong>Memory addressing:</strong> every byte in RAM is accessed via binary/hex addresses.</li>
+          <li><strong>Signed integer arithmetic:</strong> 2's complement is the standard for signed integers in x86, ARM, and RISC‑V CPUs.</li>
+          <li><strong>Debugging &amp; disassembly:</strong> hex is used in waveform viewers, machine code, and protocol traces.</li>
         </ul>
+
+        <!-- ============================================ -->
+        <!-- LINKS -->
+        <!-- ============================================ -->
+        <div class="section-title"><span class="icon">🔗</span> References</div>
+        <ul class="app-list">
+          <li>Day 1 LinkedIn post — problems solved: 25/25.</li>
+          <li>Portfolio: <a href="https://jyoshnakarri.github.io/100-days-vlsi/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;">jyoshnakarri.github.io/100-days-vlsi/</a></li>
+        </ul>
+
       </div>
     </article>
 
     <!-- ========== FOOTER ========== -->
     <footer class="footer">
-      <p>🚀 100 Days of Code · Built with Verilog, Icarus, GTKWave & ☕</p>
-      <p style="margin-top: 0.5rem; font-size: 0.8rem;">Day 12 of 100 — keep pushing!</p>
+      <div class="workflow">
+        <div><strong>Workflow (simulation &amp; waveform)</strong></div>
+        <div style="margin-top:0.6rem;">.v   = Verilog code</div>
+        <div>.out = compiled output</div>
+        <div>.vcd = waveform dump</div>
+        <div style="margin-top:0.9rem;">1. Save every file with <span class="cmd">.v</span> extension</div>
+        <div>2. In terminal:</div>
+        <div style="padding-left:1.2rem;"><span class="cmd">iverilog name.v testbench.v</span></div>
+        <div style="padding-left:1.2rem;"><span class="cmd">vvp a.out</span></div>
+        <div style="padding-left:1.2rem;"><span class="cmd">gtkwave output.vcd</span></div>
+        <div>3. For output:</div>
+        <div style="padding-left:1.2rem;">Click on <span class="cmd">SST</span></div>
+        <div style="padding-left:1.2rem;">Select all the signals</div>
+        <div style="padding-left:1.2rem;">View waveforms</div>
+      </div>
+      <p>100 Days of VLSI · Built with Verilog, Icarus, GTKWave &amp; ☕</p>
+      <p style="margin-top:0.4rem;">
+        <a href="https://jyoshnakarri.github.io/100-days-vlsi/" target="_blank" rel="noopener">Portfolio</a>
+      </p>
     </footer>
+
   </div>
-
-  <!-- ========== THEME TOGGLE SCRIPT ========== -->
-  <script>
-    (function() {
-      const toggle = document.getElementById('themeToggle');
-      const body = document.body;
-
-      // Check for saved theme preference
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        body.classList.add('dark');
-        toggle.innerHTML = '☀️ <span>Light</span>';
-      }
-
-      toggle.addEventListener('click', () => {
-        body.classList.toggle('dark');
-        const isDark = body.classList.contains('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        toggle.innerHTML = isDark ? '☀️ <span>Light</span>' : '🌙 <span>Dark</span>';
-      });
-    })();
-  </script>
 </body>
 </html>
